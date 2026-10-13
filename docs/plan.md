@@ -6,7 +6,7 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 | Phase | Scope | Status |
 |---|---|---|
 | 0 | Scaffold: pyproject, config.py, .env.example, pytest | done |
-| 1 | Domain models, adapter protocol, SyntheaAdapter, factory | |
+| 1 | Domain models, adapter protocol, SyntheaAdapter, factory | done |
 | 2 | FHIR discharge detection (class IMP/EMER + finished + period.end) | |
 | 3 | Data minimization (clinical-only LLM payload) + Presidio safety net + guard | |
 | 5 | LACE-based triage rules (illustrative, pending clinical review) + deadlines | |

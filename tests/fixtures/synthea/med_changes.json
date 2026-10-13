@@ -1,0 +1,2044 @@
+{
+ "resourceType": "Bundle",
+ "type": "transaction",
+ "entry": [
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
+   "resource": {
+    "resourceType": "Patient",
+    "id": "ea33f67a-c1d2-1f17-720a-0f7ed938f253",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+     ]
+    },
+    "extension": [
+     {
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+      "extension": [
+       {
+        "url": "ombCategory",
+        "valueCoding": {
+         "system": "urn:oid:2.16.840.1.113883.6.238",
+         "code": "2028-9",
+         "display": "Asian"
+        }
+       },
+       {
+        "url": "text",
+        "valueString": "Asian"
+       }
+      ]
+     },
+     {
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+      "extension": [
+       {
+        "url": "ombCategory",
+        "valueCoding": {
+         "system": "urn:oid:2.16.840.1.113883.6.238",
+         "code": "2186-5",
+         "display": "Not Hispanic or Latino"
+        }
+       },
+       {
+        "url": "text",
+        "valueString": "Not Hispanic or Latino"
+       }
+      ]
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName",
+      "valueString": "Annmarie79 Lindgren255"
+     },
+     {
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+      "valueCode": "F"
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+      "valueAddress": {
+       "city": "Cantho",
+       "state": "C\u1ea7n Th\u01a1",
+       "country": "VN"
+      }
+     },
+     {
+      "url": "http://synthetichealth.github.io/synthea/disability-adjusted-life-years",
+      "valueDecimal": 0.2191891365612455
+     },
+     {
+      "url": "http://synthetichealth.github.io/synthea/quality-adjusted-life-years",
+      "valueDecimal": 55.78081086343875
+     }
+    ],
+    "identifier": [
+     {
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MR",
+         "display": "Medical Record Number"
+        }
+       ],
+       "text": "Medical Record Number"
+      },
+      "system": "http://hospital.smarthealthit.org",
+      "value": "ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "SS",
+         "display": "Social Security Number"
+        }
+       ],
+       "text": "Social Security Number"
+      },
+      "system": "http://hl7.org/fhir/sid/us-ssn",
+      "value": "999-24-5355"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "DL",
+         "display": "Driver's license number"
+        }
+       ],
+       "text": "Driver's license number"
+      },
+      "system": "urn:oid:2.16.840.1.113883.4.3.25",
+      "value": "S99990072"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "PPN",
+         "display": "Passport Number"
+        }
+       ],
+       "text": "Passport Number"
+      },
+      "system": "http://hl7.org/fhir/sid/passport-USA",
+      "value": "X89014444X"
+     }
+    ],
+    "name": [
+     {
+      "use": "official",
+      "family": "Kovacek682",
+      "given": [
+       "Nichelle912",
+       "Kelsie51"
+      ],
+      "prefix": [
+       "Mrs."
+      ]
+     },
+     {
+      "use": "maiden",
+      "family": "Abernathy524",
+      "given": [
+       "Nichelle912",
+       "Kelsie51"
+      ],
+      "prefix": [
+       "Mrs."
+      ]
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "555-422-1516",
+      "use": "home"
+     }
+    ],
+    "gender": "female",
+    "birthDate": "1969-04-15",
+    "address": [
+     {
+      "extension": [
+       {
+        "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+        "extension": [
+         {
+          "url": "latitude",
+          "valueDecimal": 42.496967336638754
+         },
+         {
+          "url": "longitude",
+          "valueDecimal": -71.00767136099155
+         }
+        ]
+       }
+      ],
+      "line": [
+       "132 Kuhn Vista"
+      ],
+      "city": "Peabody",
+      "state": "MA",
+      "postalCode": "01940",
+      "country": "US"
+     }
+    ],
+    "maritalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+       "code": "M",
+       "display": "Married"
+      }
+     ],
+     "text": "Married"
+    },
+    "multipleBirthBoolean": false,
+    "communication": [
+     {
+      "language": {
+       "coding": [
+        {
+         "system": "urn:ietf:bcp:47",
+         "code": "vi",
+         "display": "Vietnamese"
+        }
+       ],
+       "text": "Vietnamese"
+      }
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "Patient"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-da06-e138848d8fb3",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "ea33f67a-c1d2-1f17-da06-e138848d8fb3",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "ea33f67a-c1d2-1f17-da06-e138848d8fb3"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185349003",
+        "display": "Encounter for check up (procedure)"
+       }
+      ],
+      "text": "Encounter for check up (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
+     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2024-04-22T12:39:58-06:00",
+       "end": "2024-04-22T13:05:41-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999988295",
+       "display": "Dr. Lorette239 Hauck852"
+      }
+     }
+    ],
+    "period": {
+     "start": "2024-04-22T12:39:58-06:00",
+     "end": "2024-04-22T13:05:41-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "275978004",
+        "display": "Screening for malignant neoplasm of colon (procedure)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|ec828444-a329-332a-af8e-df648ced7a7a",
+       "display": "WHITTIER REHABILTATION HOSPITAL"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|89171335-b9c0-3326-98d6-a837d432b9fd",
+     "display": "WHITTIER REHABILTATION HOSPITAL"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-a156-a124a274a2ed",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "ea33f67a-c1d2-1f17-a156-a124a274a2ed",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "ea33f67a-c1d2-1f17-a156-a124a274a2ed"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
+     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2024-05-14T11:56:37-06:00",
+       "end": "2024-05-14T12:28:26-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999964395",
+       "display": "Dr. Eddie505 Keeling57"
+      }
+     }
+    ],
+    "period": {
+     "start": "2024-05-14T11:56:37-06:00",
+     "end": "2024-05-14T12:28:26-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|adb59f43-8edb-38cf-b801-d02261e4de05",
+       "display": "PRIMARY CARE NORTH PC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|936ceb96-2b12-371f-aa68-ee02a9c06f4c",
+     "display": "PRIMARY CARE NORTH PC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-869e-647e5600c310",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "ea33f67a-c1d2-1f17-869e-647e5600c310",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "ea33f67a-c1d2-1f17-869e-647e5600c310"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
+     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-05-20T11:56:37-06:00",
+       "end": "2025-05-20T12:34:12-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999964395",
+       "display": "Dr. Eddie505 Keeling57"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-05-20T11:56:37-06:00",
+     "end": "2025-05-20T12:34:12-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|adb59f43-8edb-38cf-b801-d02261e4de05",
+       "display": "PRIMARY CARE NORTH PC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|936ceb96-2b12-371f-aa68-ee02a9c06f4c",
+     "display": "PRIMARY CARE NORTH PC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-af32-2873e6ef1b5f",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "ea33f67a-c1d2-1f17-af32-2873e6ef1b5f",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "ea33f67a-c1d2-1f17-af32-2873e6ef1b5f"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "EMER"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "50849002",
+        "display": "Emergency room admission (procedure)"
+       }
+      ],
+      "text": "Emergency room admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
+     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-05-21T11:56:37-06:00",
+       "end": "2025-05-21T12:56:37-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+       "display": "Dr. Gabriel934 Reilly981"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-05-21T11:56:37-06:00",
+     "end": "2025-05-21T12:56:37-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "22298006",
+        "display": "Myocardial infarction (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|81c75a54-2b95-3fdf-9327-b74df8630869",
+       "display": "Fitchburg Outpatient Clinic"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|74ab949d-17ac-3309-83a0-13b4405c66aa",
+     "display": "Fitchburg Outpatient Clinic"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-008d-1f519af64a3c",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "ea33f67a-c1d2-1f17-008d-1f519af64a3c",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "ea33f67a-c1d2-1f17-008d-1f519af64a3c"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "IMP"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "32485007",
+        "display": "Hospital admission (procedure)"
+       }
+      ],
+      "text": "Hospital admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
+     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-05-21T12:20:59-06:00",
+       "end": "2025-05-22T12:20:59-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+       "display": "Dr. Gabriel934 Reilly981"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-05-21T12:20:59-06:00",
+     "end": "2025-05-22T12:20:59-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "401303003",
+        "display": "Acute ST segment elevation myocardial infarction (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|81c75a54-2b95-3fdf-9327-b74df8630869",
+       "display": "Fitchburg Outpatient Clinic"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|74ab949d-17ac-3309-83a0-13b4405c66aa",
+     "display": "Fitchburg Outpatient Clinic"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-24cc-704d02309ce9",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "ea33f67a-c1d2-1f17-24cc-704d02309ce9",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "ea33f67a-c1d2-1f17-24cc-704d02309ce9"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185349003",
+        "display": "Encounter for check up (procedure)"
+       }
+      ],
+      "text": "Encounter for check up (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
+     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-06-03T11:56:37-06:00",
+       "end": "2025-06-03T12:18:29-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999988295",
+       "display": "Dr. Lorette239 Hauck852"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-06-03T11:56:37-06:00",
+     "end": "2025-06-03T12:18:29-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "103697008",
+        "display": "Patient referral for dental care (procedure)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|ec828444-a329-332a-af8e-df648ced7a7a",
+       "display": "WHITTIER REHABILTATION HOSPITAL"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|89171335-b9c0-3326-98d6-a837d432b9fd",
+     "display": "WHITTIER REHABILTATION HOSPITAL"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-3a53-6a02c42c3ee1",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "ea33f67a-c1d2-1f17-3a53-6a02c42c3ee1",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "ea33f67a-c1d2-1f17-3a53-6a02c42c3ee1"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
+     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2026-05-26T11:56:37-06:00",
+       "end": "2026-05-26T12:42:08-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999964395",
+       "display": "Dr. Eddie505 Keeling57"
+      }
+     }
+    ],
+    "period": {
+     "start": "2026-05-26T11:56:37-06:00",
+     "end": "2026-05-26T12:42:08-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|adb59f43-8edb-38cf-b801-d02261e4de05",
+       "display": "PRIMARY CARE NORTH PC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|936ceb96-2b12-371f-aa68-ee02a9c06f4c",
+     "display": "PRIMARY CARE NORTH PC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-a0a3-5b48d8151aee",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "ea33f67a-c1d2-1f17-a0a3-5b48d8151aee",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "ea33f67a-c1d2-1f17-a0a3-5b48d8151aee"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185349003",
+        "display": "Encounter for check up (procedure)"
+       }
+      ],
+      "text": "Encounter for check up (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
+     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2026-06-09T11:56:37-06:00",
+       "end": "2026-06-09T12:39:13-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999988295",
+       "display": "Dr. Lorette239 Hauck852"
+      }
+     }
+    ],
+    "period": {
+     "start": "2026-06-09T11:56:37-06:00",
+     "end": "2026-06-09T12:39:13-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "66383009",
+        "display": "Gingivitis (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|ec828444-a329-332a-af8e-df648ced7a7a",
+       "display": "WHITTIER REHABILTATION HOSPITAL"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|89171335-b9c0-3326-98d6-a837d432b9fd",
+     "display": "WHITTIER REHABILTATION HOSPITAL"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-619d-f2025a112b0a",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "ea33f67a-c1d2-1f17-619d-f2025a112b0a",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "741062008",
+       "display": "Not in labor force (finding)"
+      }
+     ],
+     "text": "Not in labor force (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-869e-647e5600c310"
+    },
+    "onsetDateTime": "2025-05-20T12:34:12-06:00",
+    "recordedDate": "2025-05-20T12:34:12-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-e8d3-2e22c0693aa5",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "ea33f67a-c1d2-1f17-e8d3-2e22c0693aa5",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "22298006",
+       "display": "Myocardial infarction (disorder)"
+      }
+     ],
+     "text": "Myocardial infarction (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-af32-2873e6ef1b5f"
+    },
+    "onsetDateTime": "2025-05-21T11:56:37-06:00",
+    "abatementDateTime": "2025-05-21T13:42:08-06:00",
+    "recordedDate": "2025-05-21T11:56:37-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-9ddf-ea95888e8c0a",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "ea33f67a-c1d2-1f17-9ddf-ea95888e8c0a",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "401303003",
+       "display": "Acute ST segment elevation myocardial infarction (disorder)"
+      }
+     ],
+     "text": "Acute ST segment elevation myocardial infarction (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-af32-2873e6ef1b5f"
+    },
+    "onsetDateTime": "2025-05-21T12:20:59-06:00",
+    "recordedDate": "2025-05-21T12:20:59-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-a3f7-07284ce6f961",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "ea33f67a-c1d2-1f17-a3f7-07284ce6f961",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "399211009",
+       "display": "History of myocardial infarction (situation)"
+      }
+     ],
+     "text": "History of myocardial infarction (situation)"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-008d-1f519af64a3c"
+    },
+    "onsetDateTime": "2025-05-21T13:42:08-06:00",
+    "recordedDate": "2025-05-21T13:42:08-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-dee5-993fe9589669",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "ea33f67a-c1d2-1f17-dee5-993fe9589669",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "314529007",
+       "display": "Medication review due (situation)"
+      }
+     ],
+     "text": "Medication review due (situation)"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-3a53-6a02c42c3ee1"
+    },
+    "onsetDateTime": "2026-05-26T11:56:37-06:00",
+    "recordedDate": "2026-05-26T11:56:37-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-1328-fc9349724a33",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "ea33f67a-c1d2-1f17-1328-fc9349724a33",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "422650009",
+       "display": "Social isolation (finding)"
+      }
+     ],
+     "text": "Social isolation (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-3a53-6a02c42c3ee1"
+    },
+    "onsetDateTime": "2026-05-26T12:42:08-06:00",
+    "recordedDate": "2026-05-26T12:42:08-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-557b-a95eddffba0c",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "ea33f67a-c1d2-1f17-557b-a95eddffba0c",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "66383009",
+       "display": "Gingivitis (disorder)"
+      }
+     ],
+     "text": "Gingivitis (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-3a53-6a02c42c3ee1"
+    },
+    "onsetDateTime": "2026-05-26T13:33:39-06:00",
+    "abatementDateTime": "2026-06-09T12:39:13-06:00",
+    "recordedDate": "2026-05-26T13:33:39-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:5faccc16-94bd-14d5-0e0d-24f8264d89ce",
+   "resource": {
+    "resourceType": "Medication",
+    "id": "5faccc16-94bd-14d5-0e0d-24f8264d89ce",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"
+     ]
+    },
+    "code": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "212033",
+       "display": "aspirin 325 MG Oral Tablet"
+      }
+     ],
+     "text": "aspirin 325 MG Oral Tablet"
+    },
+    "status": "active"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Medication"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:f32e134a-2cef-19aa-7e14-18d8460820fa",
+   "resource": {
+    "resourceType": "Medication",
+    "id": "f32e134a-2cef-19aa-7e14-18d8460820fa",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"
+     ]
+    },
+    "code": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "198039",
+       "display": "nitroglycerin 0.4 MG Sublingual Tablet"
+      }
+     ],
+     "text": "nitroglycerin 0.4 MG Sublingual Tablet"
+    },
+    "status": "active"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Medication"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:2c9b7589-78cc-40f6-c4b1-adeddce97f21",
+   "resource": {
+    "resourceType": "Medication",
+    "id": "2c9b7589-78cc-40f6-c4b1-adeddce97f21",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"
+     ]
+    },
+    "code": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "1728805",
+       "display": "2 ML morphine sulfate 1 MG/ML Injection"
+      }
+     ],
+     "text": "2 ML morphine sulfate 1 MG/ML Injection"
+    },
+    "status": "active"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Medication"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:d43b2f9d-96e9-3653-6254-5072f2741c59",
+   "resource": {
+    "resourceType": "Medication",
+    "id": "d43b2f9d-96e9-3653-6254-5072f2741c59",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"
+     ]
+    },
+    "code": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "1997015",
+       "display": "50 ML bivalirudin 5 MG/ML Injection"
+      }
+     ],
+     "text": "50 ML bivalirudin 5 MG/ML Injection"
+    },
+    "status": "active"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Medication"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:32740bd5-6108-0f85-6ad8-ecd35f33a79b",
+   "resource": {
+    "resourceType": "Medication",
+    "id": "32740bd5-6108-0f85-6ad8-ecd35f33a79b",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"
+     ]
+    },
+    "code": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "1116635",
+       "display": "ticagrelor 90 MG Oral Tablet"
+      }
+     ],
+     "text": "ticagrelor 90 MG Oral Tablet"
+    },
+    "status": "active"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Medication"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-9f2e-70de3db0cc96",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "ea33f67a-c1d2-1f17-9f2e-70de3db0cc96",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationReference": {
+     "reference": "urn:uuid:5faccc16-94bd-14d5-0e0d-24f8264d89ce"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-af32-2873e6ef1b5f"
+    },
+    "authoredOn": "2025-05-21T12:03:56-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+     "display": "Dr. Gabriel934 Reilly981"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "timing": {
+       "repeat": {
+        "frequency": 1,
+        "period": 1.0,
+        "periodUnit": "h"
+       }
+      },
+      "asNeededBoolean": false,
+      "doseAndRate": [
+       {
+        "type": {
+         "coding": [
+          {
+           "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+           "code": "ordered",
+           "display": "Ordered"
+          }
+         ]
+        },
+        "doseQuantity": {
+         "value": 4.0
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-f6bc-50f842534273",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "ea33f67a-c1d2-1f17-f6bc-50f842534273",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationReference": {
+     "reference": "urn:uuid:f32e134a-2cef-19aa-7e14-18d8460820fa"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-af32-2873e6ef1b5f"
+    },
+    "authoredOn": "2025-05-21T12:03:56-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+     "display": "Dr. Gabriel934 Reilly981"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-da70-acc0120f567b",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "ea33f67a-c1d2-1f17-da70-acc0120f567b",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationReference": {
+     "reference": "urn:uuid:2c9b7589-78cc-40f6-c4b1-adeddce97f21"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-af32-2873e6ef1b5f"
+    },
+    "authoredOn": "2025-05-21T12:03:56-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+     "display": "Dr. Gabriel934 Reilly981"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-2cac-6df370761814",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "ea33f67a-c1d2-1f17-2cac-6df370761814",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "inpatient",
+        "display": "Inpatient"
+       }
+      ],
+      "text": "Inpatient"
+     }
+    ],
+    "medicationReference": {
+     "reference": "urn:uuid:d43b2f9d-96e9-3653-6254-5072f2741c59"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-008d-1f519af64a3c"
+    },
+    "authoredOn": "2025-05-21T12:20:59-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+     "display": "Dr. Gabriel934 Reilly981"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-aa92-ac524936c57c",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "ea33f67a-c1d2-1f17-aa92-ac524936c57c",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "inpatient",
+        "display": "Inpatient"
+       }
+      ],
+      "text": "Inpatient"
+     }
+    ],
+    "medicationReference": {
+     "reference": "urn:uuid:32740bd5-6108-0f85-6ad8-ecd35f33a79b"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-008d-1f519af64a3c"
+    },
+    "authoredOn": "2025-05-21T13:12:08-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+     "display": "Dr. Gabriel934 Reilly981"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-97cd-697368fd1f3a",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "ea33f67a-c1d2-1f17-97cd-697368fd1f3a",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "243670",
+       "display": "aspirin 81 MG Oral Tablet"
+      }
+     ],
+     "text": "aspirin 81 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-008d-1f519af64a3c"
+    },
+    "authoredOn": "2025-05-21T13:42:08-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+     "display": "Dr. Gabriel934 Reilly981"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-5423-d592054c700b",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "ea33f67a-c1d2-1f17-5423-d592054c700b",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "866436",
+       "display": "24 HR metoprolol succinate 50 MG Extended Release Oral Tablet"
+      }
+     ],
+     "text": "24 HR metoprolol succinate 50 MG Extended Release Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-008d-1f519af64a3c"
+    },
+    "authoredOn": "2025-05-21T13:42:08-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+     "display": "Dr. Gabriel934 Reilly981"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Take as needed.",
+      "asNeededBoolean": true
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-0e49-55648bcd9906",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "ea33f67a-c1d2-1f17-0e49-55648bcd9906",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "617312",
+       "display": "atorvastatin 10 MG Oral Tablet"
+      }
+     ],
+     "text": "atorvastatin 10 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-008d-1f519af64a3c"
+    },
+    "authoredOn": "2025-05-21T13:42:08-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+     "display": "Dr. Gabriel934 Reilly981"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Take as needed.",
+      "asNeededBoolean": true
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-d783-d85c036e6a4f",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "ea33f67a-c1d2-1f17-d783-d85c036e6a4f",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "1656346",
+       "display": "sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto]"
+      }
+     ],
+     "text": "sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto]"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-008d-1f519af64a3c"
+    },
+    "authoredOn": "2025-05-21T13:42:08-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+     "display": "Dr. Gabriel934 Reilly981"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Take as needed.",
+      "asNeededBoolean": true
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-bad9-c650104301be",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "ea33f67a-c1d2-1f17-bad9-c650104301be",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "855812",
+       "display": "prasugrel 10 MG Oral Tablet"
+      }
+     ],
+     "text": "prasugrel 10 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-008d-1f519af64a3c"
+    },
+    "authoredOn": "2025-05-21T13:42:08-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999984591",
+     "display": "Dr. Gabriel934 Reilly981"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  }
+ ]
+}

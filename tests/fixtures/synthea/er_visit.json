@@ -1,0 +1,2301 @@
+{
+ "resourceType": "Bundle",
+ "type": "transaction",
+ "entry": [
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
+   "resource": {
+    "resourceType": "Patient",
+    "id": "982750f4-569b-5949-196b-60699bdda3fb",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+     ]
+    },
+    "extension": [
+     {
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+      "extension": [
+       {
+        "url": "ombCategory",
+        "valueCoding": {
+         "system": "urn:oid:2.16.840.1.113883.6.238",
+         "code": "2106-3",
+         "display": "White"
+        }
+       },
+       {
+        "url": "text",
+        "valueString": "White"
+       }
+      ]
+     },
+     {
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+      "extension": [
+       {
+        "url": "ombCategory",
+        "valueCoding": {
+         "system": "urn:oid:2.16.840.1.113883.6.238",
+         "code": "2186-5",
+         "display": "Not Hispanic or Latino"
+        }
+       },
+       {
+        "url": "text",
+        "valueString": "Not Hispanic or Latino"
+       }
+      ]
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName",
+      "valueString": "Sonja137 Bahringer146"
+     },
+     {
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+      "valueCode": "F"
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+      "valueAddress": {
+       "city": "Scituate",
+       "state": "Massachusetts",
+       "country": "US"
+      }
+     },
+     {
+      "url": "http://synthetichealth.github.io/synthea/disability-adjusted-life-years",
+      "valueDecimal": 0.6888807838348112
+     },
+     {
+      "url": "http://synthetichealth.github.io/synthea/quality-adjusted-life-years",
+      "valueDecimal": 62.31111921616519
+     }
+    ],
+    "identifier": [
+     {
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "982750f4-569b-5949-196b-60699bdda3fb"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MR",
+         "display": "Medical Record Number"
+        }
+       ],
+       "text": "Medical Record Number"
+      },
+      "system": "http://hospital.smarthealthit.org",
+      "value": "982750f4-569b-5949-196b-60699bdda3fb"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "SS",
+         "display": "Social Security Number"
+        }
+       ],
+       "text": "Social Security Number"
+      },
+      "system": "http://hl7.org/fhir/sid/us-ssn",
+      "value": "999-41-6411"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "DL",
+         "display": "Driver's license number"
+        }
+       ],
+       "text": "Driver's license number"
+      },
+      "system": "urn:oid:2.16.840.1.113883.4.3.25",
+      "value": "S99994521"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "PPN",
+         "display": "Passport Number"
+        }
+       ],
+       "text": "Passport Number"
+      },
+      "system": "http://hl7.org/fhir/sid/passport-USA",
+      "value": "X12998077X"
+     }
+    ],
+    "name": [
+     {
+      "use": "official",
+      "family": "Schmeler639",
+      "given": [
+       "Dwana281",
+       "Zora492"
+      ],
+      "prefix": [
+       "Mrs."
+      ]
+     },
+     {
+      "use": "maiden",
+      "family": "Schuppe920",
+      "given": [
+       "Dwana281",
+       "Zora492"
+      ],
+      "prefix": [
+       "Mrs."
+      ]
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "555-797-6470",
+      "use": "home"
+     }
+    ],
+    "gender": "female",
+    "birthDate": "1962-07-28",
+    "address": [
+     {
+      "extension": [
+       {
+        "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+        "extension": [
+         {
+          "url": "latitude",
+          "valueDecimal": 42.66502947266086
+         },
+         {
+          "url": "longitude",
+          "valueDecimal": -71.34409739443451
+         }
+        ]
+       }
+      ],
+      "line": [
+       "864 Wisozk Skyway Suite 4"
+      ],
+      "city": "Lowell",
+      "state": "MA",
+      "postalCode": "01851",
+      "country": "US"
+     }
+    ],
+    "maritalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+       "code": "D",
+       "display": "Divorced"
+      }
+     ],
+     "text": "Divorced"
+    },
+    "multipleBirthBoolean": false,
+    "communication": [
+     {
+      "language": {
+       "coding": [
+        {
+         "system": "urn:ietf:bcp:47",
+         "code": "en-US",
+         "display": "English (United States)"
+        }
+       ],
+       "text": "English (United States)"
+      }
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "Patient"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-0504-d76b751fb5b4",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "982750f4-569b-5949-0504-d76b751fb5b4",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "982750f4-569b-5949-0504-d76b751fb5b4"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
+     "display": "Mrs. Dwana281 Zora492 Schmeler639"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2024-10-05T19:49:30-06:00",
+       "end": "2024-10-05T20:30:02-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999957191",
+       "display": "Dr. Hank686 Schneider199"
+      }
+     }
+    ],
+    "period": {
+     "start": "2024-10-05T19:49:30-06:00",
+     "end": "2024-10-05T20:30:02-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|4388e9fe-05d7-36cf-ae9b-f363dd88fb54",
+       "display": "LOWELL FAMILY MEDICAL CARE PC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|84d5768f-3a21-3da9-aad2-bbf7a3ae2700",
+     "display": "LOWELL FAMILY MEDICAL CARE PC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-d445-7f1dc13f6038",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "982750f4-569b-5949-d445-7f1dc13f6038",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "982750f4-569b-5949-d445-7f1dc13f6038"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185345009",
+        "display": "Encounter for symptom (procedure)"
+       }
+      ],
+      "text": "Encounter for symptom (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
+     "display": "Mrs. Dwana281 Zora492 Schmeler639"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-05-23T16:49:30-06:00",
+       "end": "2025-05-23T17:11:52-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999994798",
+       "display": "Dr. Marcus77 Schamberger479"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-05-23T16:49:30-06:00",
+     "end": "2025-05-23T17:11:52-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "10509002",
+        "display": "Acute bronchitis (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|2d8335a7-e37a-3004-9254-6f7de59ab66a",
+       "display": "THE LOWELL GENERAL HOSPITAL"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|5fcff9db-16e4-3e56-aa78-abbc16338097",
+     "display": "THE LOWELL GENERAL HOSPITAL"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-3486-ae3bcdc98838",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "982750f4-569b-5949-3486-ae3bcdc98838",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "982750f4-569b-5949-3486-ae3bcdc98838"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185349003",
+        "display": "Encounter for check up (procedure)"
+       }
+      ],
+      "text": "Encounter for check up (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
+     "display": "Mrs. Dwana281 Zora492 Schmeler639"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-05-31T19:49:30-06:00",
+       "end": "2025-05-31T20:24:22-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999994798",
+       "display": "Dr. Marcus77 Schamberger479"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-05-31T19:49:30-06:00",
+     "end": "2025-05-31T20:24:22-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|2d8335a7-e37a-3004-9254-6f7de59ab66a",
+       "display": "THE LOWELL GENERAL HOSPITAL"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|5fcff9db-16e4-3e56-aa78-abbc16338097",
+     "display": "THE LOWELL GENERAL HOSPITAL"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-4dae-12653a6ee1da",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "982750f4-569b-5949-4dae-12653a6ee1da",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "982750f4-569b-5949-4dae-12653a6ee1da"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185349003",
+        "display": "Encounter for check up (procedure)"
+       }
+      ],
+      "text": "Encounter for check up (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
+     "display": "Mrs. Dwana281 Zora492 Schmeler639"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-06-14T19:49:30-06:00",
+       "end": "2025-06-14T21:59:46-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999994798",
+       "display": "Dr. Marcus77 Schamberger479"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-06-14T19:49:30-06:00",
+     "end": "2025-06-14T21:59:46-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|2d8335a7-e37a-3004-9254-6f7de59ab66a",
+       "display": "THE LOWELL GENERAL HOSPITAL"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|5fcff9db-16e4-3e56-aa78-abbc16338097",
+     "display": "THE LOWELL GENERAL HOSPITAL"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-8fdc-8e669895b24d",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "982750f4-569b-5949-8fdc-8e669895b24d",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "982750f4-569b-5949-8fdc-8e669895b24d"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "EMER"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "50849002",
+        "display": "Emergency room admission (procedure)"
+       }
+      ],
+      "text": "Emergency room admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
+     "display": "Mrs. Dwana281 Zora492 Schmeler639"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-07-05T20:01:47-06:00",
+       "end": "2025-07-05T21:01:47-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999894691",
+       "display": "Dr. Tyron580 Reinger292"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-07-05T20:01:47-06:00",
+     "end": "2025-07-05T21:01:47-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "384709000",
+        "display": "Sprain (morphologic abnormality)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|768666e6-7ff9-34cb-bb2c-e2e9da6bcfc2",
+       "display": "D'YOUVILLE SENIOR CARE"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|f438b8e0-d856-328a-b193-2b014fc4cb97",
+     "display": "D'YOUVILLE SENIOR CARE"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-ae91-6680a6c9995c",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "982750f4-569b-5949-ae91-6680a6c9995c",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "982750f4-569b-5949-ae91-6680a6c9995c"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
+     "display": "Mrs. Dwana281 Zora492 Schmeler639"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-10-11T19:49:30-06:00",
+       "end": "2025-10-11T20:44:01-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999957191",
+       "display": "Dr. Hank686 Schneider199"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-10-11T19:49:30-06:00",
+     "end": "2025-10-11T20:44:01-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|4388e9fe-05d7-36cf-ae9b-f363dd88fb54",
+       "display": "LOWELL FAMILY MEDICAL CARE PC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|84d5768f-3a21-3da9-aad2-bbf7a3ae2700",
+     "display": "LOWELL FAMILY MEDICAL CARE PC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-d0c8-1f0a53d7cffb",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "982750f4-569b-5949-d0c8-1f0a53d7cffb",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "982750f4-569b-5949-d0c8-1f0a53d7cffb"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185349003",
+        "display": "Encounter for check up (procedure)"
+       }
+      ],
+      "text": "Encounter for check up (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
+     "display": "Mrs. Dwana281 Zora492 Schmeler639"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-10-25T19:49:30-06:00",
+       "end": "2025-10-25T22:23:24-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999994798",
+       "display": "Dr. Marcus77 Schamberger479"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-10-25T19:49:30-06:00",
+     "end": "2025-10-25T22:23:24-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|2d8335a7-e37a-3004-9254-6f7de59ab66a",
+       "display": "THE LOWELL GENERAL HOSPITAL"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|5fcff9db-16e4-3e56-aa78-abbc16338097",
+     "display": "THE LOWELL GENERAL HOSPITAL"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-95fc-85c5025ab324",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-95fc-85c5025ab324",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "160903007",
+       "display": "Full-time employment (finding)"
+      }
+     ],
+     "text": "Full-time employment (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-0504-d76b751fb5b4"
+    },
+    "onsetDateTime": "2024-10-05T20:30:02-06:00",
+    "abatementDateTime": "2025-05-31T20:24:22-06:00",
+    "recordedDate": "2024-10-05T20:30:02-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-624b-f971fa9fc126",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-624b-f971fa9fc126",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "10509002",
+       "display": "Acute bronchitis (disorder)"
+      }
+     ],
+     "text": "Acute bronchitis (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-d445-7f1dc13f6038"
+    },
+    "onsetDateTime": "2025-05-23T16:49:30-06:00",
+    "abatementDateTime": "2025-06-03T17:11:52-06:00",
+    "recordedDate": "2025-05-23T16:49:30-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-83ee-4059102389c5",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-83ee-4059102389c5",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "741062008",
+       "display": "Not in labor force (finding)"
+      }
+     ],
+     "text": "Not in labor force (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-3486-ae3bcdc98838"
+    },
+    "onsetDateTime": "2025-05-31T20:24:22-06:00",
+    "abatementDateTime": "2025-10-11T20:44:01-06:00",
+    "recordedDate": "2025-05-31T20:24:22-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-4142-13b864b12158",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-4142-13b864b12158",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "384709000",
+       "display": "Sprain (morphologic abnormality)"
+      }
+     ],
+     "text": "Sprain (morphologic abnormality)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-8fdc-8e669895b24d"
+    },
+    "onsetDateTime": "2025-07-05T20:01:47-06:00",
+    "abatementDateTime": "2025-08-13T20:01:47-06:00",
+    "recordedDate": "2025-07-05T20:01:47-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-69aa-60e20383568b",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-69aa-60e20383568b",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "70704007",
+       "display": "Sprain of wrist (disorder)"
+      }
+     ],
+     "text": "Sprain of wrist (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-8fdc-8e669895b24d"
+    },
+    "onsetDateTime": "2025-07-05T20:01:47-06:00",
+    "abatementDateTime": "2025-08-13T20:01:47-06:00",
+    "recordedDate": "2025-07-05T20:01:47-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-dfde-895f591260fa",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-dfde-895f591260fa",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "314529007",
+       "display": "Medication review due (situation)"
+      }
+     ],
+     "text": "Medication review due (situation)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-ae91-6680a6c9995c"
+    },
+    "onsetDateTime": "2025-10-11T19:49:30-06:00",
+    "recordedDate": "2025-10-11T19:49:30-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-9636-246e00e5ca2f",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-9636-246e00e5ca2f",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "160903007",
+       "display": "Full-time employment (finding)"
+      }
+     ],
+     "text": "Full-time employment (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-ae91-6680a6c9995c"
+    },
+    "onsetDateTime": "2025-10-11T20:44:01-06:00",
+    "recordedDate": "2025-10-11T20:44:01-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-b515-ab154c602069",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-b515-ab154c602069",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "73595000",
+       "display": "Stress (finding)"
+      }
+     ],
+     "text": "Stress (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-ae91-6680a6c9995c"
+    },
+    "onsetDateTime": "2025-10-11T20:44:01-06:00",
+    "recordedDate": "2025-10-11T20:44:01-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-fb71-60d08fbc6661",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-fb71-60d08fbc6661",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "706893006",
+       "display": "Victim of intimate partner abuse (finding)"
+      }
+     ],
+     "text": "Victim of intimate partner abuse (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-ae91-6680a6c9995c"
+    },
+    "onsetDateTime": "2025-10-11T21:22:18-06:00",
+    "recordedDate": "2025-10-11T21:22:18-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-b42d-ecde6410fccc",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-b42d-ecde6410fccc",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://hl7.org/fhir/sid/icd-10",
+       "code": "K05.32",
+       "display": "Chronic periodontitis, generalized"
+      }
+     ],
+     "text": "Chronic periodontitis, generalized"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-d0c8-1f0a53d7cffb"
+    },
+    "onsetDateTime": "2025-10-25T19:49:30-06:00",
+    "abatementDateTime": "2025-10-25T22:23:24-06:00",
+    "recordedDate": "2025-10-25T19:49:30-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-4983-f80b86720f41",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-4983-f80b86720f41",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "993770",
+       "display": "Acetaminophen 300 MG / Codeine Phosphate 15 MG Oral Tablet"
+      }
+     ],
+     "text": "Acetaminophen 300 MG / Codeine Phosphate 15 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-0504-d76b751fb5b4"
+    },
+    "authoredOn": "2024-10-05T19:49:30-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999957191",
+     "display": "Dr. Hank686 Schneider199"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Every four hours (qualifier value)",
+      "additionalInstruction": [
+       {
+        "coding": [
+         {
+          "system": "http://snomed.info/sct",
+          "code": "225756002",
+          "display": "Every four hours (qualifier value)"
+         }
+        ],
+        "text": "Every four hours (qualifier value)"
+       }
+      ],
+      "timing": {
+       "repeat": {
+        "frequency": 4,
+        "period": 1.0,
+        "periodUnit": "d"
+       }
+      },
+      "asNeededBoolean": false,
+      "doseAndRate": [
+       {
+        "type": {
+         "coding": [
+          {
+           "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+           "code": "ordered",
+           "display": "Ordered"
+          }
+         ]
+        },
+        "doseQuantity": {
+         "value": 1.0
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-83bf-d94328a0be92",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-83bf-d94328a0be92",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "209387",
+       "display": "Acetaminophen 325 MG Oral Tablet [Tylenol]"
+      }
+     ],
+     "text": "Acetaminophen 325 MG Oral Tablet [Tylenol]"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-0504-d76b751fb5b4"
+    },
+    "authoredOn": "2024-10-05T19:49:30-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999957191",
+     "display": "Dr. Hank686 Schneider199"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Every four to six hours (qualifier value)",
+      "additionalInstruction": [
+       {
+        "coding": [
+         {
+          "system": "http://snomed.info/sct",
+          "code": "225757006",
+          "display": "Every four to six hours (qualifier value)"
+         }
+        ],
+        "text": "Every four to six hours (qualifier value)"
+       }
+      ],
+      "timing": {
+       "repeat": {
+        "frequency": 4,
+        "period": 1.0,
+        "periodUnit": "d"
+       }
+      },
+      "asNeededBoolean": false,
+      "doseAndRate": [
+       {
+        "type": {
+         "coding": [
+          {
+           "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+           "code": "ordered",
+           "display": "Ordered"
+          }
+         ]
+        },
+        "doseQuantity": {
+         "value": 1.0
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-a2d8-ff25d075e792",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-a2d8-ff25d075e792",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "835603",
+       "display": "tramadol hydrochloride 50 MG Oral Tablet"
+      }
+     ],
+     "text": "tramadol hydrochloride 50 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-0504-d76b751fb5b4"
+    },
+    "authoredOn": "2024-10-05T19:49:30-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999957191",
+     "display": "Dr. Hank686 Schneider199"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Take as needed.",
+      "asNeededBoolean": true
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-a5d3-ac9246c59adc",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-a5d3-ac9246c59adc",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "313782",
+       "display": "Acetaminophen 325 MG Oral Tablet"
+      }
+     ],
+     "text": "Acetaminophen 325 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-d445-7f1dc13f6038"
+    },
+    "authoredOn": "2025-05-23T17:11:52-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999994798",
+     "display": "Dr. Marcus77 Schamberger479"
+    },
+    "reasonReference": [
+     {
+      "reference": "urn:uuid:982750f4-569b-5949-624b-f971fa9fc126",
+      "display": "Acute bronchitis (disorder)"
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-e1ed-c384cb79a4a2",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-e1ed-c384cb79a4a2",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "993770",
+       "display": "Acetaminophen 300 MG / Codeine Phosphate 15 MG Oral Tablet"
+      }
+     ],
+     "text": "Acetaminophen 300 MG / Codeine Phosphate 15 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-3486-ae3bcdc98838"
+    },
+    "authoredOn": "2025-05-31T19:49:30-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999994798",
+     "display": "Dr. Marcus77 Schamberger479"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Every four hours (qualifier value)",
+      "additionalInstruction": [
+       {
+        "coding": [
+         {
+          "system": "http://snomed.info/sct",
+          "code": "225756002",
+          "display": "Every four hours (qualifier value)"
+         }
+        ],
+        "text": "Every four hours (qualifier value)"
+       }
+      ],
+      "timing": {
+       "repeat": {
+        "frequency": 4,
+        "period": 1.0,
+        "periodUnit": "d"
+       }
+      },
+      "asNeededBoolean": false,
+      "doseAndRate": [
+       {
+        "type": {
+         "coding": [
+          {
+           "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+           "code": "ordered",
+           "display": "Ordered"
+          }
+         ]
+        },
+        "doseQuantity": {
+         "value": 1.0
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-ed44-fad4fb53ddc3",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-ed44-fad4fb53ddc3",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "209387",
+       "display": "Acetaminophen 325 MG Oral Tablet [Tylenol]"
+      }
+     ],
+     "text": "Acetaminophen 325 MG Oral Tablet [Tylenol]"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-3486-ae3bcdc98838"
+    },
+    "authoredOn": "2025-05-31T19:49:30-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999994798",
+     "display": "Dr. Marcus77 Schamberger479"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Every four to six hours (qualifier value)",
+      "additionalInstruction": [
+       {
+        "coding": [
+         {
+          "system": "http://snomed.info/sct",
+          "code": "225757006",
+          "display": "Every four to six hours (qualifier value)"
+         }
+        ],
+        "text": "Every four to six hours (qualifier value)"
+       }
+      ],
+      "timing": {
+       "repeat": {
+        "frequency": 4,
+        "period": 1.0,
+        "periodUnit": "d"
+       }
+      },
+      "asNeededBoolean": false,
+      "doseAndRate": [
+       {
+        "type": {
+         "coding": [
+          {
+           "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+           "code": "ordered",
+           "display": "Ordered"
+          }
+         ]
+        },
+        "doseQuantity": {
+         "value": 1.0
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-31c0-5d9838b87319",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-31c0-5d9838b87319",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "835603",
+       "display": "tramadol hydrochloride 50 MG Oral Tablet"
+      }
+     ],
+     "text": "tramadol hydrochloride 50 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-3486-ae3bcdc98838"
+    },
+    "authoredOn": "2025-05-31T19:49:30-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999994798",
+     "display": "Dr. Marcus77 Schamberger479"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Take as needed.",
+      "asNeededBoolean": true
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-a492-464305035829",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-a492-464305035829",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "849574",
+       "display": "Naproxen sodium 220 MG Oral Tablet"
+      }
+     ],
+     "text": "Naproxen sodium 220 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-8fdc-8e669895b24d"
+    },
+    "authoredOn": "2025-07-05T20:01:47-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999894691",
+     "display": "Dr. Tyron580 Reinger292"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Take as needed.",
+      "asNeededBoolean": true
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-b140-6c9699e51308",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-b140-6c9699e51308",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "993770",
+       "display": "Acetaminophen 300 MG / Codeine Phosphate 15 MG Oral Tablet"
+      }
+     ],
+     "text": "Acetaminophen 300 MG / Codeine Phosphate 15 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-ae91-6680a6c9995c"
+    },
+    "authoredOn": "2025-10-11T19:49:30-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999957191",
+     "display": "Dr. Hank686 Schneider199"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Every four hours (qualifier value)",
+      "additionalInstruction": [
+       {
+        "coding": [
+         {
+          "system": "http://snomed.info/sct",
+          "code": "225756002",
+          "display": "Every four hours (qualifier value)"
+         }
+        ],
+        "text": "Every four hours (qualifier value)"
+       }
+      ],
+      "timing": {
+       "repeat": {
+        "frequency": 4,
+        "period": 1.0,
+        "periodUnit": "d"
+       }
+      },
+      "asNeededBoolean": false,
+      "doseAndRate": [
+       {
+        "type": {
+         "coding": [
+          {
+           "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+           "code": "ordered",
+           "display": "Ordered"
+          }
+         ]
+        },
+        "doseQuantity": {
+         "value": 1.0
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-6552-022f19fd2c37",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-6552-022f19fd2c37",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "209387",
+       "display": "Acetaminophen 325 MG Oral Tablet [Tylenol]"
+      }
+     ],
+     "text": "Acetaminophen 325 MG Oral Tablet [Tylenol]"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-ae91-6680a6c9995c"
+    },
+    "authoredOn": "2025-10-11T19:49:30-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999957191",
+     "display": "Dr. Hank686 Schneider199"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Every four to six hours (qualifier value)",
+      "additionalInstruction": [
+       {
+        "coding": [
+         {
+          "system": "http://snomed.info/sct",
+          "code": "225757006",
+          "display": "Every four to six hours (qualifier value)"
+         }
+        ],
+        "text": "Every four to six hours (qualifier value)"
+       }
+      ],
+      "timing": {
+       "repeat": {
+        "frequency": 4,
+        "period": 1.0,
+        "periodUnit": "d"
+       }
+      },
+      "asNeededBoolean": false,
+      "doseAndRate": [
+       {
+        "type": {
+         "coding": [
+          {
+           "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+           "code": "ordered",
+           "display": "Ordered"
+          }
+         ]
+        },
+        "doseQuantity": {
+         "value": 1.0
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-d305-f287d8b29031",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "982750f4-569b-5949-d305-f287d8b29031",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "835603",
+       "display": "tramadol hydrochloride 50 MG Oral Tablet"
+      }
+     ],
+     "text": "tramadol hydrochloride 50 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-ae91-6680a6c9995c"
+    },
+    "authoredOn": "2025-10-11T19:49:30-06:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999957191",
+     "display": "Dr. Hank686 Schneider199"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Take as needed.",
+      "asNeededBoolean": true
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  }
+ ]
+}
