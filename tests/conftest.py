@@ -5,6 +5,7 @@ import pytest
 from adapters.synthea import SyntheaAdapter
 
 SYNTHEA_FIXTURES = Path(__file__).parent / "fixtures" / "synthea"
+DISPOSITION_SYSTEM = "http://terminology.hl7.org/CodeSystem/discharge-disposition"
 
 # Patient / encounter ids from tests/fixtures/synthea (see tests/fixtures/README.md).
 INPATIENT_ID = "922fb35e-148d-9e82-7e65-bfa05e3b3515"

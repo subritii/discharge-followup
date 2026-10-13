@@ -1,7 +1,8 @@
 """Detect discharges from FHIR encounters.
 
 A discharge is an Encounter with class IMP or EMER, status `finished`, and a
-`period.end`. dischargeDisposition is never required: it only sets the destination.
+`period.end`. dischargeDisposition is never required: it only sets the destination
+(see detector/disposition.py and library/disposition_map.yaml).
 
 An ER visit followed by an inpatient admission is one episode: if the IMP starts
 while the ER visit is still open, or within `merge_window` after it ends, the two
@@ -12,26 +13,10 @@ from collections.abc import Iterable
 from datetime import datetime, timedelta
 
 from adapters.base import PatientDataAdapter
-from models import Coding, DischargeDestination, DischargeNotice, Encounter
+from detector.disposition import DispositionMap, resolve_destination
+from models import DischargeNotice, Encounter, Patient
 
 DEFAULT_MERGE_WINDOW = timedelta(hours=6)
-
-DISPOSITION_SYSTEM = "http://terminology.hl7.org/CodeSystem/discharge-disposition"
-
-# HL7 discharge-disposition codes -> destination. Codes not listed map to UNKNOWN.
-_DISPOSITION_MAP: dict[str, DischargeDestination] = {
-    "home": DischargeDestination.HOME,
-    "alt-home": DischargeDestination.HOME,
-    "snf": DischargeDestination.SNF,
-    "other-hcf": DischargeDestination.OTHER,
-    "hosp": DischargeDestination.OTHER,
-    "long": DischargeDestination.OTHER,
-    "rehab": DischargeDestination.OTHER,
-    "psy": DischargeDestination.OTHER,
-    "aadvice": DischargeDestination.OTHER,
-    "exp": DischargeDestination.OTHER,
-    "oth": DischargeDestination.OTHER,
-}
 
 
 def is_discharge(encounter: Encounter) -> bool:
@@ -43,22 +28,18 @@ def is_discharge(encounter: Encounter) -> bool:
     )
 
 
-def destination_from(disposition: Coding | None) -> DischargeDestination:
-    """Map a dischargeDisposition coding to a destination; missing or unrecognized -> UNKNOWN."""
-    if disposition is None or disposition.code is None:
-        return DischargeDestination.UNKNOWN
-    if disposition.system not in (None, DISPOSITION_SYSTEM):
-        return DischargeDestination.UNKNOWN
-    return _DISPOSITION_MAP.get(disposition.code, DischargeDestination.UNKNOWN)
-
-
 def er_leads_to_admission(er: Encounter, imp: Encounter, window: timedelta) -> bool:
     """IMP starts during the ER visit, or within `window` after it ends."""
     assert er.period_start and er.period_end and imp.period_start
     return er.period_start <= imp.period_start <= er.period_end + window
 
 
-def _notice(primary: Encounter, linked_er: Encounter | None = None) -> DischargeNotice:
+def _notice(
+    primary: Encounter,
+    linked_er: Encounter | None,
+    patient: Patient | None,
+    mapping: DispositionMap | None,
+) -> DischargeNotice:
     assert primary.period_start and primary.discharge_time
     return DischargeNotice(
         patient_id=primary.patient_id,
@@ -66,7 +47,7 @@ def _notice(primary: Encounter, linked_er: Encounter | None = None) -> Discharge
         encounter_class=primary.class_code,
         admit_time=primary.period_start,
         discharge_time=primary.discharge_time,
-        destination=destination_from(primary.discharge_disposition),
+        destination=resolve_destination(primary.discharge_disposition, patient, mapping),
         linked_er_encounter_id=linked_er.id if linked_er else None,
         reasons=primary.reasons,
     )
@@ -78,9 +59,16 @@ def _ends(encounter: Encounter) -> datetime:
 
 
 def detect_discharges(
-    encounters: Iterable[Encounter], merge_window: timedelta = DEFAULT_MERGE_WINDOW
+    encounters: Iterable[Encounter],
+    merge_window: timedelta = DEFAULT_MERGE_WINDOW,
+    *,
+    patient: Patient | None = None,
+    disposition_map: DispositionMap | None = None,
 ) -> list[DischargeNotice]:
-    """Turn one patient's encounters into discharge notices, oldest discharge first."""
+    """Turn one patient's encounters into discharge notices, oldest discharge first.
+
+    Pass `patient` so a deceased patient's discharges are marked EXPIRED.
+    """
     qualifying = [e for e in encounters if is_discharge(e)]
     ers = sorted((e for e in qualifying if e.class_code == "EMER"), key=_ends)
     imps = sorted((e for e in qualifying if e.class_code == "IMP"), key=lambda e: e.period_start)
@@ -97,9 +85,11 @@ def detect_discharges(
         linked = candidates[-1] if candidates else None
         if linked:
             linked_er_ids.add(linked.id)
-        notices.append(_notice(imp, linked))
+        notices.append(_notice(imp, linked, patient, disposition_map))
 
-    notices.extend(_notice(er) for er in ers if er.id not in linked_er_ids)
+    notices.extend(
+        _notice(er, None, patient, disposition_map) for er in ers if er.id not in linked_er_ids
+    )
     return sorted(notices, key=lambda n: n.discharge_time)
 
 
@@ -115,7 +105,11 @@ def detect_for_patient(
     The since-filter is applied after merging, so an ER visit just before the cutoff
     still merges with the admission it led to.
     """
-    notices = detect_discharges(adapter.get_encounters(patient_id), merge_window)
+    notices = detect_discharges(
+        adapter.get_encounters(patient_id),
+        merge_window,
+        patient=adapter.get_patient(patient_id),
+    )
     if discharged_since is None:
         return notices
     return [n for n in notices if n.discharge_time >= discharged_since]

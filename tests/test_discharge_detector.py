@@ -2,13 +2,9 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from detector.discharge import (
-    DISPOSITION_SYSTEM,
-    destination_from,
-    detect_discharges,
-    is_discharge,
-)
-from models import Coding, DischargeDestination, Encounter
+from detector.discharge import detect_discharges, is_discharge
+from models import Coding, DischargeDestination, Encounter, Patient
+from tests.conftest import DISPOSITION_SYSTEM
 
 T0 = datetime(2025, 5, 21, 12, 0, tzinfo=UTC)
 
@@ -162,32 +158,7 @@ def test_notices_sorted_by_discharge_time() -> None:
     assert [n.encounter_id for n in detect_discharges([late, early])] == ["early", "late"]
 
 
-# --- Destination -------------------------------------------------------------------
-
-
-@pytest.mark.parametrize(
-    ("code", "expected"),
-    [
-        ("home", DischargeDestination.HOME),
-        ("alt-home", DischargeDestination.HOME),
-        ("snf", DischargeDestination.SNF),
-        ("rehab", DischargeDestination.OTHER),
-        ("hosp", DischargeDestination.OTHER),
-        ("oth", DischargeDestination.OTHER),
-        ("made-up", DischargeDestination.UNKNOWN),
-    ],
-)
-def test_destination_from_hl7_code(code: str, expected: DischargeDestination) -> None:
-    assert destination_from(Coding(system=DISPOSITION_SYSTEM, code=code)) == expected
-
-
-def test_destination_missing_or_foreign_system_is_unknown() -> None:
-    assert destination_from(None) == DischargeDestination.UNKNOWN
-    assert destination_from(Coding(display="Home")) == DischargeDestination.UNKNOWN
-    # e.g. a NUBC code "03" (SNF) is not mapped yet, so it must not be guessed
-    assert destination_from(Coding(system="https://www.nubc.org", code="03")) == (
-        DischargeDestination.UNKNOWN
-    )
+# --- Destination (mapping itself is tested in test_disposition.py) ---------------
 
 
 def test_merged_notice_uses_imp_disposition() -> None:
@@ -195,3 +166,25 @@ def test_merged_notice_uses_imp_disposition() -> None:
     imp = admission(T0 + timedelta(minutes=30), disposition="snf")
     [notice] = detect_discharges([er, imp])
     assert notice.destination == DischargeDestination.SNF
+
+
+def test_exp_disposition_is_expired() -> None:
+    [notice] = detect_discharges([admission(T0, disposition="exp")])
+    assert notice.destination == DischargeDestination.EXPIRED
+    assert notice.requires_patient_follow_up is False
+
+
+def test_deceased_patient_overrides_disposition() -> None:
+    dead = Patient(id="p1", deceased=True)
+    notices = detect_discharges(
+        [admission(T0, disposition="home"), er_visit(T0 + timedelta(days=30))], patient=dead
+    )
+    assert [n.destination for n in notices] == [DischargeDestination.EXPIRED] * 2
+    assert not any(n.requires_patient_follow_up for n in notices)
+
+
+def test_living_patient_keeps_disposition() -> None:
+    alive = Patient(id="p1")
+    [notice] = detect_discharges([admission(T0, disposition="snf")], patient=alive)
+    assert notice.destination == DischargeDestination.SNF
+    assert notice.requires_patient_follow_up is True

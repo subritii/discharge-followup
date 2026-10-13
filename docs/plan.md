@@ -39,15 +39,19 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
   `ER_ADMIT_MERGE_WINDOW_HOURS` (default 6) after it ends is one episode, keyed on the
   IMP encounter + its discharge time, with `linked_er_encounter_id` kept. Each ER visit
   links to at most one admission; standalone ER visits stay separate.
-- Destination (home / snf / other / unknown) comes from HL7 discharge-disposition codes
-  only. Missing or unrecognized -> unknown. Synthea never emits a disposition, so every
-  Synthea discharge is `unknown`. We do not infer it from reasonCode.
-- Later: SNF discharges route to facility coordination instead of the 2-day patient call
-  (Phase 5 deadlines / Phase 10 Flow).
-- Open: `exp` (expired) maps to `other`. A death should probably suppress the patient
-  follow-up entirely. Decide in Phase 5.
-- Open: NUBC patient-status codes (e.g. `03` = SNF) are not mapped yet. Revisit with
-  real athena data in Phase 11.
+- Destination (home / snf / other / expired / unknown) comes from
+  `library/disposition_map.yaml` (HL7 discharge-disposition codes today). Missing or
+  unrecognized -> unknown. Synthea never emits a disposition, so every living Synthea
+  patient's discharge is `unknown`. We do not infer it from reasonCode.
+- **Expired:** disposition `exp`, or `Patient.deceased` true (deceasedDateTime /
+  deceasedBoolean), gives `expired`. `DischargeNotice.requires_patient_follow_up` is
+  False: no patient-call tasks and no AI drafts.
+- **Phase 5:** expired -> informational "close the loop" case for the care team lead.
+  SNF -> facility coordination instead of the 2-day patient call (Phase 5 deadlines /
+  Phase 10 Flow).
+- **Phase 11:** NUBC patient discharge status codes (e.g. `01` home, `03` SNF,
+  `20` expired) get added to `library/disposition_map.yaml` as a new system. Config
+  only, no code change (covered by `test_new_system_is_config_only`).
 
 ### Phase 4: patient matching
 - Synthea's MR identifier equals `Patient.id`, so matching on it proves nothing.

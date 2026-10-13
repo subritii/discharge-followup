@@ -29,6 +29,7 @@ class Coding(_Frozen):
 
 
 class Address(_Frozen):
+    lines: tuple[str, ...] = ()
     city: str | None = None
     state: str | None = None
     postal_code: str | None = None
@@ -42,6 +43,9 @@ class Patient(_Frozen):
     birth_date: date | None = None
     gender: str | None = None
     address: Address | None = None
+    phones: tuple[str, ...] = ()
+    deceased: bool = False
+    deceased_at: datetime | None = None
 
 
 class Encounter(_Frozen):
@@ -109,6 +113,7 @@ class DischargeDestination(StrEnum):
     HOME = "home"
     SNF = "snf"
     OTHER = "other"
+    EXPIRED = "expired"
     UNKNOWN = "unknown"
 
 
@@ -127,3 +132,12 @@ class DischargeNotice(_Frozen):
     @property
     def idempotency_key(self) -> str:
         return idempotency_key(self.encounter_id, self.discharge_time)
+
+    @property
+    def requires_patient_follow_up(self) -> bool:
+        """False for expired patients: no patient-call tasks and no AI drafts.
+
+        These go to an informational "close the loop" case for the care team lead
+        instead (Phase 5 / Phase 10).
+        """
+        return self.destination is not DischargeDestination.EXPIRED

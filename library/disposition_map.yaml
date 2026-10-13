@@ -1,0 +1,26 @@
+# Discharge disposition -> destination.
+#
+# Destinations: home | snf | other | expired | unknown
+# Any code not listed here (or from a system not listed) maps to "unknown".
+# Patient.deceased = true overrides everything to "expired".
+#
+# Add new code systems as new keys under `systems` (e.g. NUBC patient discharge
+# status codes for athenahealth in Phase 11). No code change needed.
+
+# Codings that carry a code but no system are looked up under this system.
+default_system: http://terminology.hl7.org/CodeSystem/discharge-disposition
+
+systems:
+  # HL7 FHIR R4 discharge-disposition value set
+  http://terminology.hl7.org/CodeSystem/discharge-disposition:
+    home: home          # Home
+    alt-home: home      # Alternative home
+    snf: snf            # Skilled nursing facility
+    other-hcf: other    # Other healthcare facility
+    hosp: other         # Hospice
+    long: other         # Long-term care
+    rehab: other        # Rehabilitation
+    psy: other          # Psychiatric hospital
+    aadvice: other      # Left against advice
+    oth: other          # Other
+    exp: expired        # Expired

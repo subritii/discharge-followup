@@ -6,9 +6,10 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 from adapters.synthea import SyntheaAdapter
-from detector.discharge import DISPOSITION_SYSTEM, detect_for_patient
+from detector.discharge import detect_for_patient
 from models import DischargeDestination
 from tests.conftest import (
+    DISPOSITION_SYSTEM,
     ER_EMER_ENCOUNTER,
     ER_ID,
     INPATIENT_ID,
@@ -84,3 +85,25 @@ def test_disposition_read_from_real_bundle_shape(tmp_path: Path) -> None:
 
     [notice] = detect_for_patient(SyntheaAdapter(tmp_path), INPATIENT_ID)
     assert notice.destination == DischargeDestination.SNF
+
+
+def test_deceased_patient_in_real_bundle_is_expired(tmp_path: Path) -> None:
+    bundle = json.loads((SYNTHEA_FIXTURES / "inpatient.json").read_text())
+    for entry in bundle["entry"]:
+        if entry["resource"]["resourceType"] == "Patient":
+            entry["resource"]["deceasedDateTime"] = "2026-02-12T09:00:00-07:00"
+    (tmp_path / "inpatient.json").write_text(json.dumps(bundle))
+
+    adapter = SyntheaAdapter(tmp_path)
+    patient = adapter.get_patient(INPATIENT_ID)
+    assert patient.deceased
+    assert patient.deceased_at == datetime(2026, 2, 12, 16, 0, tzinfo=UTC)
+    [notice] = detect_for_patient(adapter, INPATIENT_ID)
+    assert notice.destination == DischargeDestination.EXPIRED
+    assert notice.requires_patient_follow_up is False
+
+
+def test_living_fixture_patients_require_follow_up(synthea: SyntheaAdapter) -> None:
+    for pid in (INPATIENT_ID, ER_ID, MED_CHANGES_ID):
+        assert not synthea.get_patient(pid).deceased
+        assert all(n.requires_patient_follow_up for n in detect_for_patient(synthea, pid))

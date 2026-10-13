@@ -56,6 +56,7 @@ def parse_patient(resource: Resource) -> Patient:
     addresses = resource.get("address", [])
     address = (
         Address(
+            lines=tuple(addresses[0].get("line", [])),
             city=addresses[0].get("city"),
             state=addresses[0].get("state"),
             postal_code=addresses[0].get("postalCode"),
@@ -71,6 +72,13 @@ def parse_patient(resource: Resource) -> Patient:
         birth_date=resource.get("birthDate"),
         gender=resource.get("gender"),
         address=address,
+        phones=tuple(
+            t["value"]
+            for t in resource.get("telecom", [])
+            if t.get("system") == "phone" and t.get("value")
+        ),
+        deceased="deceasedDateTime" in resource or bool(resource.get("deceasedBoolean")),
+        deceased_at=resource.get("deceasedDateTime"),
     )
 
 
