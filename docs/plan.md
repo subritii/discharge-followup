@@ -8,7 +8,7 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 | 0 | Scaffold: pyproject, config.py, .env.example, pytest | done |
 | 1 | Domain models, adapter protocol, SyntheaAdapter, factory | done |
 | 2 | FHIR discharge detection (class IMP/EMER + finished + period.end), ER->IMP merge, destination | done |
-| 3 | Data minimization (clinical-only LLM payload) + Presidio safety net + guard | |
+| 3 | Data minimization (clinical-only LLM payload) + Presidio safety net + guard | done |
 | 5 | LACE-based triage rules (illustrative, pending clinical review) + deadlines | |
 | 6 | Agent on Ollama llama3.1:8b; deterministic med diff | |
 | 8 | Salesforce Case client + idempotency (encounter id + discharge time) | |
@@ -52,6 +52,12 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 - **Phase 11:** NUBC patient discharge status codes (e.g. `01` home, `03` SNF,
   `20` expired) get added to `library/disposition_map.yaml` as a new system. Config
   only, no code change (covered by `test_new_system_is_config_only`).
+
+### Phase 3: privacy (done)
+- See `docs/privacy.md`: allowlisted `LLMPayload`, Presidio on free text only
+  (en_core_web_lg 3.8.0), two-layer guard with documented gaps.
+- Phase 6 must call `privacy.prepare.prepare_llm_payload` and nothing else to build
+  LLM input. Guard failures go to the retry folder (Milestone A CLI).
 
 ### Phase 4: patient matching
 - Synthea's MR identifier equals `Patient.id`, so matching on it proves nothing.

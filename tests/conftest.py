@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 
 from adapters.synthea import SyntheaAdapter
+from privacy.redactor import Redactor
 
 SYNTHEA_FIXTURES = Path(__file__).parent / "fixtures" / "synthea"
 DISPOSITION_SYSTEM = "http://terminology.hl7.org/CodeSystem/discharge-disposition"
@@ -21,3 +22,10 @@ NO_HOSPITAL_ID = "aee7bbe1-0c45-c028-1e62-1f4cdb30c273"
 @pytest.fixture(scope="session")
 def synthea() -> SyntheaAdapter:
     return SyntheaAdapter(SYNTHEA_FIXTURES)
+
+
+@pytest.fixture(scope="session")
+def redactor() -> Redactor:
+    r = Redactor()
+    r.analyze("warm up")  # load spaCy once per session
+    return r
