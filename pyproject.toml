@@ -1,0 +1,33 @@
+[project]
+name = "discharge-followup"
+version = "0.1.0"
+description = "Discharge notice -> AI-drafted follow-up plan -> Salesforce Case for RN review"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.2",
+    "ruff>=0.5",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+markers = [
+    "integration: needs a live external service (Ollama, Salesforce, athena sandbox)",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

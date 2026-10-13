@@ -1,0 +1,24 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Data (synthetic, but generated/large; fixtures live in tests/fixtures/)
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Salesforce CLI
+.sf/
+.sfdx/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
