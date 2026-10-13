@@ -225,6 +225,185 @@
    }
   },
   {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-1014-a743a49b2d2f",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "982750f4-569b-5949-1014-a743a49b2d2f",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "982750f4-569b-5949-1014-a743a49b2d2f"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "410620009",
+        "display": "Well child visit (procedure)"
+       }
+      ],
+      "text": "Well child visit (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
+     "display": "Mrs. Dwana281 Zora492 Schmeler639"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "1977-09-03T19:49:30-06:00",
+       "end": "1977-09-03T20:04:30-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999957191",
+       "display": "Dr. Hank686 Schneider199"
+      }
+     }
+    ],
+    "period": {
+     "start": "1977-09-03T19:49:30-06:00",
+     "end": "1977-09-03T20:04:30-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|4388e9fe-05d7-36cf-ae9b-f363dd88fb54",
+       "display": "LOWELL FAMILY MEDICAL CARE PC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|84d5768f-3a21-3da9-aad2-bbf7a3ae2700",
+     "display": "LOWELL FAMILY MEDICAL CARE PC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-2642-22dc7850498e",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "982750f4-569b-5949-2642-22dc7850498e",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "982750f4-569b-5949-2642-22dc7850498e"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185347001",
+        "display": "Encounter for problem (procedure)"
+       }
+      ],
+      "text": "Encounter for problem (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
+     "display": "Mrs. Dwana281 Zora492 Schmeler639"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2014-02-03T18:49:30-07:00",
+       "end": "2014-02-03T19:04:30-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999994798",
+       "display": "Dr. Marcus77 Schamberger479"
+      }
+     }
+    ],
+    "period": {
+     "start": "2014-02-03T18:49:30-07:00",
+     "end": "2014-02-03T19:04:30-07:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "82423001",
+        "display": "Chronic pain (finding)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|2d8335a7-e37a-3004-9254-6f7de59ab66a",
+       "display": "THE LOWELL GENERAL HOSPITAL"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|5fcff9db-16e4-3e56-aa78-abbc16338097",
+     "display": "THE LOWELL GENERAL HOSPITAL"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
    "fullUrl": "urn:uuid:982750f4-569b-5949-0504-d76b751fb5b4",
    "resource": {
     "resourceType": "Encounter",
@@ -468,90 +647,6 @@
     "period": {
      "start": "2025-05-31T19:49:30-06:00",
      "end": "2025-05-31T20:24:22-06:00"
-    },
-    "location": [
-     {
-      "location": {
-       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|2d8335a7-e37a-3004-9254-6f7de59ab66a",
-       "display": "THE LOWELL GENERAL HOSPITAL"
-      }
-     }
-    ],
-    "serviceProvider": {
-     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|5fcff9db-16e4-3e56-aa78-abbc16338097",
-     "display": "THE LOWELL GENERAL HOSPITAL"
-    }
-   },
-   "request": {
-    "method": "POST",
-    "url": "Encounter"
-   }
-  },
-  {
-   "fullUrl": "urn:uuid:982750f4-569b-5949-4dae-12653a6ee1da",
-   "resource": {
-    "resourceType": "Encounter",
-    "id": "982750f4-569b-5949-4dae-12653a6ee1da",
-    "meta": {
-     "profile": [
-      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
-     ]
-    },
-    "identifier": [
-     {
-      "use": "official",
-      "system": "https://github.com/synthetichealth/synthea",
-      "value": "982750f4-569b-5949-4dae-12653a6ee1da"
-     }
-    ],
-    "status": "finished",
-    "class": {
-     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-     "code": "AMB"
-    },
-    "type": [
-     {
-      "coding": [
-       {
-        "system": "http://snomed.info/sct",
-        "code": "185349003",
-        "display": "Encounter for check up (procedure)"
-       }
-      ],
-      "text": "Encounter for check up (procedure)"
-     }
-    ],
-    "subject": {
-     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb",
-     "display": "Mrs. Dwana281 Zora492 Schmeler639"
-    },
-    "participant": [
-     {
-      "type": [
-       {
-        "coding": [
-         {
-          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
-          "code": "PPRF",
-          "display": "primary performer"
-         }
-        ],
-        "text": "primary performer"
-       }
-      ],
-      "period": {
-       "start": "2025-06-14T19:49:30-06:00",
-       "end": "2025-06-14T21:59:46-06:00"
-      },
-      "individual": {
-       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999994798",
-       "display": "Dr. Marcus77 Schamberger479"
-      }
-     }
-    ],
-    "period": {
-     "start": "2025-06-14T19:49:30-06:00",
-     "end": "2025-06-14T21:59:46-06:00"
     },
     "location": [
      {
@@ -832,6 +927,128 @@
    "request": {
     "method": "POST",
     "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-1ad6-e5bea2020d57",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-1ad6-e5bea2020d57",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "66383009",
+       "display": "Gingivitis (disorder)"
+      }
+     ],
+     "text": "Gingivitis (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-1014-a743a49b2d2f"
+    },
+    "onsetDateTime": "1977-09-03T21:12:48-06:00",
+    "recordedDate": "1977-09-03T21:12:48-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:982750f4-569b-5949-0cf6-f0b03f340471",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "982750f4-569b-5949-0cf6-f0b03f340471",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "203082005",
+       "display": "Fibromyalgia (disorder)"
+      }
+     ],
+     "text": "Fibromyalgia (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:982750f4-569b-5949-196b-60699bdda3fb"
+    },
+    "encounter": {
+     "reference": "urn:uuid:982750f4-569b-5949-2642-22dc7850498e"
+    },
+    "onsetDateTime": "2014-02-03T18:49:30-07:00",
+    "recordedDate": "2014-02-03T18:49:30-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
    }
   },
   {

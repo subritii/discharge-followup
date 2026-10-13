@@ -4,8 +4,9 @@ from datetime import timedelta
 from functools import lru_cache
 from pathlib import Path
 from typing import Literal
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from pydantic import Field, SecretStr, model_validator
+from pydantic import Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -34,9 +35,23 @@ class Settings(BaseSettings):
     # ends (or overlaps it) is treated as the same episode.
     er_admit_merge_window_hours: float = Field(default=6.0, ge=0)
 
+    # Deadlines: business days are counted in the practice's local time zone, skipping
+    # weekends and the dates in holidays_file.
+    practice_timezone: str = "America/Chicago"
+    holidays_file: Path = Path("library/holidays.yaml")
+
     # Pipeline
     retry_dir: Path = Path("data/retry")
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
+
+    @field_validator("practice_timezone")
+    @classmethod
+    def _valid_timezone(cls, value: str) -> str:
+        try:
+            ZoneInfo(value)
+        except (ZoneInfoNotFoundError, ValueError):
+            raise ValueError(f"unknown IANA time zone: {value!r}") from None
+        return value
 
     @model_validator(mode="after")
     def _require_athena_credentials(self) -> "Settings":

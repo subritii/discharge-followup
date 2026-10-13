@@ -225,10 +225,10 @@
    }
   },
   {
-   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-da06-e138848d8fb3",
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-61fd-8b799f85ae41",
    "resource": {
     "resourceType": "Encounter",
-    "id": "ea33f67a-c1d2-1f17-da06-e138848d8fb3",
+    "id": "ea33f67a-c1d2-1f17-61fd-8b799f85ae41",
     "meta": {
      "profile": [
       "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
@@ -238,7 +238,7 @@
      {
       "use": "official",
       "system": "https://github.com/synthetichealth/synthea",
-      "value": "ea33f67a-c1d2-1f17-da06-e138848d8fb3"
+      "value": "ea33f67a-c1d2-1f17-61fd-8b799f85ae41"
      }
     ],
     "status": "finished",
@@ -251,11 +251,11 @@
       "coding": [
        {
         "system": "http://snomed.info/sct",
-        "code": "185349003",
-        "display": "Encounter for check up (procedure)"
+        "code": "185345009",
+        "display": "Encounter for symptom (procedure)"
        }
       ],
-      "text": "Encounter for check up (procedure)"
+      "text": "Encounter for symptom (procedure)"
      }
     ],
     "subject": {
@@ -277,8 +277,8 @@
        }
       ],
       "period": {
-       "start": "2024-04-22T12:39:58-06:00",
-       "end": "2024-04-22T13:05:41-06:00"
+       "start": "1993-03-31T10:56:37-07:00",
+       "end": "1993-03-31T12:27:15-07:00"
       },
       "individual": {
        "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999988295",
@@ -287,16 +287,16 @@
      }
     ],
     "period": {
-     "start": "2024-04-22T12:39:58-06:00",
-     "end": "2024-04-22T13:05:41-06:00"
+     "start": "1993-03-31T10:56:37-07:00",
+     "end": "1993-03-31T12:27:15-07:00"
     },
     "reasonCode": [
      {
       "coding": [
        {
         "system": "http://snomed.info/sct",
-        "code": "275978004",
-        "display": "Screening for malignant neoplasm of colon (procedure)"
+        "code": "307426000",
+        "display": "Acute infective cystitis (disorder)"
        }
       ]
      }
@@ -312,90 +312,6 @@
     "serviceProvider": {
      "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|89171335-b9c0-3326-98d6-a837d432b9fd",
      "display": "WHITTIER REHABILTATION HOSPITAL"
-    }
-   },
-   "request": {
-    "method": "POST",
-    "url": "Encounter"
-   }
-  },
-  {
-   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-a156-a124a274a2ed",
-   "resource": {
-    "resourceType": "Encounter",
-    "id": "ea33f67a-c1d2-1f17-a156-a124a274a2ed",
-    "meta": {
-     "profile": [
-      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
-     ]
-    },
-    "identifier": [
-     {
-      "use": "official",
-      "system": "https://github.com/synthetichealth/synthea",
-      "value": "ea33f67a-c1d2-1f17-a156-a124a274a2ed"
-     }
-    ],
-    "status": "finished",
-    "class": {
-     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-     "code": "AMB"
-    },
-    "type": [
-     {
-      "coding": [
-       {
-        "system": "http://snomed.info/sct",
-        "code": "162673000",
-        "display": "General examination of patient (procedure)"
-       }
-      ],
-      "text": "General examination of patient (procedure)"
-     }
-    ],
-    "subject": {
-     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
-     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
-    },
-    "participant": [
-     {
-      "type": [
-       {
-        "coding": [
-         {
-          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
-          "code": "PPRF",
-          "display": "primary performer"
-         }
-        ],
-        "text": "primary performer"
-       }
-      ],
-      "period": {
-       "start": "2024-05-14T11:56:37-06:00",
-       "end": "2024-05-14T12:28:26-06:00"
-      },
-      "individual": {
-       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999964395",
-       "display": "Dr. Eddie505 Keeling57"
-      }
-     }
-    ],
-    "period": {
-     "start": "2024-05-14T11:56:37-06:00",
-     "end": "2024-05-14T12:28:26-06:00"
-    },
-    "location": [
-     {
-      "location": {
-       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|adb59f43-8edb-38cf-b801-d02261e4de05",
-       "display": "PRIMARY CARE NORTH PC"
-      }
-     }
-    ],
-    "serviceProvider": {
-     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|936ceb96-2b12-371f-aa68-ee02a9c06f4c",
-     "display": "PRIMARY CARE NORTH PC"
     }
    },
    "request": {
@@ -678,101 +594,6 @@
    }
   },
   {
-   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-24cc-704d02309ce9",
-   "resource": {
-    "resourceType": "Encounter",
-    "id": "ea33f67a-c1d2-1f17-24cc-704d02309ce9",
-    "meta": {
-     "profile": [
-      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
-     ]
-    },
-    "identifier": [
-     {
-      "use": "official",
-      "system": "https://github.com/synthetichealth/synthea",
-      "value": "ea33f67a-c1d2-1f17-24cc-704d02309ce9"
-     }
-    ],
-    "status": "finished",
-    "class": {
-     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-     "code": "AMB"
-    },
-    "type": [
-     {
-      "coding": [
-       {
-        "system": "http://snomed.info/sct",
-        "code": "185349003",
-        "display": "Encounter for check up (procedure)"
-       }
-      ],
-      "text": "Encounter for check up (procedure)"
-     }
-    ],
-    "subject": {
-     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
-     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
-    },
-    "participant": [
-     {
-      "type": [
-       {
-        "coding": [
-         {
-          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
-          "code": "PPRF",
-          "display": "primary performer"
-         }
-        ],
-        "text": "primary performer"
-       }
-      ],
-      "period": {
-       "start": "2025-06-03T11:56:37-06:00",
-       "end": "2025-06-03T12:18:29-06:00"
-      },
-      "individual": {
-       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999988295",
-       "display": "Dr. Lorette239 Hauck852"
-      }
-     }
-    ],
-    "period": {
-     "start": "2025-06-03T11:56:37-06:00",
-     "end": "2025-06-03T12:18:29-06:00"
-    },
-    "reasonCode": [
-     {
-      "coding": [
-       {
-        "system": "http://snomed.info/sct",
-        "code": "103697008",
-        "display": "Patient referral for dental care (procedure)"
-       }
-      ]
-     }
-    ],
-    "location": [
-     {
-      "location": {
-       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|ec828444-a329-332a-af8e-df648ced7a7a",
-       "display": "WHITTIER REHABILTATION HOSPITAL"
-      }
-     }
-    ],
-    "serviceProvider": {
-     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|89171335-b9c0-3326-98d6-a837d432b9fd",
-     "display": "WHITTIER REHABILTATION HOSPITAL"
-    }
-   },
-   "request": {
-    "method": "POST",
-    "url": "Encounter"
-   }
-  },
-  {
    "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-3a53-6a02c42c3ee1",
    "resource": {
     "resourceType": "Encounter",
@@ -857,98 +678,64 @@
    }
   },
   {
-   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-a0a3-5b48d8151aee",
+   "fullUrl": "urn:uuid:ea33f67a-c1d2-1f17-440e-7e07a6a6a6c4",
    "resource": {
-    "resourceType": "Encounter",
-    "id": "ea33f67a-c1d2-1f17-a0a3-5b48d8151aee",
+    "resourceType": "Condition",
+    "id": "ea33f67a-c1d2-1f17-440e-7e07a6a6a6c4",
     "meta": {
      "profile": [
-      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
      ]
     },
-    "identifier": [
-     {
-      "use": "official",
-      "system": "https://github.com/synthetichealth/synthea",
-      "value": "ea33f67a-c1d2-1f17-a0a3-5b48d8151aee"
-     }
-    ],
-    "status": "finished",
-    "class": {
-     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-     "code": "AMB"
-    },
-    "type": [
-     {
-      "coding": [
-       {
-        "system": "http://snomed.info/sct",
-        "code": "185349003",
-        "display": "Encounter for check up (procedure)"
-       }
-      ],
-      "text": "Encounter for check up (procedure)"
-     }
-    ],
-    "subject": {
-     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253",
-     "display": "Mrs. Nichelle912 Kelsie51 Kovacek682"
-    },
-    "participant": [
-     {
-      "type": [
-       {
-        "coding": [
-         {
-          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
-          "code": "PPRF",
-          "display": "primary performer"
-         }
-        ],
-        "text": "primary performer"
-       }
-      ],
-      "period": {
-       "start": "2026-06-09T11:56:37-06:00",
-       "end": "2026-06-09T12:39:13-06:00"
-      },
-      "individual": {
-       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999988295",
-       "display": "Dr. Lorette239 Hauck852"
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
       }
-     }
-    ],
-    "period": {
-     "start": "2026-06-09T11:56:37-06:00",
-     "end": "2026-06-09T12:39:13-06:00"
+     ]
     },
-    "reasonCode": [
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
      {
       "coding": [
        {
-        "system": "http://snomed.info/sct",
-        "code": "66383009",
-        "display": "Gingivitis (disorder)"
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
        }
       ]
      }
     ],
-    "location": [
-     {
-      "location": {
-       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|ec828444-a329-332a-af8e-df648ced7a7a",
-       "display": "WHITTIER REHABILTATION HOSPITAL"
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "197927001",
+       "display": "Recurrent urinary tract infection (disorder)"
       }
-     }
-    ],
-    "serviceProvider": {
-     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|89171335-b9c0-3326-98d6-a837d432b9fd",
-     "display": "WHITTIER REHABILTATION HOSPITAL"
-    }
+     ],
+     "text": "Recurrent urinary tract infection (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-720a-0f7ed938f253"
+    },
+    "encounter": {
+     "reference": "urn:uuid:ea33f67a-c1d2-1f17-61fd-8b799f85ae41"
+    },
+    "onsetDateTime": "1993-07-30T21:27:15-06:00",
+    "recordedDate": "1993-07-30T21:27:15-06:00"
    },
    "request": {
     "method": "POST",
-    "url": "Encounter"
+    "url": "Condition"
    }
   },
   {

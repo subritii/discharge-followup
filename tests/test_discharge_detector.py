@@ -174,13 +174,31 @@ def test_exp_disposition_is_expired() -> None:
     assert notice.requires_patient_follow_up is False
 
 
-def test_deceased_patient_overrides_disposition() -> None:
-    dead = Patient(id="p1", deceased=True)
-    notices = detect_discharges(
-        [admission(T0, disposition="home"), er_visit(T0 + timedelta(days=30))], patient=dead
-    )
-    assert [n.destination for n in notices] == [DischargeDestination.EXPIRED] * 2
-    assert not any(n.requires_patient_follow_up for n in notices)
+def test_death_during_stay_overrides_disposition() -> None:
+    imp = admission(T0, disposition="home")  # 2-day stay
+    dead = Patient(id="p1", deceased=True, deceased_at=T0 + timedelta(days=3))
+    [notice] = detect_discharges([imp], patient=dead)
+    assert notice.destination == DischargeDestination.EXPIRED
+    assert not notice.requires_patient_follow_up
+
+
+def test_death_window_starts_at_er_arrival_for_merged_episode() -> None:
+    er = er_visit(T0, hours=1)
+    imp = admission(T0 + timedelta(minutes=30))
+    dead = Patient(id="p1", deceased=True, deceased_at=T0 + timedelta(minutes=10))  # in ER
+    [notice] = detect_discharges([er, imp], patient=dead)
+    assert notice.destination == DischargeDestination.EXPIRED
+
+
+def test_earlier_discharges_of_a_patient_who_died_later_are_not_expired() -> None:
+    old_visit = er_visit(T0, hours=1)
+    last_stay = enc("imp", "IMP", T0 + timedelta(days=200), T0 + timedelta(days=205))
+    dead = Patient(id="p1", deceased=True, deceased_at=T0 + timedelta(days=206))
+    notices = detect_discharges([old_visit, last_stay], patient=dead)
+    assert [n.destination for n in notices] == [
+        DischargeDestination.UNKNOWN,
+        DischargeDestination.EXPIRED,
+    ]
 
 
 def test_living_patient_keeps_disposition() -> None:

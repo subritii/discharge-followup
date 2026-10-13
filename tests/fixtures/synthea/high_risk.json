@@ -1,0 +1,2922 @@
+{
+ "resourceType": "Bundle",
+ "type": "transaction",
+ "entry": [
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+   "resource": {
+    "resourceType": "Patient",
+    "id": "91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+     ]
+    },
+    "extension": [
+     {
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+      "extension": [
+       {
+        "url": "ombCategory",
+        "valueCoding": {
+         "system": "urn:oid:2.16.840.1.113883.6.238",
+         "code": "2106-3",
+         "display": "White"
+        }
+       },
+       {
+        "url": "text",
+        "valueString": "White"
+       }
+      ]
+     },
+     {
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+      "extension": [
+       {
+        "url": "ombCategory",
+        "valueCoding": {
+         "system": "urn:oid:2.16.840.1.113883.6.238",
+         "code": "2186-5",
+         "display": "Not Hispanic or Latino"
+        }
+       },
+       {
+        "url": "text",
+        "valueString": "Not Hispanic or Latino"
+       }
+      ]
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName",
+      "valueString": "Dalia295 Grimes165"
+     },
+     {
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+      "valueCode": "F"
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+      "valueAddress": {
+       "city": "West Tisbury",
+       "state": "Massachusetts",
+       "country": "US"
+      }
+     },
+     {
+      "url": "http://synthetichealth.github.io/synthea/disability-adjusted-life-years",
+      "valueDecimal": 9.74406921821319
+     },
+     {
+      "url": "http://synthetichealth.github.io/synthea/quality-adjusted-life-years",
+      "valueDecimal": 69.25593078178682
+     }
+    ],
+    "identifier": [
+     {
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MR",
+         "display": "Medical Record Number"
+        }
+       ],
+       "text": "Medical Record Number"
+      },
+      "system": "http://hospital.smarthealthit.org",
+      "value": "91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "SS",
+         "display": "Social Security Number"
+        }
+       ],
+       "text": "Social Security Number"
+      },
+      "system": "http://hl7.org/fhir/sid/us-ssn",
+      "value": "999-28-3048"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "DL",
+         "display": "Driver's license number"
+        }
+       ],
+       "text": "Driver's license number"
+      },
+      "system": "urn:oid:2.16.840.1.113883.4.3.25",
+      "value": "S99920297"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "PPN",
+         "display": "Passport Number"
+        }
+       ],
+       "text": "Passport Number"
+      },
+      "system": "http://hl7.org/fhir/sid/passport-USA",
+      "value": "X47316X"
+     }
+    ],
+    "name": [
+     {
+      "use": "official",
+      "family": "Cassin499",
+      "given": [
+       "Easter642",
+       "Emmie273"
+      ],
+      "prefix": [
+       "Mrs."
+      ]
+     },
+     {
+      "use": "maiden",
+      "family": "Larson43",
+      "given": [
+       "Easter642",
+       "Emmie273"
+      ],
+      "prefix": [
+       "Mrs."
+      ]
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "555-129-7284",
+      "use": "home"
+     }
+    ],
+    "gender": "female",
+    "birthDate": "1946-08-19",
+    "address": [
+     {
+      "extension": [
+       {
+        "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+        "extension": [
+         {
+          "url": "latitude",
+          "valueDecimal": 42.11376026231832
+         },
+         {
+          "url": "longitude",
+          "valueDecimal": -71.41600656834437
+         }
+        ]
+       }
+      ],
+      "line": [
+       "1043 Gutkowski Run Suite 51"
+      ],
+      "city": "Franklin",
+      "state": "MA",
+      "postalCode": "02038",
+      "country": "US"
+     }
+    ],
+    "maritalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+       "code": "M",
+       "display": "Married"
+      }
+     ],
+     "text": "Married"
+    },
+    "multipleBirthBoolean": false,
+    "communication": [
+     {
+      "language": {
+       "coding": [
+        {
+         "system": "urn:ietf:bcp:47",
+         "code": "en-US",
+         "display": "English (United States)"
+        }
+       ],
+       "text": "English (United States)"
+      }
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "Patient"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-b954-c72909c8d7ac",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-b954-c72909c8d7ac",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-b954-c72909c8d7ac"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "EMER"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "50849002",
+        "display": "Emergency room admission (procedure)"
+       }
+      ],
+      "text": "Emergency room admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "1964-04-17T11:23:22-07:00",
+       "end": "1964-04-17T12:23:22-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999905596",
+       "display": "Dr. Freeda113 Crooks415"
+      }
+     }
+    ],
+    "period": {
+     "start": "1964-04-17T11:23:22-07:00",
+     "end": "1964-04-17T12:23:22-07:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "110030002",
+        "display": "Concussion injury of brain (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|6935f935-a700-3981-be87-1395d4a92beb",
+       "display": "VNA & HOSPICE OF GREATER MILFORD"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|f6ba791e-fe68-3596-bef4-60751db6a60e",
+     "display": "VNA & HOSPICE OF GREATER MILFORD"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-d7bc-571ff4f614d9",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-d7bc-571ff4f614d9",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-d7bc-571ff4f614d9"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "1974-10-28T11:07:41-07:00",
+       "end": "1974-10-28T12:06:04-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999945899",
+       "display": "Dr. Stephen891 Okuneva707"
+      }
+     }
+    ],
+    "period": {
+     "start": "1974-10-28T11:07:41-07:00",
+     "end": "1974-10-28T12:06:04-07:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|1e4f6f6e-f4c7-343c-9148-4b6fd5771b97",
+       "display": "A&A HEALTHCARE LLC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|25c85bcc-7e25-36bc-89e8-08e0d473db23",
+     "display": "A&A HEALTHCARE LLC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-89ba-141c41bf6133",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-89ba-141c41bf6133",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-89ba-141c41bf6133"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "EMER"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "50849002",
+        "display": "Emergency room admission (procedure)"
+       }
+      ],
+      "text": "Emergency room admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "1990-07-30T12:07:41-06:00",
+       "end": "1990-07-30T13:07:41-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999905596",
+       "display": "Dr. Freeda113 Crooks415"
+      }
+     }
+    ],
+    "period": {
+     "start": "1990-07-30T12:07:41-06:00",
+     "end": "1990-07-30T13:07:41-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "196416002",
+        "display": "Impacted molars (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|6935f935-a700-3981-be87-1395d4a92beb",
+       "display": "VNA & HOSPICE OF GREATER MILFORD"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|f6ba791e-fe68-3596-bef4-60751db6a60e",
+     "display": "VNA & HOSPICE OF GREATER MILFORD"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-42d0-f11e43fe23aa",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-42d0-f11e43fe23aa",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-42d0-f11e43fe23aa"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "EMER"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "50849002",
+        "display": "Emergency room admission (procedure)"
+       }
+      ],
+      "text": "Emergency room admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "1991-02-28T11:07:41-07:00",
+       "end": "1991-02-28T12:07:41-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999905596",
+       "display": "Dr. Freeda113 Crooks415"
+      }
+     }
+    ],
+    "period": {
+     "start": "1991-02-28T11:07:41-07:00",
+     "end": "1991-02-28T12:07:41-07:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "124171000119105",
+        "display": "Chronic intractable migraine without aura (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|6935f935-a700-3981-be87-1395d4a92beb",
+       "display": "VNA & HOSPICE OF GREATER MILFORD"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|f6ba791e-fe68-3596-bef4-60751db6a60e",
+     "display": "VNA & HOSPICE OF GREATER MILFORD"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-dedd-c5db6f0d2048",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-dedd-c5db6f0d2048",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-dedd-c5db6f0d2048"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185347001",
+        "display": "Encounter for problem (procedure)"
+       }
+      ],
+      "text": "Encounter for problem (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "1994-08-26T12:07:41-06:00",
+       "end": "1994-08-26T13:33:05-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999989798",
+       "display": "Dr. Nickolas58 Schumm995"
+      }
+     }
+    ],
+    "period": {
+     "start": "1994-08-26T12:07:41-06:00",
+     "end": "1994-08-26T13:33:05-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "6525002",
+        "display": "Dependent drug abuse (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|c5abd580-26ee-37c4-a7f7-69c98a4ee69e",
+       "display": "ENCOMPASS HEALTH BRAINTREE HOSPITAL OF BRAINTREE"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|05fcf001-ab24-3d7d-85f7-f64942d82738",
+     "display": "ENCOMPASS HEALTH BRAINTREE HOSPITAL OF BRAINTREE"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-baa3-c81dc4216e51",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-baa3-c81dc4216e51",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-baa3-c81dc4216e51"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2006-10-16T12:07:41-06:00",
+       "end": "2006-10-16T12:46:54-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999945899",
+       "display": "Dr. Stephen891 Okuneva707"
+      }
+     }
+    ],
+    "period": {
+     "start": "2006-10-16T12:07:41-06:00",
+     "end": "2006-10-16T12:46:54-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|1e4f6f6e-f4c7-343c-9148-4b6fd5771b97",
+       "display": "A&A HEALTHCARE LLC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|25c85bcc-7e25-36bc-89e8-08e0d473db23",
+     "display": "A&A HEALTHCARE LLC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-c6c5-78914923a2a8",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-c6c5-78914923a2a8",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-c6c5-78914923a2a8"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2016-12-12T11:07:41-07:00",
+       "end": "2016-12-12T12:04:16-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999945899",
+       "display": "Dr. Stephen891 Okuneva707"
+      }
+     }
+    ],
+    "period": {
+     "start": "2016-12-12T11:07:41-07:00",
+     "end": "2016-12-12T12:04:16-07:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|1e4f6f6e-f4c7-343c-9148-4b6fd5771b97",
+       "display": "A&A HEALTHCARE LLC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|25c85bcc-7e25-36bc-89e8-08e0d473db23",
+     "display": "A&A HEALTHCARE LLC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-c5ea-5bcd0d4c06cc",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-c5ea-5bcd0d4c06cc",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-c5ea-5bcd0d4c06cc"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "EMER"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "50849002",
+        "display": "Emergency room admission (procedure)"
+       }
+      ],
+      "text": "Emergency room admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2023-08-31T19:17:53-06:00",
+       "end": "2023-09-01T10:17:53-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999905596",
+       "display": "Dr. Freeda113 Crooks415"
+      }
+     }
+    ],
+    "period": {
+     "start": "2023-08-31T19:17:53-06:00",
+     "end": "2023-09-01T10:17:53-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "1149222004",
+        "display": "Overdose (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|6935f935-a700-3981-be87-1395d4a92beb",
+       "display": "VNA & HOSPICE OF GREATER MILFORD"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|f6ba791e-fe68-3596-bef4-60751db6a60e",
+     "display": "VNA & HOSPICE OF GREATER MILFORD"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-4d87-85528531d6df",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-4d87-85528531d6df",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-4d87-85528531d6df"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "EMER"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "50849002",
+        "display": "Emergency room admission (procedure)"
+       }
+      ],
+      "text": "Emergency room admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2023-12-02T12:39:41-07:00",
+       "end": "2023-12-02T14:19:41-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999905596",
+       "display": "Dr. Freeda113 Crooks415"
+      }
+     }
+    ],
+    "period": {
+     "start": "2023-12-02T12:39:41-07:00",
+     "end": "2023-12-02T14:19:41-07:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "125605004",
+        "display": "Fracture of bone (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|6935f935-a700-3981-be87-1395d4a92beb",
+       "display": "VNA & HOSPICE OF GREATER MILFORD"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|f6ba791e-fe68-3596-bef4-60751db6a60e",
+     "display": "VNA & HOSPICE OF GREATER MILFORD"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-0a1e-ba0e976152b2",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-0a1e-ba0e976152b2",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-0a1e-ba0e976152b2"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "IMP"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "32485007",
+        "display": "Hospital admission (procedure)"
+       }
+      ],
+      "text": "Hospital admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2023-12-02T14:19:41-07:00",
+       "end": "2023-12-17T14:34:41-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999871699",
+       "display": "Dr. Jeanie708 Turner526"
+      }
+     }
+    ],
+    "period": {
+     "start": "2023-12-02T14:19:41-07:00",
+     "end": "2023-12-17T14:34:41-07:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "25675004",
+        "display": "Patient transfer to skilled nursing facility (procedure)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|c641fa1c-92b8-388f-acce-0a97c5b15da8",
+       "display": "BEAR MT FRANKLIN LLC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|ad482681-b4c4-3fce-ac59-78c83d31b0ba",
+     "display": "BEAR MT FRANKLIN LLC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-7400-963cd9d83369",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-7400-963cd9d83369",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-7400-963cd9d83369"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2024-01-29T11:07:41-07:00",
+       "end": "2024-01-29T11:48:23-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999945899",
+       "display": "Dr. Stephen891 Okuneva707"
+      }
+     }
+    ],
+    "period": {
+     "start": "2024-01-29T11:07:41-07:00",
+     "end": "2024-01-29T11:48:23-07:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|1e4f6f6e-f4c7-343c-9148-4b6fd5771b97",
+       "display": "A&A HEALTHCARE LLC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|25c85bcc-7e25-36bc-89e8-08e0d473db23",
+     "display": "A&A HEALTHCARE LLC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-413f-1b5d90d4b0c8",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-413f-1b5d90d4b0c8",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-413f-1b5d90d4b0c8"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2025-02-03T11:07:41-07:00",
+       "end": "2025-02-03T11:57:01-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999945899",
+       "display": "Dr. Stephen891 Okuneva707"
+      }
+     }
+    ],
+    "period": {
+     "start": "2025-02-03T11:07:41-07:00",
+     "end": "2025-02-03T11:57:01-07:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|1e4f6f6e-f4c7-343c-9148-4b6fd5771b97",
+       "display": "A&A HEALTHCARE LLC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|25c85bcc-7e25-36bc-89e8-08e0d473db23",
+     "display": "A&A HEALTHCARE LLC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-41d1-d69c323b1049",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-41d1-d69c323b1049",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-41d1-d69c323b1049"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2026-02-09T11:07:41-07:00",
+       "end": "2026-02-09T12:07:22-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999945899",
+       "display": "Dr. Stephen891 Okuneva707"
+      }
+     }
+    ],
+    "period": {
+     "start": "2026-02-09T11:07:41-07:00",
+     "end": "2026-02-09T12:07:22-07:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|1e4f6f6e-f4c7-343c-9148-4b6fd5771b97",
+       "display": "A&A HEALTHCARE LLC"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|25c85bcc-7e25-36bc-89e8-08e0d473db23",
+     "display": "A&A HEALTHCARE LLC"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-d706-fc7e7e4ea279",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-d706-fc7e7e4ea279",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-d706-fc7e7e4ea279"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "EMER"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "50849002",
+        "display": "Emergency room admission (procedure)"
+       }
+      ],
+      "text": "Emergency room admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2026-04-04T19:29:31-06:00",
+       "end": "2026-04-04T23:29:31-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999905596",
+       "display": "Dr. Freeda113 Crooks415"
+      }
+     }
+    ],
+    "period": {
+     "start": "2026-04-04T19:29:31-06:00",
+     "end": "2026-04-04T23:29:31-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "1149222004",
+        "display": "Overdose (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|6935f935-a700-3981-be87-1395d4a92beb",
+       "display": "VNA & HOSPICE OF GREATER MILFORD"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|f6ba791e-fe68-3596-bef4-60751db6a60e",
+     "display": "VNA & HOSPICE OF GREATER MILFORD"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-2bd3-ad550ddf2c7d",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "91c3a84d-ed05-266b-2bd3-ad550ddf2c7d",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "91c3a84d-ed05-266b-2bd3-ad550ddf2c7d"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "EMER"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "50849002",
+        "display": "Emergency room admission (procedure)"
+       }
+      ],
+      "text": "Emergency room admission (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5",
+     "display": "Mrs. Easter642 Emmie273 Cassin499"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2026-05-09T23:29:31-06:00",
+       "end": "2026-05-10T03:29:31-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999905596",
+       "display": "Dr. Freeda113 Crooks415"
+      }
+     }
+    ],
+    "period": {
+     "start": "2026-05-09T23:29:31-06:00",
+     "end": "2026-05-10T03:29:31-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "1149222004",
+        "display": "Overdose (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|6935f935-a700-3981-be87-1395d4a92beb",
+       "display": "VNA & HOSPICE OF GREATER MILFORD"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|f6ba791e-fe68-3596-bef4-60751db6a60e",
+     "display": "VNA & HOSPICE OF GREATER MILFORD"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-0a1f-5d34ac628498",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-0a1f-5d34ac628498",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "127294003",
+       "display": "Traumatic or nontraumatic brain injury (disorder)"
+      }
+     ],
+     "text": "Traumatic or nontraumatic brain injury (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-b954-c72909c8d7ac"
+    },
+    "onsetDateTime": "1964-04-17T11:23:22-07:00",
+    "recordedDate": "1964-04-17T11:23:22-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-01be-804663ebddbb",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-01be-804663ebddbb",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "271737000",
+       "display": "Anemia (disorder)"
+      }
+     ],
+     "text": "Anemia (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-d7bc-571ff4f614d9"
+    },
+    "onsetDateTime": "1974-10-28T11:07:41-07:00",
+    "recordedDate": "1974-10-28T11:07:41-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-689e-460df4f3ad3c",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-689e-460df4f3ad3c",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "196416002",
+       "display": "Impacted molars (disorder)"
+      }
+     ],
+     "text": "Impacted molars (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-89ba-141c41bf6133"
+    },
+    "onsetDateTime": "1990-07-30T12:07:41-06:00",
+    "recordedDate": "1990-07-30T12:07:41-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-6e9b-0ce3471cb258",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-6e9b-0ce3471cb258",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "124171000119105",
+       "display": "Chronic intractable migraine without aura (disorder)"
+      }
+     ],
+     "text": "Chronic intractable migraine without aura (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-42d0-f11e43fe23aa"
+    },
+    "onsetDateTime": "1991-02-28T11:07:41-07:00",
+    "recordedDate": "1991-02-28T11:07:41-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-9131-26bc7076b076",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-9131-26bc7076b076",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "6525002",
+       "display": "Dependent drug abuse (disorder)"
+      }
+     ],
+     "text": "Dependent drug abuse (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-dedd-c5db6f0d2048"
+    },
+    "onsetDateTime": "1994-08-26T12:07:41-06:00",
+    "recordedDate": "1994-08-26T12:07:41-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-8bf3-6b7baae34d57",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-8bf3-6b7baae34d57",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "64859006",
+       "display": "Osteoporosis (disorder)"
+      }
+     ],
+     "text": "Osteoporosis (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-baa3-c81dc4216e51"
+    },
+    "onsetDateTime": "2006-10-16T12:07:41-06:00",
+    "recordedDate": "2006-10-16T12:07:41-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-c5d6-f808a933f9a3",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-c5d6-f808a933f9a3",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "66383009",
+       "display": "Gingivitis (disorder)"
+      }
+     ],
+     "text": "Gingivitis (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-c6c5-78914923a2a8"
+    },
+    "onsetDateTime": "2016-12-12T13:05:44-07:00",
+    "recordedDate": "2016-12-12T13:05:44-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-b40a-9760da1cdc7e",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-b40a-9760da1cdc7e",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "1149222004",
+       "display": "Overdose (disorder)"
+      }
+     ],
+     "text": "Overdose (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-c5ea-5bcd0d4c06cc"
+    },
+    "onsetDateTime": "2023-08-31T19:17:53-06:00",
+    "abatementDateTime": "2023-09-01T10:17:53-06:00",
+    "recordedDate": "2023-08-31T19:17:53-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-8f06-7b755f095148",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-8f06-7b755f095148",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "125605004",
+       "display": "Fracture of bone (disorder)"
+      }
+     ],
+     "text": "Fracture of bone (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-4d87-85528531d6df"
+    },
+    "onsetDateTime": "2023-12-02T12:39:41-07:00",
+    "abatementDateTime": "2024-03-12T15:19:41-06:00",
+    "recordedDate": "2023-12-02T12:39:41-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-d2ca-ce640eca625a",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-d2ca-ce640eca625a",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "359817006",
+       "display": "Closed fracture of hip (disorder)"
+      }
+     ],
+     "text": "Closed fracture of hip (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-4d87-85528531d6df"
+    },
+    "onsetDateTime": "2023-12-02T12:39:41-07:00",
+    "abatementDateTime": "2024-03-12T15:19:41-06:00",
+    "recordedDate": "2023-12-02T12:39:41-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-a25f-d0908a6467e6",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-a25f-d0908a6467e6",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "443165006",
+       "display": "Osteoporotic fracture of bone (disorder)"
+      }
+     ],
+     "text": "Osteoporotic fracture of bone (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-4d87-85528531d6df"
+    },
+    "onsetDateTime": "2023-12-02T14:19:41-07:00",
+    "abatementDateTime": "2024-03-12T15:19:41-06:00",
+    "recordedDate": "2023-12-02T14:19:41-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-4948-e654750f6091",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-4948-e654750f6091",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "314529007",
+       "display": "Medication review due (situation)"
+      }
+     ],
+     "text": "Medication review due (situation)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-7400-963cd9d83369"
+    },
+    "onsetDateTime": "2024-01-29T11:07:41-07:00",
+    "recordedDate": "2024-01-29T11:07:41-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-91da-effce3d8da4e",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-91da-effce3d8da4e",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "160904001",
+       "display": "Part-time employment (finding)"
+      }
+     ],
+     "text": "Part-time employment (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-7400-963cd9d83369"
+    },
+    "onsetDateTime": "2024-01-29T11:48:23-07:00",
+    "abatementDateTime": "2025-02-03T11:57:01-07:00",
+    "recordedDate": "2024-01-29T11:48:23-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-a045-106e3f4983ad",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-a045-106e3f4983ad",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "160903007",
+       "display": "Full-time employment (finding)"
+      }
+     ],
+     "text": "Full-time employment (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-413f-1b5d90d4b0c8"
+    },
+    "onsetDateTime": "2025-02-03T11:57:01-07:00",
+    "recordedDate": "2025-02-03T11:57:01-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-6bb6-776530e6e917",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-6bb6-776530e6e917",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "73595000",
+       "display": "Stress (finding)"
+      }
+     ],
+     "text": "Stress (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-413f-1b5d90d4b0c8"
+    },
+    "onsetDateTime": "2025-02-03T11:57:01-07:00",
+    "abatementDateTime": "2026-02-09T12:07:22-07:00",
+    "recordedDate": "2025-02-03T11:57:01-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-f4ec-7c6e5c019234",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-f4ec-7c6e5c019234",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "266948004",
+       "display": "Has a criminal record (finding)"
+      }
+     ],
+     "text": "Has a criminal record (finding)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-413f-1b5d90d4b0c8"
+    },
+    "onsetDateTime": "2025-02-03T11:57:01-07:00",
+    "recordedDate": "2025-02-03T11:57:01-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-4488-b8804d04cb1e",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-4488-b8804d04cb1e",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "1149222004",
+       "display": "Overdose (disorder)"
+      }
+     ],
+     "text": "Overdose (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-d706-fc7e7e4ea279"
+    },
+    "onsetDateTime": "2026-04-04T19:29:31-06:00",
+    "abatementDateTime": "2026-04-04T23:29:31-06:00",
+    "recordedDate": "2026-04-04T19:29:31-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-7d8f-008636070e02",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "91c3a84d-ed05-266b-7d8f-008636070e02",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "resolved"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "1149222004",
+       "display": "Overdose (disorder)"
+      }
+     ],
+     "text": "Overdose (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2bd3-ad550ddf2c7d"
+    },
+    "onsetDateTime": "2026-05-09T23:29:31-06:00",
+    "abatementDateTime": "2026-05-10T03:29:31-06:00",
+    "recordedDate": "2026-05-09T23:29:31-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-78f8-069022d5b570",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "91c3a84d-ed05-266b-78f8-069022d5b570",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "849574",
+       "display": "Naproxen sodium 220 MG Oral Tablet"
+      }
+     ],
+     "text": "Naproxen sodium 220 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-4d87-85528531d6df"
+    },
+    "authoredOn": "2023-12-02T14:19:41-07:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999905596",
+     "display": "Dr. Freeda113 Crooks415"
+    },
+    "dosageInstruction": [
+     {
+      "sequence": 1,
+      "text": "Take as needed.",
+      "asNeededBoolean": true
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-db09-841ad2e7e609",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "91c3a84d-ed05-266b-db09-841ad2e7e609",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "904419",
+       "display": "Alendronic acid 10 MG Oral Tablet"
+      }
+     ],
+     "text": "Alendronic acid 10 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-7400-963cd9d83369"
+    },
+    "authoredOn": "2024-01-29T11:07:41-07:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999945899",
+     "display": "Dr. Stephen891 Okuneva707"
+    },
+    "reasonReference": [
+     {
+      "reference": "urn:uuid:91c3a84d-ed05-266b-8bf3-6b7baae34d57",
+      "display": "Osteoporosis (disorder)"
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-8398-1e47df9e0820",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "91c3a84d-ed05-266b-8398-1e47df9e0820",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "completed",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "904419",
+       "display": "Alendronic acid 10 MG Oral Tablet"
+      }
+     ],
+     "text": "Alendronic acid 10 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-413f-1b5d90d4b0c8"
+    },
+    "authoredOn": "2025-02-03T11:07:41-07:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999945899",
+     "display": "Dr. Stephen891 Okuneva707"
+    },
+    "reasonReference": [
+     {
+      "reference": "urn:uuid:91c3a84d-ed05-266b-8bf3-6b7baae34d57",
+      "display": "Osteoporosis (disorder)"
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:91c3a84d-ed05-266b-1276-14513b011d44",
+   "resource": {
+    "resourceType": "MedicationRequest",
+    "id": "91c3a84d-ed05-266b-1276-14513b011d44",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+     ]
+    },
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+        "code": "community",
+        "display": "Community"
+       }
+      ],
+      "text": "Community"
+     }
+    ],
+    "medicationCodeableConcept": {
+     "coding": [
+      {
+       "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+       "code": "904419",
+       "display": "Alendronic acid 10 MG Oral Tablet"
+      }
+     ],
+     "text": "Alendronic acid 10 MG Oral Tablet"
+    },
+    "subject": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-2681-0a62cb9ab6f5"
+    },
+    "encounter": {
+     "reference": "urn:uuid:91c3a84d-ed05-266b-41d1-d69c323b1049"
+    },
+    "authoredOn": "2026-02-09T11:07:41-07:00",
+    "requester": {
+     "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999945899",
+     "display": "Dr. Stephen891 Okuneva707"
+    },
+    "reasonReference": [
+     {
+      "reference": "urn:uuid:91c3a84d-ed05-266b-8bf3-6b7baae34d57",
+      "display": "Osteoporosis (disorder)"
+     }
+    ]
+   },
+   "request": {
+    "method": "POST",
+    "url": "MedicationRequest"
+   }
+  }
+ ]
+}

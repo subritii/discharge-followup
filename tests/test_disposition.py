@@ -1,3 +1,4 @@
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -73,9 +74,35 @@ def test_invalid_destination_in_yaml_fails_loudly(tmp_path: Path) -> None:
         load_disposition_map(path)
 
 
-def test_deceased_overrides_everything(mapping: DispositionMap) -> None:
-    dead = Patient(id="p", deceased=True)
+ADMIT = datetime(2026, 2, 1, 12, 0, tzinfo=UTC)
+DISCHARGE = datetime(2026, 2, 5, 12, 0, tzinfo=UTC)
+
+
+def died(at: datetime | None) -> Patient:
+    return Patient(id="p", deceased=True, deceased_at=at)
+
+
+@pytest.mark.parametrize(
+    ("death", "expected"),
+    [
+        (ADMIT + timedelta(days=1), DischargeDestination.EXPIRED),  # during the stay
+        (DISCHARGE + timedelta(days=3), DischargeDestination.EXPIRED),  # boundary: 3 days
+        (DISCHARGE + timedelta(days=3, seconds=1), DischargeDestination.HOME),
+        (DISCHARGE + timedelta(days=400), DischargeDestination.HOME),  # years later
+        (ADMIT - timedelta(days=1), DischargeDestination.HOME),  # before admit: data error
+        (None, DischargeDestination.HOME),  # deceasedBoolean only: can't place it
+    ],
+)
+def test_death_window(
+    mapping: DispositionMap, death: datetime | None, expected: DischargeDestination
+) -> None:
     home = Coding(system=DISPOSITION_SYSTEM, code="home")
-    assert resolve_destination(home, dead, mapping) == DischargeDestination.EXPIRED
-    assert resolve_destination(None, dead, mapping) == DischargeDestination.EXPIRED
-    assert resolve_destination(home, Patient(id="p"), mapping) == DischargeDestination.HOME
+    result = resolve_destination(
+        home, mapping, patient=died(death), episode_start=ADMIT, discharge_time=DISCHARGE
+    )
+    assert result == expected
+
+
+def test_exp_disposition_without_death_date(mapping: DispositionMap) -> None:
+    exp = Coding(system=DISPOSITION_SYSTEM, code="exp")
+    assert resolve_destination(exp, mapping) == DischargeDestination.EXPIRED

@@ -107,3 +107,14 @@ def test_living_fixture_patients_require_follow_up(synthea: SyntheaAdapter) -> N
     for pid in (INPATIENT_ID, ER_ID, MED_CHANGES_ID):
         assert not synthea.get_patient(pid).deceased
         assert all(n.requires_patient_follow_up for n in detect_for_patient(synthea, pid))
+
+
+def test_death_ten_days_after_discharge_is_not_expired(tmp_path: Path) -> None:
+    bundle = json.loads((SYNTHEA_FIXTURES / "inpatient.json").read_text())
+    for entry in bundle["entry"]:
+        if entry["resource"]["resourceType"] == "Patient":
+            entry["resource"]["deceasedDateTime"] = "2026-02-20T09:00:00-07:00"
+    (tmp_path / "inpatient.json").write_text(json.dumps(bundle))
+    [notice] = detect_for_patient(SyntheaAdapter(tmp_path), INPATIENT_ID)
+    assert notice.destination == DischargeDestination.UNKNOWN
+    assert notice.requires_patient_follow_up

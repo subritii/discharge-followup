@@ -29,11 +29,17 @@ java -jar synthea-with-dependencies.jar -s 42 -cs 42 -p 30 -a 55-90 \
 uv run python scripts/make_fixtures.py data/synthea_raw/fhir tests/fixtures/synthea
 ```
 
-**Trimming** (`scripts/make_fixtures.py`): keeps Patient, Encounters starting on or
-after 2024-01-01, and the MedicationRequest / Medication / Condition resources tied to
-those encounters. Resources are copied verbatim, except `Patient.text` (the HTML
-narrative), which is dropped. The bundle stays a Synthea `transaction` bundle with
-`urn:uuid:` references.
+**Trimming** (`scripts/make_fixtures.py`) keeps:
+- the Patient
+- hospital (non-AMB) Encounters starting on or after the cutoff (2024-01-01; `high_risk`
+  uses 2023-06-01). Ambulatory encounters are kept only when a kept resource references them.
+- MedicationRequests (and their Medications) from those encounters
+- Conditions from those encounters, plus older *disorders* still active on or after the
+  cutoff (chronic comorbidities for Charlson)
+- every encounter those conditions or meds reference, so all references resolve
+
+Resources are copied verbatim, except `Patient.text` (the HTML narrative), which is
+dropped. The bundle stays a Synthea `transaction` bundle with `urn:uuid:` references.
 
 **Fixtures**
 
@@ -43,6 +49,7 @@ narrative), which is dropped. The bundle stays a Synthea `transaction` bundle wi
 | `er_visit.json` | Dwana281 Schmeler639 | one EMER visit (2025-07-05), no inpatient stay |
 | `med_changes.json` | Nichelle912 Kovacek682 | EMER visit that becomes an IMP admission (overlapping periods), 2025-05-21/22; aspirin, metoprolol, atorvastatin, sacubitril/valsartan and prasugrel started; inpatient-only meds use `medicationReference` |
 | `no_hospital.json` | Wilfredo622 Fritsch593 | ambulatory encounters and med orders only, with no IMP/EMER (negative case) |
+| `high_risk.json` | Easter642 Cassin499 | LACE 11 stay (one of 6 LACE >= 10 stays in the run): ER visit -> 15-day admission (Dec 2023), 1 prior ED visit (Aug 2023); also 2 standalone ER visits in 2026 |
 
 **Quirks of Synthea data worth knowing**
 

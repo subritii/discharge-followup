@@ -1,0 +1,40 @@
+# ILLUSTRATIVE triage and routing rules, pending clinical review.
+# Explicit rules decide risk and deadlines; the LLM only explains them (Phase 6).
+
+illustrative: true
+review_status: "pending clinical review"
+
+# LACE index (van Walraven et al., 2010) for INPATIENT stays only.
+lace:
+  high_risk_min: 10      # LACE >= 10 -> high
+  moderate_risk_min: 5   # 5..9 -> moderate, 0..4 -> low
+  ed_lookback_days: 182  # "ED visits in the prior 6 months"
+
+# ER-only visits: simple rules, not LACE. Any rule firing -> high, else low.
+er:
+  frequent_ed_visits_min: 2    # prior ED visits in the lookback, excluding this one
+  charlson_min: 2              # chronic comorbidity burden
+  ed_lookback_days: 182
+
+# Destination -> route, per pathway. "expired" is not configurable: it always goes to
+# close_the_loop with no patient contact (enforced in code).
+routes:
+  inpatient:
+    home: patient_follow_up
+    unknown: patient_follow_up   # Synthea never sends a disposition; RN verifies
+    other: patient_follow_up     # includes left-against-advice; RN verifies
+    snf: facility_coordination
+  er:
+    home: er_outreach
+    unknown: er_outreach
+    other: er_outreach
+    snf: facility_coordination   # ER patient who lives at a facility
+
+deadlines:
+  patient_contact_business_days: 2        # interactive contact
+  follow_up_visit_calendar_days:          # face-to-face visit, by LACE risk
+    high: 7
+    moderate: 14
+    low: 14
+  facility_coordination_business_days: 2
+  er_outreach_business_days: 3

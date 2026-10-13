@@ -19,6 +19,7 @@ def test_expected_fixtures_present() -> None:
         "er_visit",
         "med_changes",
         "no_hospital",
+        "high_risk",
     }
 
 

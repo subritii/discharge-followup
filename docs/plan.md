@@ -9,7 +9,7 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 | 1 | Domain models, adapter protocol, SyntheaAdapter, factory | done |
 | 2 | FHIR discharge detection (class IMP/EMER + finished + period.end), ER->IMP merge, destination | done |
 | 3 | Data minimization (clinical-only LLM payload) + Presidio safety net + guard | done |
-| 5 | LACE-based triage rules (illustrative, pending clinical review) + deadlines | |
+| 5 | LACE-based triage rules (illustrative, pending clinical review) + deadlines | done |
 | 6 | Agent on Ollama llama3.1:8b; deterministic med diff | |
 | 8 | Salesforce Case client + idempotency (encounter id + discharge time) | |
 | A | CLI pipeline (`python -m cli run <bundle>`), retry folder for failures | |
@@ -43,8 +43,8 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
   `library/disposition_map.yaml` (HL7 discharge-disposition codes today). Missing or
   unrecognized -> unknown. Synthea never emits a disposition, so every living Synthea
   patient's discharge is `unknown`. We do not infer it from reasonCode.
-- **Expired:** disposition `exp`, or `Patient.deceased` true (deceasedDateTime /
-  deceasedBoolean), gives `expired`. `DischargeNotice.requires_patient_follow_up` is
+- **Expired:** disposition `exp`, or deceasedDateTime within the stay or up to 3 days
+  after discharge, gives `expired` (refined in Phase 5). `DischargeNotice.requires_patient_follow_up` is
   False: no patient-call tasks and no AI drafts.
 - **Phase 5:** expired -> informational "close the loop" case for the care team lead.
   SNF -> facility coordination instead of the 2-day patient call (Phase 5 deadlines /
@@ -58,6 +58,26 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
   (en_core_web_lg 3.8.0), two-layer guard with documented gaps.
 - Phase 6 must call `privacy.prepare.prepare_llm_payload` and nothing else to build
   LLM input. Guard failures go to the retry folder (Milestone A CLI).
+
+### Phase 5: triage and routing (done)
+- Rules: `agent/triage_rules.py` + `library/triage_rules.yaml`, `charlson_map.yaml`,
+  `holidays.yaml`; reviewer summary in `library/guides/triage.md`.
+- Choices made where the spec was silent (all configurable in YAML):
+  - unknown / other destinations -> patient follow-up + `DESTINATION_UNVERIFIED`
+    (other includes left-against-advice, so a call attempt is the safer default)
+  - low-risk LACE visit deadline = 14 days (same as moderate)
+  - facility coordination due in 2 business days; ER outreach in 3
+  - ER visit with destination snf -> facility coordination
+  - A (acuity) = 3 only when the admission came through a linked ER visit
+- Expired = disposition `exp`, or deceasedDateTime between episode start (ER arrival for
+  merged stays) and 3 days after discharge. deceasedBoolean without a date doesn't count.
+  On the full 49-patient run this gives 3 close-the-loop discharges (was 190 when any
+  deceased flag counted).
+- Synthea rarely produces high LACE: 6 of 138 scored inpatient discharges in the
+  49-patient run (fixture `high_risk` is one). High-risk paths are mostly covered by
+  constructed tests.
+- Phase 10: expired -> close-the-loop case for the care team lead; SNF -> facility
+  coordination queue.
 
 ### Phase 4: patient matching
 - Synthea's MR identifier equals `Patient.id`, so matching on it proves nothing.

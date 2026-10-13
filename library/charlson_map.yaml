@@ -1,0 +1,114 @@
+# ILLUSTRATIVE Charlson comorbidity mapping, pending clinical review.
+#
+# A small SNOMED CT code list per Charlson category (original 1987 weights, as used by
+# the LACE index), built from codes that appear in Synthea output plus a few common
+# extras. It is NOT a validated Charlson implementation: real use needs a reviewed
+# value set (e.g. SNOMED descendants or the Quan ICD-10 coding algorithm).
+#
+# `supersedes`: when both categories are present, only the more severe one counts.
+
+illustrative: true
+review_status: "pending clinical review"
+
+categories:
+  myocardial_infarction:
+    weight: 1
+    snomed:
+      - "22298006"         # Myocardial infarction
+      - "401303003"        # Acute ST segment elevation myocardial infarction
+      - "401314000"        # Acute non-ST segment elevation myocardial infarction
+  congestive_heart_failure:
+    weight: 1
+    snomed:
+      - "88805009"         # Chronic congestive heart failure
+      - "42343007"         # Congestive heart failure
+      - "84114007"         # Heart failure
+  peripheral_vascular_disease:
+    weight: 1
+    snomed:
+      - "399957001"        # Peripheral arterial occlusive disease
+  cerebrovascular_disease:
+    weight: 1
+    snomed:
+      - "230690007"        # Cerebrovascular accident
+  dementia:
+    weight: 1
+    snomed:
+      - "26929004"         # Alzheimer's disease
+      - "52448006"         # Dementia
+  chronic_pulmonary_disease:
+    weight: 1
+    snomed:
+      - "13645005"         # Chronic obstructive lung disease
+      - "185086009"        # Chronic obstructive bronchitis
+      - "87433001"         # Pulmonary emphysema
+      - "195967001"        # Asthma
+  connective_tissue_disease:
+    weight: 1
+    snomed:
+      - "69896004"         # Rheumatoid arthritis
+      - "55464009"         # Systemic lupus erythematosus
+  peptic_ulcer_disease:
+    weight: 1
+    snomed:
+      - "13200003"         # Peptic ulcer
+  mild_liver_disease:
+    weight: 1
+    snomed:
+      - "235856003"        # Disorder of liver
+  diabetes_uncomplicated:
+    weight: 1
+    snomed:
+      - "44054006"         # Diabetes mellitus type 2
+      - "46635009"         # Diabetes mellitus type 1
+  diabetes_complicated:
+    weight: 2
+    supersedes: [diabetes_uncomplicated]
+    snomed:
+      - "127013003"        # Disorder of kidney due to diabetes mellitus
+      - "90781000119102"   # Microalbuminuria due to type 2 diabetes mellitus
+      - "157141000119108"  # Proteinuria due to type 2 diabetes mellitus
+      - "368581000119106"  # Neuropathy due to type 2 diabetes mellitus
+  hemiplegia:
+    weight: 2
+    snomed:
+      - "50582007"         # Hemiplegia
+  renal_disease_moderate_severe:
+    weight: 2
+    snomed:
+      - "433144002"        # Chronic kidney disease stage 3
+      - "431857002"        # Chronic kidney disease stage 4
+      - "46177005"         # End-stage renal disease
+  any_malignancy:
+    weight: 2
+    snomed:
+      - "254837009"        # Malignant neoplasm of breast
+      - "363406005"        # Malignant neoplasm of colon
+      - "93761005"         # Primary malignant neoplasm of colon
+      - "109838007"        # Overlapping malignant neoplasm of colon
+      - "254637007"        # Non-small cell lung cancer
+      - "424132000"        # Non-small cell carcinoma of lung, TNM stage 1
+  leukemia:
+    weight: 2
+    snomed:
+      - "93143009"         # Leukemia
+  lymphoma:
+    weight: 2
+    snomed:
+      - "118600007"        # Malignant lymphoma
+      - "109989006"        # Multiple myeloma
+  moderate_severe_liver_disease:
+    weight: 3
+    supersedes: [mild_liver_disease]
+    snomed:
+      - "19943007"         # Cirrhosis of liver
+  metastatic_solid_tumor:
+    weight: 6
+    supersedes: [any_malignancy]
+    snomed:
+      - "128462008"        # Secondary malignant neoplastic disease
+      - "94225005"         # Metastatic malignant neoplasm
+  aids:
+    weight: 6
+    snomed:
+      - "62479008"         # AIDS

@@ -47,7 +47,13 @@ def _notice(
         encounter_class=primary.class_code,
         admit_time=primary.period_start,
         discharge_time=primary.discharge_time,
-        destination=resolve_destination(primary.discharge_disposition, patient, mapping),
+        destination=resolve_destination(
+            primary.discharge_disposition,
+            mapping,
+            patient=patient,
+            episode_start=(linked_er.period_start if linked_er else None) or primary.period_start,
+            discharge_time=primary.discharge_time,
+        ),
         linked_er_encounter_id=linked_er.id if linked_er else None,
         reasons=primary.reasons,
     )
@@ -67,7 +73,7 @@ def detect_discharges(
 ) -> list[DischargeNotice]:
     """Turn one patient's encounters into discharge notices, oldest discharge first.
 
-    Pass `patient` so a deceased patient's discharges are marked EXPIRED.
+    Pass `patient` so a death during the stay (or within 3 days after) marks it EXPIRED.
     """
     qualifying = [e for e in encounters if is_discharge(e)]
     ers = sorted((e for e in qualifying if e.class_code == "EMER"), key=_ends)

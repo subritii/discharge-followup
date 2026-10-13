@@ -2,7 +2,8 @@
 #
 # Destinations: home | snf | other | expired | unknown
 # Any code not listed here (or from a system not listed) maps to "unknown".
-# Patient.deceased = true overrides everything to "expired".
+# A deceasedDateTime within the stay or up to 3 days after discharge also gives
+# "expired" (detector/disposition.py).
 #
 # Add new code systems as new keys under `systems` (e.g. NUBC patient discharge
 # status codes for athenahealth in Phase 11). No code change needed.

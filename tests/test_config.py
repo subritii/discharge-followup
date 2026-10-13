@@ -22,6 +22,8 @@ ALL_VARS = [
     "SF_SECURITY_TOKEN",
     "SF_DOMAIN",
     "ER_ADMIT_MERGE_WINDOW_HOURS",
+    "PRACTICE_TIMEZONE",
+    "HOLIDAYS_FILE",
     "RETRY_DIR",
     "LOG_LEVEL",
 ]
@@ -89,4 +91,13 @@ def test_merge_window_configurable(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_negative_merge_window_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("ER_ADMIT_MERGE_WINDOW_HOURS", "-1")
     with pytest.raises(ValidationError):
+        Settings(_env_file=ENV_EXAMPLE)
+
+
+def test_practice_timezone_default_and_validation(monkeypatch: pytest.MonkeyPatch) -> None:
+    assert Settings(_env_file=ENV_EXAMPLE).practice_timezone == "America/Chicago"
+    monkeypatch.setenv("PRACTICE_TIMEZONE", "America/New_York")
+    assert Settings(_env_file=ENV_EXAMPLE).practice_timezone == "America/New_York"
+    monkeypatch.setenv("PRACTICE_TIMEZONE", "Mars/Olympus_Mons")
+    with pytest.raises(ValidationError, match="time zone"):
         Settings(_env_file=ENV_EXAMPLE)

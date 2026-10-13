@@ -141,3 +141,78 @@ class DischargeNotice(_Frozen):
         instead (Phase 5 / Phase 10).
         """
         return self.destination is not DischargeDestination.EXPIRED
+
+
+# --- Triage (Phase 5) ----------------------------------------------------------------
+
+
+class RiskLevel(StrEnum):
+    HIGH = "high"
+    MODERATE = "moderate"
+    LOW = "low"
+
+
+class CaseRoute(StrEnum):
+    PATIENT_FOLLOW_UP = "patient_follow_up"  # inpatient -> home (or unverified)
+    FACILITY_COORDINATION = "facility_coordination"  # SNF: coordinate with facility
+    CLOSE_THE_LOOP = "close_the_loop"  # expired: informational, care team lead
+    ER_OUTREACH = "er_outreach"  # ER-only visit
+
+
+class TaskKind(StrEnum):
+    PATIENT_CONTACT = "patient_contact"
+    FOLLOW_UP_VISIT = "follow_up_visit"
+    FACILITY_COORDINATION = "facility_coordination"
+    ER_OUTREACH = "er_outreach"
+
+
+class FiredRule(_Frozen):
+    """One explicit rule that fired, so the RN can see why."""
+
+    id: str
+    detail: str
+
+
+class CharlsonResult(_Frozen):
+    score: int
+    categories: tuple[str, ...]  # after hierarchy (e.g. complicated diabetes supersedes)
+
+
+class LaceScore(_Frozen):
+    length_of_stay_days: int
+    l_points: int
+    emergent: bool
+    a_points: int
+    charlson: CharlsonResult
+    c_points: int
+    ed_visits_prior_6_months: int
+    e_points: int
+
+    @property
+    def total(self) -> int:
+        return self.l_points + self.a_points + self.c_points + self.e_points
+
+
+class TaskSpec(_Frozen):
+    kind: TaskKind
+    due_date: date  # in the practice's local time zone
+    basis: str  # how the due date was computed, for the RN
+    contacts_patient: bool
+
+
+class TriageResult(_Frozen):
+    patient_id: str
+    encounter_id: str
+    idempotency_key: str
+    pathway: str  # "inpatient" | "er"
+    route: CaseRoute
+    risk_level: RiskLevel | None  # None when not scored (expired)
+    lace: LaceScore | None = None
+    charlson: CharlsonResult | None = None
+    prior_ed_visit_ids: tuple[str, ...] = ()
+    fired_rules: tuple[FiredRule, ...] = ()
+    tasks: tuple[TaskSpec, ...] = ()
+    discharge_local_date: date
+    timezone: str
+    ai_draft_allowed: bool
+    disclaimer: str = "Illustrative rules (LACE / Charlson) pending clinical review."

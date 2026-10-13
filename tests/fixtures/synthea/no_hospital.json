@@ -214,6 +214,364 @@
    }
   },
   {
+   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-9cc5-dfa1b156c042",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "aee7bbe1-0c45-c028-9cc5-dfa1b156c042",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "aee7bbe1-0c45-c028-9cc5-dfa1b156c042"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185345009",
+        "display": "Encounter for symptom (procedure)"
+       }
+      ],
+      "text": "Encounter for symptom (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273",
+     "display": "Mr. Wilfredo622 Isaiah615 Fritsch593"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "1966-04-26T13:50:41-06:00",
+       "end": "1966-04-26T14:05:41-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999987594",
+       "display": "Dr. Houston994 Funk324"
+      }
+     }
+    ],
+    "period": {
+     "start": "1966-04-26T13:50:41-06:00",
+     "end": "1966-04-26T14:05:41-06:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "75498004",
+        "display": "Acute bacterial sinusitis (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|ab1eb2eb-5fe2-39b8-9c17-4f2131691379",
+       "display": "BROCKTON HOSPITAL, INC."
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|6aae7a31-90df-3455-ad8d-81f8cf2d21e8",
+     "display": "BROCKTON HOSPITAL, INC."
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-513b-74d93d6242e1",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "aee7bbe1-0c45-c028-513b-74d93d6242e1",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "aee7bbe1-0c45-c028-513b-74d93d6242e1"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "185347001",
+        "display": "Encounter for problem (procedure)"
+       }
+      ],
+      "text": "Encounter for problem (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273",
+     "display": "Mr. Wilfredo622 Isaiah615 Fritsch593"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "1998-01-09T12:50:41-07:00",
+       "end": "1998-01-09T13:05:41-07:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999987594",
+       "display": "Dr. Houston994 Funk324"
+      }
+     }
+    ],
+    "period": {
+     "start": "1998-01-09T12:50:41-07:00",
+     "end": "1998-01-09T13:05:41-07:00"
+    },
+    "reasonCode": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "239872002",
+        "display": "Osteoarthritis of hip (disorder)"
+       }
+      ]
+     }
+    ],
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|ab1eb2eb-5fe2-39b8-9c17-4f2131691379",
+       "display": "BROCKTON HOSPITAL, INC."
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|6aae7a31-90df-3455-ad8d-81f8cf2d21e8",
+     "display": "BROCKTON HOSPITAL, INC."
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-946a-b310df2d1a68",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "aee7bbe1-0c45-c028-946a-b310df2d1a68",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "aee7bbe1-0c45-c028-946a-b310df2d1a68"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273",
+     "display": "Mr. Wilfredo622 Isaiah615 Fritsch593"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2013-05-09T13:50:41-06:00",
+       "end": "2013-05-09T14:49:14-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999942797",
+       "display": "Dr. Victoria535 Roob72"
+      }
+     }
+    ],
+    "period": {
+     "start": "2013-05-09T13:50:41-06:00",
+     "end": "2013-05-09T14:49:14-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|98ebee45-2de9-3d5e-9845-2877038224a9",
+       "display": "DILIGENCEHEALTHCARE"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|328f813e-4de8-3ec2-a113-43f3ddfb0b2a",
+     "display": "DILIGENCEHEALTHCARE"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-80ab-7034e0353bfb",
+   "resource": {
+    "resourceType": "Encounter",
+    "id": "aee7bbe1-0c45-c028-80ab-7034e0353bfb",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+     ]
+    },
+    "identifier": [
+     {
+      "use": "official",
+      "system": "https://github.com/synthetichealth/synthea",
+      "value": "aee7bbe1-0c45-c028-80ab-7034e0353bfb"
+     }
+    ],
+    "status": "finished",
+    "class": {
+     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+     "code": "AMB"
+    },
+    "type": [
+     {
+      "coding": [
+       {
+        "system": "http://snomed.info/sct",
+        "code": "162673000",
+        "display": "General examination of patient (procedure)"
+       }
+      ],
+      "text": "General examination of patient (procedure)"
+     }
+    ],
+    "subject": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273",
+     "display": "Mr. Wilfredo622 Isaiah615 Fritsch593"
+    },
+    "participant": [
+     {
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+          "code": "PPRF",
+          "display": "primary performer"
+         }
+        ],
+        "text": "primary performer"
+       }
+      ],
+      "period": {
+       "start": "2022-06-30T13:50:41-06:00",
+       "end": "2022-06-30T14:31:49-06:00"
+      },
+      "individual": {
+       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999942797",
+       "display": "Dr. Victoria535 Roob72"
+      }
+     }
+    ],
+    "period": {
+     "start": "2022-06-30T13:50:41-06:00",
+     "end": "2022-06-30T14:31:49-06:00"
+    },
+    "location": [
+     {
+      "location": {
+       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|98ebee45-2de9-3d5e-9845-2877038224a9",
+       "display": "DILIGENCEHEALTHCARE"
+      }
+     }
+    ],
+    "serviceProvider": {
+     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|328f813e-4de8-3ec2-a113-43f3ddfb0b2a",
+     "display": "DILIGENCEHEALTHCARE"
+    }
+   },
+   "request": {
+    "method": "POST",
+    "url": "Encounter"
+   }
+  },
+  {
    "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-0635-d254d7686c66",
    "resource": {
     "resourceType": "Encounter",
@@ -290,101 +648,6 @@
     "serviceProvider": {
      "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|328f813e-4de8-3ec2-a113-43f3ddfb0b2a",
      "display": "DILIGENCEHEALTHCARE"
-    }
-   },
-   "request": {
-    "method": "POST",
-    "url": "Encounter"
-   }
-  },
-  {
-   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-8b91-bc9c3658445f",
-   "resource": {
-    "resourceType": "Encounter",
-    "id": "aee7bbe1-0c45-c028-8b91-bc9c3658445f",
-    "meta": {
-     "profile": [
-      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
-     ]
-    },
-    "identifier": [
-     {
-      "use": "official",
-      "system": "https://github.com/synthetichealth/synthea",
-      "value": "aee7bbe1-0c45-c028-8b91-bc9c3658445f"
-     }
-    ],
-    "status": "finished",
-    "class": {
-     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-     "code": "AMB"
-    },
-    "type": [
-     {
-      "coding": [
-       {
-        "system": "http://snomed.info/sct",
-        "code": "185349003",
-        "display": "Encounter for check up (procedure)"
-       }
-      ],
-      "text": "Encounter for check up (procedure)"
-     }
-    ],
-    "subject": {
-     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273",
-     "display": "Mr. Wilfredo622 Isaiah615 Fritsch593"
-    },
-    "participant": [
-     {
-      "type": [
-       {
-        "coding": [
-         {
-          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
-          "code": "PPRF",
-          "display": "primary performer"
-         }
-        ],
-        "text": "primary performer"
-       }
-      ],
-      "period": {
-       "start": "2025-04-16T14:26:32-06:00",
-       "end": "2025-04-16T15:01:00-06:00"
-      },
-      "individual": {
-       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999987594",
-       "display": "Dr. Houston994 Funk324"
-      }
-     }
-    ],
-    "period": {
-     "start": "2025-04-16T14:26:32-06:00",
-     "end": "2025-04-16T15:01:00-06:00"
-    },
-    "reasonCode": [
-     {
-      "coding": [
-       {
-        "system": "http://snomed.info/sct",
-        "code": "275978004",
-        "display": "Screening for malignant neoplasm of colon (procedure)"
-       }
-      ]
-     }
-    ],
-    "location": [
-     {
-      "location": {
-       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|ab1eb2eb-5fe2-39b8-9c17-4f2131691379",
-       "display": "BROCKTON HOSPITAL, INC."
-      }
-     }
-    ],
-    "serviceProvider": {
-     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|6aae7a31-90df-3455-ad8d-81f8cf2d21e8",
-     "display": "BROCKTON HOSPITAL, INC."
     }
    },
    "request": {
@@ -477,174 +740,6 @@
    }
   },
   {
-   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-4341-805cf7cbc35a",
-   "resource": {
-    "resourceType": "Encounter",
-    "id": "aee7bbe1-0c45-c028-4341-805cf7cbc35a",
-    "meta": {
-     "profile": [
-      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
-     ]
-    },
-    "identifier": [
-     {
-      "use": "official",
-      "system": "https://github.com/synthetichealth/synthea",
-      "value": "aee7bbe1-0c45-c028-4341-805cf7cbc35a"
-     }
-    ],
-    "status": "finished",
-    "class": {
-     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-     "code": "AMB"
-    },
-    "type": [
-     {
-      "coding": [
-       {
-        "system": "http://snomed.info/sct",
-        "code": "185349003",
-        "display": "Encounter for check up (procedure)"
-       }
-      ],
-      "text": "Encounter for check up (procedure)"
-     }
-    ],
-    "subject": {
-     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273",
-     "display": "Mr. Wilfredo622 Isaiah615 Fritsch593"
-    },
-    "participant": [
-     {
-      "type": [
-       {
-        "coding": [
-         {
-          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
-          "code": "PPRF",
-          "display": "primary performer"
-         }
-        ],
-        "text": "primary performer"
-       }
-      ],
-      "period": {
-       "start": "2025-07-31T13:50:41-06:00",
-       "end": "2025-07-31T14:47:08-06:00"
-      },
-      "individual": {
-       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999987594",
-       "display": "Dr. Houston994 Funk324"
-      }
-     }
-    ],
-    "period": {
-     "start": "2025-07-31T13:50:41-06:00",
-     "end": "2025-07-31T14:47:08-06:00"
-    },
-    "location": [
-     {
-      "location": {
-       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|ab1eb2eb-5fe2-39b8-9c17-4f2131691379",
-       "display": "BROCKTON HOSPITAL, INC."
-      }
-     }
-    ],
-    "serviceProvider": {
-     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|6aae7a31-90df-3455-ad8d-81f8cf2d21e8",
-     "display": "BROCKTON HOSPITAL, INC."
-    }
-   },
-   "request": {
-    "method": "POST",
-    "url": "Encounter"
-   }
-  },
-  {
-   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-441a-9780a894328f",
-   "resource": {
-    "resourceType": "Encounter",
-    "id": "aee7bbe1-0c45-c028-441a-9780a894328f",
-    "meta": {
-     "profile": [
-      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
-     ]
-    },
-    "identifier": [
-     {
-      "use": "official",
-      "system": "https://github.com/synthetichealth/synthea",
-      "value": "aee7bbe1-0c45-c028-441a-9780a894328f"
-     }
-    ],
-    "status": "finished",
-    "class": {
-     "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-     "code": "AMB"
-    },
-    "type": [
-     {
-      "coding": [
-       {
-        "system": "http://snomed.info/sct",
-        "code": "185349003",
-        "display": "Encounter for check up (procedure)"
-       }
-      ],
-      "text": "Encounter for check up (procedure)"
-     }
-    ],
-    "subject": {
-     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273",
-     "display": "Mr. Wilfredo622 Isaiah615 Fritsch593"
-    },
-    "participant": [
-     {
-      "type": [
-       {
-        "coding": [
-         {
-          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
-          "code": "PPRF",
-          "display": "primary performer"
-         }
-        ],
-        "text": "primary performer"
-       }
-      ],
-      "period": {
-       "start": "2026-03-19T14:47:08-06:00",
-       "end": "2026-03-19T15:24:23-06:00"
-      },
-      "individual": {
-       "reference": "Practitioner?identifier=http://hl7.org/fhir/sid/us-npi|9999987594",
-       "display": "Dr. Houston994 Funk324"
-      }
-     }
-    ],
-    "period": {
-     "start": "2026-03-19T14:47:08-06:00",
-     "end": "2026-03-19T15:24:23-06:00"
-    },
-    "location": [
-     {
-      "location": {
-       "reference": "Location?identifier=https://github.com/synthetichealth/synthea|ab1eb2eb-5fe2-39b8-9c17-4f2131691379",
-       "display": "BROCKTON HOSPITAL, INC."
-      }
-     }
-    ],
-    "serviceProvider": {
-     "reference": "Organization?identifier=https://github.com/synthetichealth/synthea|6aae7a31-90df-3455-ad8d-81f8cf2d21e8",
-     "display": "BROCKTON HOSPITAL, INC."
-    }
-   },
-   "request": {
-    "method": "POST",
-    "url": "Encounter"
-   }
-  },
-  {
    "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-4406-024216a4cc37",
    "resource": {
     "resourceType": "Encounter",
@@ -726,6 +821,250 @@
    "request": {
     "method": "POST",
     "url": "Encounter"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-32ec-25cdb4b77232",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "aee7bbe1-0c45-c028-32ec-25cdb4b77232",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "40055000",
+       "display": "Chronic sinusitis (disorder)"
+      }
+     ],
+     "text": "Chronic sinusitis (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273"
+    },
+    "encounter": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-9cc5-dfa1b156c042"
+    },
+    "onsetDateTime": "1966-04-26T13:50:41-06:00",
+    "recordedDate": "1966-04-26T13:50:41-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-20f6-324fbd5a816d",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "aee7bbe1-0c45-c028-20f6-324fbd5a816d",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "239872002",
+       "display": "Osteoarthritis of hip (disorder)"
+      }
+     ],
+     "text": "Osteoarthritis of hip (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273"
+    },
+    "encounter": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-513b-74d93d6242e1"
+    },
+    "onsetDateTime": "1998-01-09T12:50:41-07:00",
+    "recordedDate": "1998-01-09T12:50:41-07:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-8894-ae1de68f2559",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "aee7bbe1-0c45-c028-8894-ae1de68f2559",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "414545008",
+       "display": "Ischemic heart disease (disorder)"
+      }
+     ],
+     "text": "Ischemic heart disease (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273"
+    },
+    "encounter": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-946a-b310df2d1a68"
+    },
+    "onsetDateTime": "2013-05-09T13:50:41-06:00",
+    "recordedDate": "2013-05-09T13:50:41-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
+   }
+  },
+  {
+   "fullUrl": "urn:uuid:aee7bbe1-0c45-c028-6a33-e73b74b533fc",
+   "resource": {
+    "resourceType": "Condition",
+    "id": "aee7bbe1-0c45-c028-6a33-e73b74b533fc",
+    "meta": {
+     "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+     ]
+    },
+    "clinicalStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+       "code": "active"
+      }
+     ]
+    },
+    "verificationStatus": {
+     "coding": [
+      {
+       "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+       "code": "confirmed"
+      }
+     ]
+    },
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+        "code": "encounter-diagnosis",
+        "display": "Encounter Diagnosis"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "66383009",
+       "display": "Gingivitis (disorder)"
+      }
+     ],
+     "text": "Gingivitis (disorder)"
+    },
+    "subject": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-1e62-1f4cdb30c273"
+    },
+    "encounter": {
+     "reference": "urn:uuid:aee7bbe1-0c45-c028-80ab-7034e0353bfb"
+    },
+    "onsetDateTime": "2022-06-30T14:59:45-06:00",
+    "recordedDate": "2022-06-30T14:59:45-06:00"
+   },
+   "request": {
+    "method": "POST",
+    "url": "Condition"
    }
   },
   {
