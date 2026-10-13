@@ -1,10 +1,11 @@
 """Application settings, loaded from environment variables / .env."""
 
+from datetime import timedelta
 from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import SecretStr, model_validator
+from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -29,6 +30,10 @@ class Settings(BaseSettings):
     sf_security_token: SecretStr | None = None
     sf_domain: Literal["login", "test"] = "login"
 
+    # Discharge detection: an IMP that starts within this many hours after an ER visit
+    # ends (or overlaps it) is treated as the same episode.
+    er_admit_merge_window_hours: float = Field(default=6.0, ge=0)
+
     # Pipeline
     retry_dir: Path = Path("data/retry")
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
@@ -45,6 +50,10 @@ class Settings(BaseSettings):
         if missing:
             raise ValueError(f"ADAPTER=athena requires: {', '.join(m.upper() for m in missing)}")
         return self
+
+    @property
+    def er_admit_merge_window(self) -> timedelta:
+        return timedelta(hours=self.er_admit_merge_window_hours)
 
     @property
     def salesforce_configured(self) -> bool:

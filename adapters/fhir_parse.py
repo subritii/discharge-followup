@@ -33,6 +33,10 @@ def first_coding(concept: Mapping[str, Any] | None) -> Coding:
     )
 
 
+def _optional_coding(concept: Mapping[str, Any] | None) -> Coding | None:
+    return first_coding(concept) if concept else None
+
+
 def _status_code(concept: Mapping[str, Any] | None) -> str | None:
     return first_coding(concept).code if concept else None
 
@@ -82,6 +86,9 @@ def parse_encounter(resource: Resource) -> Encounter:
         period_start=period.get("start"),
         period_end=period.get("end"),
         service_provider=resource.get("serviceProvider", {}).get("display"),
+        discharge_disposition=_optional_coding(
+            resource.get("hospitalization", {}).get("dischargeDisposition")
+        ),
     )
 
 

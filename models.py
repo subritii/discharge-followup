@@ -5,11 +5,17 @@ athenahealth) into these types, and nothing downstream sees raw FHIR.
 """
 
 from datetime import UTC, date, datetime
+from enum import StrEnum
 
 from pydantic import BaseModel, ConfigDict, field_validator
 
 # FHIR v3-ActCode encounter classes that count as a hospital stay or ER visit.
 HOSPITAL_CLASSES = frozenset({"IMP", "EMER"})
+
+
+def idempotency_key(encounter_id: str, discharge_time: datetime) -> str:
+    """Encounter id + discharge time (UTC, second precision)."""
+    return f"{encounter_id}|{discharge_time.astimezone(UTC).strftime('%Y-%m-%dT%H:%M:%SZ')}"
 
 
 class _Frozen(BaseModel):
@@ -48,6 +54,7 @@ class Encounter(_Frozen):
     period_start: datetime | None = None
     period_end: datetime | None = None
     service_provider: str | None = None
+    discharge_disposition: Coding | None = None
 
     @field_validator("period_start", "period_end")
     @classmethod
@@ -74,7 +81,7 @@ class Encounter(_Frozen):
         """
         if self.discharge_time is None:
             return None
-        return f"{self.id}|{self.discharge_time.strftime('%Y-%m-%dT%H:%M:%SZ')}"
+        return idempotency_key(self.id, self.discharge_time)
 
 
 class Condition(_Frozen):
@@ -96,3 +103,27 @@ class MedicationRequest(_Frozen):
     medication: Coding
     authored_on: datetime | None = None
     dosage_text: str | None = None
+
+
+class DischargeDestination(StrEnum):
+    HOME = "home"
+    SNF = "snf"
+    OTHER = "other"
+    UNKNOWN = "unknown"
+
+
+class DischargeNotice(_Frozen):
+    """One discharge episode. An ER visit that led to admission is folded into the IMP stay."""
+
+    patient_id: str
+    encounter_id: str  # the IMP encounter, or the ER encounter for a standalone ER visit
+    encounter_class: str
+    admit_time: datetime
+    discharge_time: datetime
+    destination: DischargeDestination = DischargeDestination.UNKNOWN
+    linked_er_encounter_id: str | None = None
+    reasons: tuple[Coding, ...] = ()
+
+    @property
+    def idempotency_key(self) -> str:
+        return idempotency_key(self.encounter_id, self.discharge_time)

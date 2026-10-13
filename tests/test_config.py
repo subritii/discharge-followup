@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 
 import pytest
@@ -20,6 +21,7 @@ ALL_VARS = [
     "SF_PASSWORD",
     "SF_SECURITY_TOKEN",
     "SF_DOMAIN",
+    "ER_ADMIT_MERGE_WINDOW_HOURS",
     "RETRY_DIR",
     "LOG_LEVEL",
 ]
@@ -38,6 +40,7 @@ def test_loads_from_env_example() -> None:
     assert settings.judge_model == "qwen2.5:7b"
     assert settings.retry_dir == Path("data/retry")
     assert not settings.salesforce_configured
+    assert settings.er_admit_merge_window == timedelta(hours=6)
 
 
 def test_missing_model_names_fail_loudly() -> None:
@@ -76,3 +79,14 @@ def test_salesforce_configured_when_all_set(monkeypatch: pytest.MonkeyPatch) -> 
     monkeypatch.setenv("SF_PASSWORD", "pw")
     monkeypatch.setenv("SF_SECURITY_TOKEN", "tok")
     assert Settings(_env_file=ENV_EXAMPLE).salesforce_configured
+
+
+def test_merge_window_configurable(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("ER_ADMIT_MERGE_WINDOW_HOURS", "2.5")
+    assert Settings(_env_file=ENV_EXAMPLE).er_admit_merge_window == timedelta(hours=2, minutes=30)
+
+
+def test_negative_merge_window_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("ER_ADMIT_MERGE_WINDOW_HOURS", "-1")
+    with pytest.raises(ValidationError):
+        Settings(_env_file=ENV_EXAMPLE)
