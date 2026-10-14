@@ -12,7 +12,7 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 | 5 | LACE-based triage rules (illustrative, pending clinical review) + deadlines | done |
 | 6 | One Ollama call (llama3.1:8b) -> stay summary + RN checklist; deterministic med diff, risk explanation and review flags | done |
 | 8 | Salesforce Case via simple-salesforce (client credentials), AI draft + due dates in custom fields, skip duplicates by idempotency key | done |
-| run | `run.py`: process fixtures end to end, cache drafts in data/drafts/, `--model` override, print a summary | |
+| run | `run.py`: process fixtures end to end, cache drafts in data/drafts/, `--model` override, print a summary | done |
 | smoke | `scripts/athena_smoke_test.py`: preview token + 3 FHIR encounters for practice 195900 | |
 | docs | README: problem, diagram, how to run, limitations, Version 2 list | |
 

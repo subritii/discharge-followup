@@ -77,6 +77,10 @@ class SyntheaAdapter:
         except KeyError:
             raise NotFoundError(f"Patient {patient_id}") from None
 
+    def patient_ids(self) -> list[str]:
+        """All patients in the directory (Synthea only; FHIR servers don't list patients)."""
+        return list(self._records)
+
     def get_patient(self, patient_id: str) -> Patient:
         return self._record(patient_id).patient
 
