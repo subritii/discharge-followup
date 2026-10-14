@@ -9,6 +9,7 @@ Free-text fields (`instructions`, `MedicationLine.dosage`) still need redaction
 (privacy/redactor.py), and the whole payload is checked by privacy/guard.py.
 """
 
+import re
 from collections.abc import Iterable
 from typing import Literal
 
@@ -21,7 +22,6 @@ from models import (
     DischargeNotice,
     MedChange,
     MedChangeKind,
-    RiskLevel,
     TriageResult,
 )
 
@@ -106,52 +106,40 @@ class TaskLine(_Strict):
 
 
 class TriageContext(_Strict):
-    """The parts of a TriageResult the LLM may see. No ids, no calendar dates."""
+    """The parts of a TriageResult the LLM may see: route, tasks, and non-risk notes.
+
+    No ids, no calendar dates, and no risk tier / LACE / Charlson: the risk explanation
+    is built deterministically (agent/risk_explanation.py), so the model has nothing to
+    misstate.
+    """
 
     route: CaseRoute
-    risk_level: RiskLevel | None
-    lace_total: int | None = None
-    lace_components: dict[str, int] | None = None
-    charlson_categories: tuple[str, ...] = ()
-    fired_rules: tuple[RuleLine, ...] = ()
+    notes: tuple[RuleLine, ...] = ()  # e.g. DESTINATION_UNVERIFIED
     tasks: tuple[TaskLine, ...] = ()
 
 
-TRIAGE_CONTEXT_FIELDS = frozenset(
-    {
-        "route",
-        "risk_level",
-        "lace_total",
-        "lace_components",
-        "charlson_categories",
-        "fired_rules",
-        "tasks",
-    }
-)
+TRIAGE_CONTEXT_FIELDS = frozenset({"route", "notes", "tasks"})
+
+# Rules that explain risk; kept out of the LLM input.
+RISK_RULE_PREFIXES = ("LACE_", "ER_")
+# Task wording like "within 14 calendar days (moderate risk)" would leak the tier.
+_RISK_IN_TEXT = re.compile(r"\s*\((?:high|moderate|low) risk\)", re.IGNORECASE)
 
 
 def triage_context(result: TriageResult) -> TriageContext:
-    lace = result.lace
     return TriageContext(
         route=result.route,
-        risk_level=result.risk_level,
-        lace_total=lace.total if lace else None,
-        lace_components=(
-            {
-                "length_of_stay_days": lace.length_of_stay_days,
-                "L": lace.l_points,
-                "A": lace.a_points,
-                "C": lace.c_points,
-                "E": lace.e_points,
-                "ed_visits_prior_6_months": lace.ed_visits_prior_6_months,
-            }
-            if lace
-            else None
+        notes=tuple(
+            RuleLine(id=r.id, detail=r.detail)
+            for r in result.fired_rules
+            if not r.id.startswith(RISK_RULE_PREFIXES)
         ),
-        charlson_categories=result.charlson.categories if result.charlson else (),
-        fired_rules=tuple(RuleLine(id=r.id, detail=r.detail) for r in result.fired_rules),
         tasks=tuple(
-            TaskLine(kind=t.kind.value, basis=t.basis, contacts_patient=t.contacts_patient)
+            TaskLine(
+                kind=t.kind.value,
+                basis=_RISK_IN_TEXT.sub("", t.basis),
+                contacts_patient=t.contacts_patient,
+            )
             for t in result.tasks
         ),
     )

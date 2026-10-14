@@ -2,7 +2,7 @@
 
 Each phase is testable on its own. Phase numbers are kept from the original proposal.
 
-## Milestone A: offline end-to-end (FHIR -> Salesforce Case via CLI)
+## Version 1 ("junior version"): fixtures -> AI draft -> Salesforce Case
 | Phase | Scope | Status |
 |---|---|---|
 | 0 | Scaffold: pyproject, config.py, .env.example, pytest | done |
@@ -10,25 +10,26 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 | 2 | FHIR discharge detection (class IMP/EMER + finished + period.end), ER->IMP merge, destination | done |
 | 3 | Data minimization (clinical-only LLM payload) + Presidio safety net + guard | done |
 | 5 | LACE-based triage rules (illustrative, pending clinical review) + deadlines | done |
-| 6 | One Ollama call (llama3.1:8b) -> summary + RN checklist; deterministic med diff | done |
-| 8 | Salesforce Case client + idempotency (encounter id + discharge time) | |
-| A | CLI pipeline (`python -m cli run <bundle>`), retry folder for failures | |
+| 6 | One Ollama call (llama3.1:8b) -> stay summary + RN checklist; deterministic med diff, risk explanation and review flags | done |
+| 8 | Salesforce Case via simple-salesforce (client credentials), AI draft + due dates in custom fields, skip duplicates by idempotency key | |
+| run | `run.py`: process fixtures end to end, cache drafts in data/drafts/, `--model` override, print a summary | |
+| smoke | `scripts/athena_smoke_test.py`: preview token + 3 FHIR encounters for practice 195900 | |
+| docs | README: problem, diagram, how to run, limitations, Version 2 list | |
 
-## Milestone B: routing, real data source, quality gate
-| Phase | Scope |
+## Version 2 (deferred)
+| Item | Scope |
 |---|---|
-| 10 | Salesforce Flow (built in Flow Builder): Community__c -> Queue, 2d/7d Tasks; export metadata; Field History Tracking on RN_Approved__c |
-| 11 | AthenaAdapter (FHIR R4 sandbox) + shared adapter contract tests |
-| 7 | LLM judge on qwen2.5:7b |
-| — | Dedup hardening (repeated / updated notices for the same encounter) |
-
-## Milestone C: breadth and polish
-| Phase | Scope |
-|---|---|
-| 2b | PDF intake (pdfplumber; OCR later) |
-| 4 | Patient matching (`matching/`) |
-| 9 | FastAPI endpoints |
-| 12 | Evals + docs (architecture, safety, README) |
+| Judge (Phase 7) | Second model (qwen2.5:7b) checks the draft against the payload before the Case is created |
+| Drug-interaction checks | e.g. antiplatelet switches (ticagrelor in hospital -> prasugrel at discharge), duplicate therapy, anticoagulant + antiplatelet. Today only the "started as needed" flag exists |
+| Med stop events | Hand-made fixtures with `status: stopped` / dose changes so stopped/changed meds can be detected (Synthea has none) |
+| PDF intake (Phase 2b) | pdfplumber; OCR later |
+| Patient matching (Phase 4) | `matching/`; synthetic MRNs independent of patient UUIDs |
+| Athena adapter (Phase 11) | FHIR R4 sandbox adapter + shared adapter contract tests; NUBC codes in disposition_map.yaml |
+| FastAPI (Phase 9) | HTTP endpoints for notices |
+| Evals (Phase 12) | Labeled synthetic discharges; triage accuracy, med-change precision/recall, redaction leak rate |
+| Salesforce Flow (Phase 10) | Community__c -> Queue routing, Tasks, Field History Tracking on RN_Approved__c; export metadata |
+| Left-against-advice rule | Separate routing for `aadvice` dispositions |
+| Retry folder | Failed notices written to RETRY_DIR for reprocessing |
 
 ## Phase notes
 
@@ -52,6 +53,16 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 - **Phase 11:** NUBC patient discharge status codes (e.g. `01` home, `03` SNF,
   `20` expired) get added to `library/disposition_map.yaml` as a new system. Config
   only, no code change (covered by `test_new_system_is_config_only`).
+
+### Phase 6: AI draft (done)
+- The model writes only the stay summary and the RN checklist. It never sees the risk
+  tier, LACE or Charlson (removed from its input, including task wording), and the
+  prompt says not to discuss risk.
+- Deterministic parts of the draft: med list (`agent/med_diff.py`), risk explanation
+  (`agent/risk_explanation.py`), review flags (`agent/review_flags.py`: newly started
+  meds with "as needed" instructions).
+- llama3.1:8b on an 8 GB M1: ~5-8 min per draft (swapping). `run.py` caches drafts in
+  `data/drafts/` keyed by idempotency key + model + prompt version.
 
 ### Phase 3: privacy (done)
 - See `docs/privacy.md`: allowlisted `LLMPayload`, Presidio on free text only

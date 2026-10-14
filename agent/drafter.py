@@ -1,8 +1,9 @@
-"""One LLM call: allowlisted payload + triage context -> summary and RN call checklist.
+"""One LLM call: allowlisted payload + triage context -> stay summary and RN checklist.
 
-The medication list in the draft is copied from the payload (agent/med_diff.py), not
-generated. The prompt and the model output are both checked against the patient's
-known identifiers.
+Everything else in the draft is deterministic: the medication list (agent/med_diff.py),
+the risk explanation (agent/risk_explanation.py) and the review flags
+(agent/review_flags.py). The prompt and the model output are both checked against the
+patient's known identifiers.
 """
 
 import json
@@ -13,6 +14,8 @@ from typing import Any, Protocol
 import yaml
 from pydantic import BaseModel, ConfigDict, Field
 
+from agent.review_flags import ReviewFlag, review_flags
+from agent.risk_explanation import explain_risk
 from models import TriageResult
 from privacy.guard import KnownIdentifiers, UnredactedIdentifierError
 from privacy.payload import LLMPayload, MedicationLine, NoAIDraftError, triage_context
@@ -31,9 +34,11 @@ class LLMDraft(BaseModel):
 class DraftPlan(BaseModel):
     model_config = ConfigDict(frozen=True)
 
-    summary: str
+    summary: str  # LLM: the stay and medication changes
+    risk_explanation: str  # deterministic, from TriageResult
     med_changes: tuple[MedicationLine, ...]  # deterministic, from the payload
-    rn_call_checklist: tuple[str, ...]
+    review_flags: tuple[ReviewFlag, ...]  # deterministic
+    rn_call_checklist: tuple[str, ...]  # LLM
     model: str
     prompt_version: str
     label: str = AI_DRAFT_LABEL
@@ -97,7 +102,9 @@ def draft_plan(
 
     return DraftPlan(
         summary=draft.summary.strip(),
+        risk_explanation=explain_risk(triage),
         med_changes=payload.medications,
+        review_flags=review_flags(payload.medications),
         rn_call_checklist=tuple(item.strip() for item in draft.rn_call_checklist if item.strip()),
         model=model_name,
         prompt_version=prompt.version,

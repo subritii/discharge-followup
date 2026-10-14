@@ -176,4 +176,6 @@ def test_triage_context_has_no_ids_or_dates(synthea: SyntheaAdapter) -> None:
     for value in (n.patient_id, n.encounter_id, n.linked_er_encounter_id, result.idempotency_key):
         assert value not in dumped  # type: ignore[operator]
     assert not re.search(r"\d{4}-\d{2}-\d{2}", dumped)
-    assert ctx.lace_total == 5 and ctx.risk_level == "moderate"
+    assert "lace" not in dumped.lower() and "moderate" not in dumped
+    assert [n.id for n in ctx.notes] == ["ROUTE_PATIENT_FOLLOW_UP", "DESTINATION_UNVERIFIED"]
+    assert [t.kind for t in ctx.tasks] == ["patient_contact", "follow_up_visit"]
