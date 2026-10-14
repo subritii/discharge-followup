@@ -27,6 +27,21 @@ from config import Settings  # noqa: E402
 TOKEN_CACHE = Path("data/.athena_token.json")
 SCOPES = "system/Patient.read system/Encounter.read"
 EXPIRY_MARGIN_SECONDS = 60
+# Guard against burning the API quota: at most one token request per run, and no
+# retry when the token endpoint refuses (e.g. 401 access_denied).
+MAX_TOKEN_REQUESTS_PER_RUN = 1
+_token_requests = 0
+
+
+def reset_token_budget() -> None:
+    global _token_requests
+    _token_requests = 0
+
+
+def token_requests_made() -> int:
+    return _token_requests
+
+
 DEFAULT_FAMILY_NAMES = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Test"]
 
 
@@ -93,6 +108,13 @@ def get_token(client: httpx.Client, settings: Settings, force_new: bool = False)
         return cached
     if not (settings.athena_client_id and settings.athena_client_secret):
         raise SmokeTestError("ATHENA_CLIENT_ID / ATHENA_CLIENT_SECRET are not set in .env")
+    global _token_requests
+    if _token_requests >= MAX_TOKEN_REQUESTS_PER_RUN:
+        raise SmokeTestError(
+            f"token request limit reached ({MAX_TOKEN_REQUESTS_PER_RUN} per run); "
+            "not requesting another token"
+        )
+    _token_requests += 1  # counted before sending: failed requests use quota too
     resp = client.post(
         f"{settings.athena_base_url}/oauth2/v1/token",
         data={"grant_type": "client_credentials", "scope": SCOPES},
@@ -125,11 +147,18 @@ def _outcome_text(body: dict[str, Any]) -> str:
     return "; ".join(i.get("diagnostics") or i.get("details", {}).get("text", "") for i in issues)
 
 
+def _looks_expired(resp: httpx.Response) -> bool:
+    text = f"{resp.headers.get('www-authenticate', '')} {resp.text[:500]}".lower()
+    return "expired" in text
+
+
 class Fhir:
     def __init__(self, client: httpx.Client, settings: Settings) -> None:
         self.client, self.settings = client, settings
         self.base = f"{settings.athena_base_url}/fhir/r4"
+        before = token_requests_made()
         self.token = get_token(client, settings)
+        self.token_from_cache = token_requests_made() == before
 
     def search(self, resource: str, params: dict[str, str]) -> list[dict[str, Any]]:
         for attempt in (1, 2):
@@ -141,11 +170,22 @@ class Fhir:
                     "Accept": "application/fhir+json",
                 },
             )
-            if resp.status_code == 401 and attempt == 1:
-                self.token = get_token(self.client, self.settings, force_new=True)
-                continue
+            # Retry once, and only for an expired token that came from the cache
+            # (so the refresh is this run's single token request).
+            if resp.status_code == 401 and attempt == 1 and self.token_from_cache:
+                if _looks_expired(resp):
+                    self.token = get_token(self.client, self.settings, force_new=True)
+                    self.token_from_cache = False
+                    continue
             break
         body = _json(resp)
+        if resp.status_code == 401:
+            detail = (
+                _outcome_text(body) or resp.headers.get("www-authenticate", "") or "unauthorized"
+            )
+            raise SmokeTestError(
+                f"{resource} search unauthorized (HTTP 401, not retried): {detail}"
+            )
         if resp.status_code == 403:
             detail = _outcome_text(body) or resp.headers.get("www-authenticate", "") or "forbidden"
             raise SmokeTestError(_scope_hint(f"{resource} search forbidden (HTTP 403): {detail}"))
@@ -176,6 +216,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--count", type=int, default=3)
     args = parser.parse_args(argv)
 
+    reset_token_budget()
     settings = Settings()
     if not settings.athena_base_url:
         print("ERROR: ATHENA_BASE_URL is not set in .env")

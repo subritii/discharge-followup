@@ -14,6 +14,7 @@ import athena_smoke_test as smoke  # noqa: E402
 from config import Settings  # noqa: E402
 
 SECRET, TOKEN = "s3cret-value", "tok-SHOULD-NOT-PRINT"
+EXPIRED_HEADER = 'Bearer error="invalid_token", error_description="token expired"'
 
 
 @pytest.fixture
@@ -32,7 +33,14 @@ def settings() -> Settings:
 def token_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     path = tmp_path / ".athena_token.json"
     monkeypatch.setattr(smoke, "TOKEN_CACHE", path)
+    smoke.reset_token_budget()
     return path
+
+
+def cache_valid_token(path: Path, token: str = "cached-tok") -> None:
+    path.write_text(
+        json.dumps({"access_token": token, "expires_at": 9e12, "scope_requested": smoke.SCOPES})
+    )
 
 
 def client(handler) -> httpx.Client:  # type: ignore[no-untyped-def]
@@ -158,3 +166,87 @@ def test_main_prints_three_encounters_and_no_secrets(
     enc_req = next(r for r in seen if r.url.path.endswith("/Encounter"))
     assert enc_req.url.params["ah-practice"] == "Organization/a-1.Practice-195900"
     assert enc_req.url.params["patient"] == "Patient/p1"
+
+
+# --- Quota guard ---------------------------------------------------------------------
+
+
+def test_at_most_one_token_request_per_run(settings: Settings) -> None:
+    posts: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        posts.append(request.method)
+        return httpx.Response(200, json={"access_token": TOKEN, "expires_in": 600})
+
+    with client(handler) as c:
+        smoke.get_token(c, settings)
+        with pytest.raises(smoke.SmokeTestError, match="limit reached"):
+            smoke.get_token(c, settings, force_new=True)
+    assert posts == ["POST"]
+
+
+def test_access_denied_is_not_retried(settings: Settings) -> None:
+    posts: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        posts.append(request.url.path)
+        return httpx.Response(
+            401, json={"error": "access_denied", "detailedmessage": "Policy evaluation failed"}
+        )
+
+    with client(handler) as c, pytest.raises(smoke.SmokeTestError, match="Policy evaluation"):
+        smoke.Fhir(c, settings)
+    assert posts == ["/oauth2/v1/token"]
+
+
+def test_fhir_401_not_expired_is_not_retried(settings: Settings, token_cache: Path) -> None:
+    cache_valid_token(token_cache)
+    calls: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(request.url.path)
+        return httpx.Response(401, headers={"www-authenticate": 'Bearer error="access_denied"'})
+
+    with client(handler) as c:
+        fhir = smoke.Fhir(c, settings)
+        with pytest.raises(smoke.SmokeTestError, match="not retried"):
+            fhir.search("Patient", {"family": "x"})
+    assert calls == ["/fhir/r4/Patient"]  # no token request at all
+
+
+def test_expired_cached_token_refreshed_once(settings: Settings, token_cache: Path) -> None:
+    cache_valid_token(token_cache, "stale")
+    calls: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(request.url.path)
+        if request.url.path.endswith("/token"):
+            return httpx.Response(200, json={"access_token": TOKEN, "expires_in": 600})
+        if request.headers["authorization"] == "Bearer stale":
+            return httpx.Response(
+                401,
+                headers={"www-authenticate": EXPIRED_HEADER},
+            )
+        return httpx.Response(200, json={"entry": []})
+
+    with client(handler) as c:
+        assert smoke.Fhir(c, settings).search("Patient", {"family": "x"}) == []
+    assert calls == ["/fhir/r4/Patient", "/oauth2/v1/token", "/fhir/r4/Patient"]
+
+
+def test_fresh_token_401_expired_not_refreshed_again(settings: Settings) -> None:
+    calls: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(request.url.path)
+        if request.url.path.endswith("/token"):
+            return httpx.Response(200, json={"access_token": TOKEN, "expires_in": 600})
+        return httpx.Response(
+            401, headers={"www-authenticate": 'Bearer error_description="expired"'}
+        )
+
+    with client(handler) as c:
+        fhir = smoke.Fhir(c, settings)
+        with pytest.raises(smoke.SmokeTestError, match="not retried"):
+            fhir.search("Patient", {"family": "x"})
+    assert calls.count("/oauth2/v1/token") == 1
