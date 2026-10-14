@@ -3,6 +3,7 @@
 import pytest
 
 from adapters.synthea import SyntheaAdapter
+from agent.med_diff import med_diff
 from detector.discharge import detect_for_patient
 from models import DischargeDestination
 from privacy.guard import KnownIdentifiers, UnredactedIdentifierError
@@ -27,7 +28,11 @@ def episode(adapter: SyntheaAdapter):  # type: ignore[no-untyped-def]
     ids = {n.encounter_id, n.linked_er_encounter_id}
     patient = adapter.get_patient(MED_CHANGES_ID)
     conditions = [c for c in adapter.get_conditions(MED_CHANGES_ID) if c.encounter_id in ids]
-    meds = [m for m in adapter.get_medication_requests(MED_CHANGES_ID) if m.encounter_id in ids]
+    meds = med_diff(
+        n,
+        adapter.get_medication_requests(MED_CHANGES_ID),
+        adapter.get_encounters(MED_CHANGES_ID),
+    )
     return n, patient, conditions, meds
 
 

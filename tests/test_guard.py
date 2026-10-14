@@ -5,7 +5,7 @@ from datetime import date
 
 import pytest
 
-from models import Address, DischargeDestination, Patient
+from models import Address, DischargeDestination, MedChangeKind, Patient
 from privacy.guard import KnownIdentifiers, UnredactedIdentifierError, assert_redacted
 from privacy.payload import LLMPayload, MedicationLine
 from privacy.redactor import Redactor
@@ -39,7 +39,11 @@ def payload(instructions: str | None = None, dosage: str | None = None) -> LLMPa
         destination=DischargeDestination.HOME,
         length_of_stay_days=2.0,
         diagnoses=("Heart failure (disorder)",),
-        medications=(MedicationLine(name="furosemide 40 MG Oral Tablet", dosage=dosage),),
+        medications=(
+            MedicationLine(
+                name="furosemide 40 MG Oral Tablet", dosage=dosage, change=MedChangeKind.STARTED
+            ),
+        ),
         instructions=instructions,
     )
 

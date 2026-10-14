@@ -109,6 +109,18 @@ class MedicationRequest(_Frozen):
     dosage_text: str | None = None
 
 
+class MedChangeKind(StrEnum):
+    STARTED = "started"  # ordered during the episode and still active
+    CONTINUED = "continued"  # active before the episode, not re-ordered during it
+    INPATIENT_ONLY = "inpatient_only"  # ordered during the episode, not continued
+
+
+class MedChange(_Frozen):
+    name: str
+    dosage: str | None = None
+    change: MedChangeKind
+
+
 class DischargeDestination(StrEnum):
     HOME = "home"
     SNF = "snf"

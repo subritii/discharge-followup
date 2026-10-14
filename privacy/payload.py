@@ -14,7 +14,16 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from models import Condition, DischargeDestination, DischargeNotice, MedicationRequest
+from models import (
+    CaseRoute,
+    Condition,
+    DischargeDestination,
+    DischargeNotice,
+    MedChange,
+    MedChangeKind,
+    RiskLevel,
+    TriageResult,
+)
 
 
 class _Strict(BaseModel):
@@ -24,6 +33,7 @@ class _Strict(BaseModel):
 class MedicationLine(_Strict):
     name: str
     dosage: str | None = None  # free text
+    change: MedChangeKind  # from agent/med_diff.py (deterministic)
 
 
 class LLMPayload(_Strict):
@@ -60,26 +70,88 @@ def _unique(values: Iterable[str | None]) -> tuple[str, ...]:
 def build_llm_payload(
     notice: DischargeNotice,
     diagnoses: Iterable[Condition],
-    medications: Iterable[MedicationRequest],
+    med_changes: Iterable[MedChange],
     instructions: str | None = None,
 ) -> LLMPayload:
-    """Select clinical fields only. Callers choose which conditions/meds are relevant."""
+    """Select clinical fields only. Callers choose which conditions are relevant;
+    `med_changes` comes from agent.med_diff."""
     if not notice.requires_patient_follow_up:
         reason = "deceased date unknown" if notice.deceased_date_unknown else "expired"
         raise NoAIDraftError(f"no AI draft: {reason}")
     stay = notice.discharge_time - notice.admit_time
-    meds = {
-        (m.medication.display, m.dosage_text): MedicationLine(
-            name=m.medication.display, dosage=m.dosage_text
-        )
-        for m in medications
-        if m.medication.display
-    }
     return LLMPayload(
         encounter_class=notice.encounter_class,  # type: ignore[arg-type]
         destination=notice.destination,
         length_of_stay_days=round(max(stay.total_seconds(), 0) / 86400, 1),
         diagnoses=_unique(c.code.display for c in diagnoses),
-        medications=tuple(meds.values()),
+        medications=tuple(
+            MedicationLine(name=m.name, dosage=m.dosage, change=m.change) for m in med_changes
+        ),
         instructions=instructions,
+    )
+
+
+# --- TriageResult, minus identifiers -----------------------------------------------
+
+
+class RuleLine(_Strict):
+    id: str
+    detail: str
+
+
+class TaskLine(_Strict):
+    kind: str
+    basis: str  # e.g. "2 business days after discharge" -- relative, never a date
+    contacts_patient: bool
+
+
+class TriageContext(_Strict):
+    """The parts of a TriageResult the LLM may see. No ids, no calendar dates."""
+
+    route: CaseRoute
+    risk_level: RiskLevel | None
+    lace_total: int | None = None
+    lace_components: dict[str, int] | None = None
+    charlson_categories: tuple[str, ...] = ()
+    fired_rules: tuple[RuleLine, ...] = ()
+    tasks: tuple[TaskLine, ...] = ()
+
+
+TRIAGE_CONTEXT_FIELDS = frozenset(
+    {
+        "route",
+        "risk_level",
+        "lace_total",
+        "lace_components",
+        "charlson_categories",
+        "fired_rules",
+        "tasks",
+    }
+)
+
+
+def triage_context(result: TriageResult) -> TriageContext:
+    lace = result.lace
+    return TriageContext(
+        route=result.route,
+        risk_level=result.risk_level,
+        lace_total=lace.total if lace else None,
+        lace_components=(
+            {
+                "length_of_stay_days": lace.length_of_stay_days,
+                "L": lace.l_points,
+                "A": lace.a_points,
+                "C": lace.c_points,
+                "E": lace.e_points,
+                "ed_visits_prior_6_months": lace.ed_visits_prior_6_months,
+            }
+            if lace
+            else None
+        ),
+        charlson_categories=result.charlson.categories if result.charlson else (),
+        fired_rules=tuple(RuleLine(id=r.id, detail=r.detail) for r in result.fired_rules),
+        tasks=tuple(
+            TaskLine(kind=t.kind.value, basis=t.basis, contacts_patient=t.contacts_patient)
+            for t in result.tasks
+        ),
     )

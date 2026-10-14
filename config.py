@@ -22,6 +22,9 @@ class Settings(BaseSettings):
 
     # Local LLMs (required: no defaults, so a missing value fails loudly)
     ollama_base_url: str = "http://localhost:11434"
+    # Generous by default: on an 8 GB machine llama3.1:8b swaps and one draft can take
+    # 15-20 minutes.
+    ollama_timeout_seconds: float = Field(default=600, gt=0)
     agent_model: str
     judge_model: str
 

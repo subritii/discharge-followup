@@ -10,7 +10,7 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 | 2 | FHIR discharge detection (class IMP/EMER + finished + period.end), ER->IMP merge, destination | done |
 | 3 | Data minimization (clinical-only LLM payload) + Presidio safety net + guard | done |
 | 5 | LACE-based triage rules (illustrative, pending clinical review) + deadlines | done |
-| 6 | Agent on Ollama llama3.1:8b; deterministic med diff | |
+| 6 | One Ollama call (llama3.1:8b) -> summary + RN checklist; deterministic med diff | done |
 | 8 | Salesforce Case client + idempotency (encounter id + discharge time) | |
 | A | CLI pipeline (`python -m cli run <bundle>`), retry folder for failures | |
 
