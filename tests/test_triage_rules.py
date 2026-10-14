@@ -9,7 +9,12 @@ import yaml
 from pydantic import ValidationError
 
 from agent.deadlines import BusinessCalendar, load_holidays
-from agent.triage_rules import DEFAULT_RULES_PATH, load_triage_rules, triage
+from agent.triage_rules import (
+    DECEASED_DATE_UNKNOWN_FLAG,
+    DEFAULT_RULES_PATH,
+    load_triage_rules,
+    triage,
+)
 from models import (
     CaseRoute,
     Coding,
@@ -179,6 +184,22 @@ def test_expired_gets_close_the_loop_only(notice: DischargeNotice) -> None:
     assert result.ai_draft_allowed is False
     assert result.risk_level is None and result.lace is None
     assert rule_ids(result) == ["ROUTE_EXPIRED"]
+
+
+@pytest.mark.parametrize("notice", [inpatient(14, emergent=True)[0], er_only()])
+def test_deceased_date_unknown_gets_single_rn_review(notice: DischargeNotice) -> None:
+    flagged = notice.model_copy(update={"deceased_date_unknown": True})
+    result = triage(flagged, [], [], CAL)
+    assert result.route is CaseRoute.DECEASED_STATUS_REVIEW
+    [review] = result.tasks
+    assert review.kind is TaskKind.RN_REVIEW
+    assert review.contacts_patient is False
+    assert review.due_date == date(2026, 10, 15)  # Wed discharge + 1 business day
+    assert result.ai_draft_allowed is False
+    [flag] = [r for r in result.fired_rules if r.id == "DECEASED_DATE_UNKNOWN"]
+    assert flag.detail == DECEASED_DATE_UNKNOWN_FLAG
+    assert flag.detail.startswith("Deceased status reported, date unknown")
+    assert result.risk_level is not None  # still scored, so the RN has context
 
 
 # --- ER-only: simple rules, not LACE --------------------------------------------------

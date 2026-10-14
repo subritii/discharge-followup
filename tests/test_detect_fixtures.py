@@ -118,3 +118,16 @@ def test_death_ten_days_after_discharge_is_not_expired(tmp_path: Path) -> None:
     [notice] = detect_for_patient(SyntheaAdapter(tmp_path), INPATIENT_ID)
     assert notice.destination == DischargeDestination.UNKNOWN
     assert notice.requires_patient_follow_up
+
+
+def test_deceased_boolean_without_date_flags_review(tmp_path: Path) -> None:
+    bundle = json.loads((SYNTHEA_FIXTURES / "inpatient.json").read_text())
+    for entry in bundle["entry"]:
+        if entry["resource"]["resourceType"] == "Patient":
+            entry["resource"]["deceasedBoolean"] = True
+    (tmp_path / "inpatient.json").write_text(json.dumps(bundle))
+
+    [notice] = detect_for_patient(SyntheaAdapter(tmp_path), INPATIENT_ID)
+    assert notice.destination == DischargeDestination.UNKNOWN  # not marked expired
+    assert notice.deceased_date_unknown is True
+    assert notice.requires_patient_follow_up is False

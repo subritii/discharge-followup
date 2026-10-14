@@ -65,7 +65,8 @@ def build_llm_payload(
 ) -> LLMPayload:
     """Select clinical fields only. Callers choose which conditions/meds are relevant."""
     if not notice.requires_patient_follow_up:
-        raise NoAIDraftError(f"no AI draft for destination={notice.destination.value}")
+        reason = "deceased date unknown" if notice.deceased_date_unknown else "expired"
+        raise NoAIDraftError(f"no AI draft: {reason}")
     stay = notice.discharge_time - notice.admit_time
     meds = {
         (m.medication.display, m.dosage_text): MedicationLine(

@@ -133,6 +133,11 @@ def test_expired_gets_no_ai_draft() -> None:
         build_llm_payload(notice(destination=DischargeDestination.EXPIRED), [], [])
 
 
+def test_deceased_date_unknown_gets_no_ai_draft() -> None:
+    with pytest.raises(NoAIDraftError):
+        build_llm_payload(notice(deceased_date_unknown=True), [], [])
+
+
 def test_length_of_stay_rounded_days() -> None:
     n = notice(discharge_time=T0 + timedelta(days=2, hours=7))
     assert build_llm_payload(n, [], []).length_of_stay_days == 2.3

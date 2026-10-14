@@ -35,6 +35,7 @@ Any rule firing → high, otherwise low:
 | home / unknown / other (inpatient) | patient follow-up | contact within 2 business days; visit within 7 days (high) or 14 (moderate, low) |
 | snf | facility coordination | facility coordination within 2 business days; **no patient call** |
 | expired (disposition `exp`, or death during the stay / within 3 days after) | close the loop | **no tasks, no AI draft**; informational case for the care team lead (not configurable) |
+| deceased flag with no date (`deceasedBoolean` only) | deceased status review | one RN review task (1 business day), **no patient contact, no AI draft**; flagged "Deceased status reported, date unknown — confirm before contacting" (not configurable) |
 | ER-only (home / unknown / other) | ER outreach | outreach within 3 business days (configurable) |
 | ER-only, snf | facility coordination | as snf |
 

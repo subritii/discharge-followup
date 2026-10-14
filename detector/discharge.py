@@ -56,6 +56,7 @@ def _notice(
         ),
         linked_er_encounter_id=linked_er.id if linked_er else None,
         reasons=primary.reasons,
+        deceased_date_unknown=bool(patient and patient.deceased and patient.deceased_at is None),
     )
 
 

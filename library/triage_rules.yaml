@@ -38,3 +38,4 @@ deadlines:
     low: 14
   facility_coordination_business_days: 2
   er_outreach_business_days: 3
+  rn_review_business_days: 1    # deceased flag with no date: RN confirms status

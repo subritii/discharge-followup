@@ -128,6 +128,9 @@ class DischargeNotice(_Frozen):
     destination: DischargeDestination = DischargeDestination.UNKNOWN
     linked_er_encounter_id: str | None = None
     reasons: tuple[Coding, ...] = ()
+    # Patient flagged deceased (deceasedBoolean) with no date: we can't tell whether the
+    # death relates to this stay, so a human confirms before anyone is contacted.
+    deceased_date_unknown: bool = False
 
     @property
     def idempotency_key(self) -> str:
@@ -135,12 +138,14 @@ class DischargeNotice(_Frozen):
 
     @property
     def requires_patient_follow_up(self) -> bool:
-        """False for expired patients: no patient-call tasks and no AI drafts.
+        """False when no patient-call tasks or AI drafts may be created.
 
-        These go to an informational "close the loop" case for the care team lead
-        instead (Phase 5 / Phase 10).
+        Expired -> informational close-the-loop case. Deceased with unknown date ->
+        single RN review task to confirm status first.
         """
-        return self.destination is not DischargeDestination.EXPIRED
+        return self.destination is not DischargeDestination.EXPIRED and not (
+            self.deceased_date_unknown
+        )
 
 
 # --- Triage (Phase 5) ----------------------------------------------------------------
@@ -157,6 +162,7 @@ class CaseRoute(StrEnum):
     FACILITY_COORDINATION = "facility_coordination"  # SNF: coordinate with facility
     CLOSE_THE_LOOP = "close_the_loop"  # expired: informational, care team lead
     ER_OUTREACH = "er_outreach"  # ER-only visit
+    DECEASED_STATUS_REVIEW = "deceased_status_review"  # deceased flag, no date: RN confirms
 
 
 class TaskKind(StrEnum):
@@ -164,6 +170,7 @@ class TaskKind(StrEnum):
     FOLLOW_UP_VISIT = "follow_up_visit"
     FACILITY_COORDINATION = "facility_coordination"
     ER_OUTREACH = "er_outreach"
+    RN_REVIEW = "rn_review"
 
 
 class FiredRule(_Frozen):

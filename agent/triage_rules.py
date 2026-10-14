@@ -7,7 +7,10 @@ Pathways:
   inpatient (IMP, incl. ER->IMP merged): LACE index -> high / moderate / low
   er (standalone EMER visit):            simple rules -> high / low, never LACE
 
-Hard rule (not configurable): expired -> close_the_loop, no tasks, no AI draft.
+Hard rules (not configurable):
+  expired -> close_the_loop, no tasks, no AI draft.
+  deceased with no date -> deceased_status_review: one RN review task, no patient
+  contact, no AI draft, flagged "Deceased status reported, date unknown".
 """
 
 from collections.abc import Iterable
@@ -38,6 +41,8 @@ DEFAULT_RULES_PATH = Path(__file__).resolve().parent.parent / "library" / "triag
 
 _ROUTABLE = {"home", "unknown", "other", "snf"}  # "expired" is handled in code
 
+DECEASED_DATE_UNKNOWN_FLAG = "Deceased status reported, date unknown — confirm before contacting"
+
 
 class _Config(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
@@ -60,6 +65,7 @@ class Deadlines(_Config):
     follow_up_visit_calendar_days: dict[RiskLevel, int]
     facility_coordination_business_days: int
     er_outreach_business_days: int
+    rn_review_business_days: int
 
 
 class TriageRules(_Config):
@@ -249,6 +255,21 @@ def triage(
         )
 
     tasks = _tasks_for(route, risk, discharge_day, calendar, rules.deadlines)
+    ai_draft_allowed = True
+    if notice.deceased_date_unknown:
+        # Scored as usual so the RN has the context, but nobody contacts the patient and
+        # no AI draft is made until the RN confirms the patient's status.
+        route, ai_draft_allowed = CaseRoute.DECEASED_STATUS_REVIEW, False
+        days = rules.deadlines.rn_review_business_days
+        tasks = (
+            TaskSpec(
+                kind=TaskKind.RN_REVIEW,
+                due_date=calendar.add_business_days(discharge_day, days),
+                basis=f"{days} business day(s) after discharge ({calendar.timezone.key})",
+                contacts_patient=False,
+            ),
+        )
+        fired.append(FiredRule(id="DECEASED_DATE_UNKNOWN", detail=DECEASED_DATE_UNKNOWN_FLAG))
     uncovered = sorted(
         {d.year for d in (discharge_day, *(t.due_date for t in tasks)) if not calendar.covers(d)}
     )
@@ -270,5 +291,5 @@ def triage(
         prior_ed_visit_ids=tuple(e.id for e in prior_ed),
         fired_rules=tuple(fired),
         tasks=tasks,
-        ai_draft_allowed=True,
+        ai_draft_allowed=ai_draft_allowed,
     )
