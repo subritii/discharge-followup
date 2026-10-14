@@ -19,8 +19,8 @@ ALL_VARS = [
     "AGENT_MODEL",
     "JUDGE_MODEL",
     "SF_USERNAME",
-    "SF_PASSWORD",
-    "SF_SECURITY_TOKEN",
+    "SF_CLIENT_ID",
+    "SF_CLIENT_SECRET",
     "SF_DOMAIN",
     "ER_ADMIT_MERGE_WINDOW_HOURS",
     "PRACTICE_TIMEZONE",
@@ -78,9 +78,9 @@ def test_invalid_adapter_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 def test_salesforce_configured_when_all_set(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("SF_USERNAME", "rn@example.dev")
-    monkeypatch.setenv("SF_PASSWORD", "pw")
-    monkeypatch.setenv("SF_SECURITY_TOKEN", "tok")
+    monkeypatch.setenv("SF_CLIENT_ID", "client-id")
+    monkeypatch.setenv("SF_CLIENT_SECRET", "client-s3cret")
+    monkeypatch.setenv("SF_DOMAIN", "acme-dev-ed.develop.my")
     assert Settings(_env_file=ENV_EXAMPLE).salesforce_configured
 
 
@@ -102,3 +102,33 @@ def test_practice_timezone_default_and_validation(monkeypatch: pytest.MonkeyPatc
     monkeypatch.setenv("PRACTICE_TIMEZONE", "Mars/Olympus_Mons")
     with pytest.raises(ValidationError, match="time zone"):
         Settings(_env_file=ENV_EXAMPLE)
+
+
+def test_salesforce_secret_masked_and_partial_config(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("SF_CLIENT_ID", "client-id")
+    monkeypatch.setenv("SF_CLIENT_SECRET", "client-s3cret")
+    settings = Settings(_env_file=ENV_EXAMPLE)
+    assert not settings.salesforce_configured  # no SF_DOMAIN yet
+    assert "client-s3cret" not in repr(settings)
+
+
+def test_blank_env_values_fall_back_to_defaults(tmp_path: Path) -> None:
+    env = tmp_path / ".env"
+    env.write_text("AGENT_MODEL=a\nJUDGE_MODEL=j\nADAPTER=\nSF_DOMAIN=\nLOG_LEVEL=\n")
+    settings = Settings(_env_file=env)
+    assert settings.adapter == "synthea"
+    assert settings.sf_domain is None
+    assert settings.log_level == "INFO"
+
+
+@pytest.mark.parametrize(
+    "raw",
+    [
+        "acme-dev-ed.develop.my",
+        "acme-dev-ed.develop.my.salesforce.com",
+        "https://acme-dev-ed.develop.my.salesforce.com/",
+    ],
+)
+def test_sf_domain_normalized(monkeypatch: pytest.MonkeyPatch, raw: str) -> None:
+    monkeypatch.setenv("SF_DOMAIN", raw)
+    assert Settings(_env_file=ENV_EXAMPLE).sf_domain == "acme-dev-ed.develop.my"

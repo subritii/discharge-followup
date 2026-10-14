@@ -11,7 +11,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    # env_ignore_empty: a blank line like `SF_DOMAIN=` in .env falls back to the default.
+    model_config = SettingsConfigDict(
+        env_file=".env", env_file_encoding="utf-8", extra="ignore", env_ignore_empty=True
+    )
 
     # Data source
     adapter: Literal["synthea", "athena"] = "synthea"
@@ -29,10 +32,13 @@ class Settings(BaseSettings):
     judge_model: str
 
     # Salesforce (optional here; the Salesforce client checks them when used)
-    sf_username: str | None = None
-    sf_password: SecretStr | None = None
-    sf_security_token: SecretStr | None = None
-    sf_domain: Literal["login", "test"] = "login"
+    # OAuth client credentials flow (External Client App / Connected App). SF_DOMAIN is
+    # the org's My Domain without ".salesforce.com", e.g. "acme-dev-ed.develop.my"; the
+    # client credentials flow does not work against login.salesforce.com.
+    sf_username: str | None = None  # optional; the client credentials flow doesn't use it
+    sf_client_id: str | None = None
+    sf_client_secret: SecretStr | None = None
+    sf_domain: str | None = None
 
     # Discharge detection: an IMP that starts within this many hours after an ER visit
     # ends (or overlaps it) is treated as the same episode.
@@ -56,6 +62,16 @@ class Settings(BaseSettings):
             raise ValueError(f"unknown IANA time zone: {value!r}") from None
         return value
 
+    @field_validator("sf_domain")
+    @classmethod
+    def _normalize_sf_domain(cls, value: str | None) -> str | None:
+        """Accept "https://x.my.salesforce.com/", "x.my.salesforce.com" or "x.my" -> "x.my"
+        (simple-salesforce appends ".salesforce.com" itself)."""
+        if value is None:
+            return None
+        value = value.strip().removeprefix("https://").removeprefix("http://").rstrip("/")
+        return value.removesuffix(".salesforce.com") or None
+
     @model_validator(mode="after")
     def _require_athena_credentials(self) -> "Settings":
         if self.adapter != "athena":
@@ -75,7 +91,7 @@ class Settings(BaseSettings):
 
     @property
     def salesforce_configured(self) -> bool:
-        return bool(self.sf_username and self.sf_password and self.sf_security_token)
+        return bool(self.sf_client_id and self.sf_client_secret and self.sf_domain)
 
 
 @lru_cache
