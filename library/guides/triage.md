@@ -27,6 +27,9 @@ LACE ≥ 10 → high, 5-9 → moderate, 0-4 → low.
 Any rule firing → high, otherwise low:
 - `ER_FREQUENT_USE`: ≥ 2 prior ED visits in 182 days
 - `ER_COMORBIDITY`: Charlson ≥ 2
+- `ER_OVERDOSE`: the ER visit's reason or diagnoses include overdose / poisoning
+  (SNOMED list in `triage_rules.yaml`, or "overdose"/"poisoning" in the text). Also adds
+  the review flag "ER visit for overdose — RN review".
 
 ## Routing and deadlines
 
@@ -46,6 +49,7 @@ Any rule firing → high, otherwise low:
   date moves **earlier** so the window is never exceeded.
 - `unknown` and `other` destinations fire `DESTINATION_UNVERIFIED`: the RN confirms
   before calling.
-- Due dates outside the holiday list's years fire `HOLIDAY_CALENDAR_MISSING`.
+- Due dates outside the holiday list's years (currently 2023-2027) fire
+  `HOLIDAY_CALENDAR_MISSING`.
 
 Every result lists its fired rules and the LACE components, so the RN can see why.

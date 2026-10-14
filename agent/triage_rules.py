@@ -26,11 +26,13 @@ from agent.deadlines import BusinessCalendar
 from agent.lace import compute_lace, prior_ed_visits
 from models import (
     CaseRoute,
+    Coding,
     Condition,
     DischargeDestination,
     DischargeNotice,
     Encounter,
     FiredRule,
+    ReviewFlag,
     RiskLevel,
     TaskKind,
     TaskSpec,
@@ -41,6 +43,7 @@ DEFAULT_RULES_PATH = Path(__file__).resolve().parent.parent / "library" / "triag
 
 _ROUTABLE = {"home", "unknown", "other", "snf"}  # "expired" is handled in code
 
+ER_OVERDOSE_FLAG = "ER visit for overdose — RN review"
 DECEASED_DATE_UNKNOWN_FLAG = "Deceased status reported, date unknown — confirm before contacting"
 
 
@@ -58,6 +61,17 @@ class ErRules(_Config):
     frequent_ed_visits_min: int
     charlson_min: int
     ed_lookback_days: int
+    overdose_snomed: tuple[str, ...]
+    overdose_keywords: tuple[str, ...]
+
+    def overdose_diagnosis(self, codings: Iterable[Coding]) -> Coding | None:
+        for coding in codings:
+            display = (coding.display or "").lower()
+            if coding.code in self.overdose_snomed or any(
+                k in display for k in self.overdose_keywords
+            ):
+                return coding
+        return None
 
 
 class Deadlines(_Config):
@@ -183,6 +197,7 @@ def triage(
         )
 
     fired: list[FiredRule] = []
+    flags: list[ReviewFlag] = []
     # The episode starts at ER arrival when the admission came through the ER.
     linked_er = next((e for e in encounters if e.id == notice.linked_er_encounter_id), None)
     episode_start = (linked_er.period_start if linked_er else None) or notice.admit_time
@@ -235,6 +250,20 @@ def triage(
                     f"(threshold {rules.er.charlson_min})",
                 )
             )
+        visit_dx = [
+            *notice.reasons,
+            *(c.code for c in conditions if c.encounter_id == notice.encounter_id),
+        ]
+        overdose = rules.er.overdose_diagnosis(visit_dx)
+        if overdose is not None:
+            risk = RiskLevel.HIGH
+            fired.append(
+                FiredRule(
+                    id="ER_OVERDOSE",
+                    detail=f"ER visit for overdose/poisoning ({overdose.display or overdose.code})",
+                )
+            )
+            flags.append(ReviewFlag(id="ER_OVERDOSE", detail=ER_OVERDOSE_FLAG))
         if risk is RiskLevel.LOW:
             fired.append(FiredRule(id="ER_STANDARD", detail="No ER risk rule fired"))
 
@@ -290,6 +319,7 @@ def triage(
         charlson=charlson,
         prior_ed_visit_ids=tuple(e.id for e in prior_ed),
         fired_rules=tuple(fired),
+        review_flags=tuple(flags),
         tasks=tasks,
         ai_draft_allowed=ai_draft_allowed,
     )

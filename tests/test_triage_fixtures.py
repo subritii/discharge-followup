@@ -59,15 +59,18 @@ def test_real_high_risk_stay(high_risk: list[TriageResult]) -> None:
     assert stay.discharge_local_date == date(2023, 12, 17)
     assert due(stay, TaskKind.PATIENT_CONTACT) == date(2023, 12, 19)
     assert due(stay, TaskKind.FOLLOW_UP_VISIT) == date(2023, 12, 22)
-    # Holidays file starts in 2025, so the RN is told the calendar has a gap.
-    assert "HOLIDAY_CALENDAR_MISSING" in [r.id for r in stay.fired_rules]
+    # Holidays file covers 2023, so no calendar-gap warning.
+    assert "HOLIDAY_CALENDAR_MISSING" not in [r.id for r in stay.fired_rules]
 
 
 def test_real_er_visit_counts_only_window(high_risk: list[TriageResult]) -> None:
     may = next(r for r in high_risk if r.encounter_id == HIGH_RISK_ER_2026_MAY)
     assert may.pathway == "er"
     assert may.prior_ed_visit_ids == (HIGH_RISK_ER_2026_APR,)  # the 2023 visits are too old
-    assert may.risk_level is RiskLevel.LOW  # 1 prior visit < threshold 2
+    # 1 prior visit < frequent-use threshold 2, but the visit was for an overdose.
+    assert may.risk_level is RiskLevel.HIGH
+    assert [r.id for r in may.fired_rules if r.id.startswith("ER_")] == ["ER_OVERDOSE"]
+    assert [f.detail for f in may.review_flags] == ["ER visit for overdose \u2014 RN review"]
     assert may.discharge_local_date == date(2026, 5, 10)  # 03:29 MDT = Sun 04:29 CDT
     assert due(may, TaskKind.ER_OUTREACH) == date(2026, 5, 13)
 
@@ -96,3 +99,16 @@ def test_er_only_visit(synthea: SyntheaAdapter) -> None:
     assert result.pathway == "er" and result.lace is None
     assert result.route is CaseRoute.ER_OUTREACH
     assert due(result, TaskKind.ER_OUTREACH) == date(2025, 7, 9)  # Sat -> Mon, Tue, Wed
+
+
+def test_all_three_overdose_er_visits_flagged(high_risk: list[TriageResult]) -> None:
+    er_visits = [r for r in high_risk if r.pathway == "er" and r.discharge_local_date.year >= 2023]
+    assert len(er_visits) == 3
+    assert all(r.risk_level is RiskLevel.HIGH for r in er_visits)
+    assert all(f.id == "ER_OVERDOSE" for r in er_visits for f in r.review_flags)
+
+
+def test_sprain_er_visit_not_flagged(synthea: SyntheaAdapter) -> None:
+    [result] = triage_all(synthea, ER_ID)
+    assert result.risk_level is RiskLevel.LOW
+    assert result.review_flags == ()

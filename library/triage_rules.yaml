@@ -15,6 +15,15 @@ er:
   frequent_ed_visits_min: 2    # prior ED visits in the lookback, excluding this one
   charlson_min: 2              # chronic comorbidity burden
   ed_lookback_days: 182
+  # ER visit for overdose / poisoning -> high + RN review flag. Matched on the ER
+  # encounter's reasonCode and its Conditions: SNOMED code, or keyword in the display
+  # text (for sources without SNOMED). Illustrative code list, pending clinical review.
+  overdose_snomed:
+    - "1149222004"   # Overdose (disorder) -- used by Synthea
+    - "55680006"     # Drug overdose
+    - "75478009"     # Poisoning
+    - "7895008"      # Poisoning caused by drug AND/OR medicinal substance
+  overdose_keywords: ["overdose", "poisoning"]
 
 # Destination -> route, per pathway. "expired" is not configurable: it always goes to
 # close_the_loop with no patient contact (enforced in code).

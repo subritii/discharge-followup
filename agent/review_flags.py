@@ -3,19 +3,10 @@
 import re
 from collections.abc import Iterable
 
-from pydantic import BaseModel, ConfigDict
-
-from models import MedChangeKind
+from models import MedChangeKind, ReviewFlag
 from privacy.payload import MedicationLine
 
 _AS_NEEDED = re.compile(r"\b(as needed|prn)\b", re.IGNORECASE)
-
-
-class ReviewFlag(BaseModel):
-    model_config = ConfigDict(frozen=True)
-
-    id: str
-    detail: str
 
 
 def review_flags(medications: Iterable[MedicationLine]) -> tuple[ReviewFlag, ...]:

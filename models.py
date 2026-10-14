@@ -192,6 +192,13 @@ class FiredRule(_Frozen):
     detail: str
 
 
+class ReviewFlag(_Frozen):
+    """Something the RN must check by hand (rules, not AI)."""
+
+    id: str
+    detail: str
+
+
 class CharlsonResult(_Frozen):
     score: int
     categories: tuple[str, ...]  # after hierarchy (e.g. complicated diabetes supersedes)
@@ -230,6 +237,7 @@ class TriageResult(_Frozen):
     charlson: CharlsonResult | None = None
     prior_ed_visit_ids: tuple[str, ...] = ()
     fired_rules: tuple[FiredRule, ...] = ()
+    review_flags: tuple[ReviewFlag, ...] = ()
     tasks: tuple[TaskSpec, ...] = ()
     discharge_local_date: date
     timezone: str

@@ -12,6 +12,7 @@ from agent.deadlines import BusinessCalendar, load_holidays
 from agent.triage_rules import (
     DECEASED_DATE_UNKNOWN_FLAG,
     DEFAULT_RULES_PATH,
+    ER_OVERDOSE_FLAG,
     load_triage_rules,
     triage,
 )
@@ -241,6 +242,60 @@ def test_er_outreach_deadline_configurable(tmp_path: Path) -> None:
     path.write_text(yaml.safe_dump(data))
     result = triage(er_only(), [], [], CAL, rules=load_triage_rules(path))
     assert task(result, TaskKind.ER_OUTREACH).due_date == date(2026, 10, 15)
+
+
+def overdose_notice(reason: Coding | None = None) -> DischargeNotice:
+    return er_only().model_copy(update={"reasons": (reason,) if reason else ()})
+
+
+def test_er_overdose_by_condition_code() -> None:
+    dx = Condition(
+        id="od",
+        patient_id="p",
+        encounter_id="er",
+        code=Coding(system=SNOMED, code="1149222004", display="Overdose (disorder)"),
+    )
+    result = triage(er_only(), [], [dx], CAL)
+    assert result.risk_level is RiskLevel.HIGH
+    assert "ER_OVERDOSE" in rule_ids(result)
+    assert "ER_STANDARD" not in rule_ids(result)
+    [flag] = result.review_flags
+    assert flag.id == "ER_OVERDOSE" and flag.detail == ER_OVERDOSE_FLAG
+
+
+@pytest.mark.parametrize(
+    "reason",
+    [
+        Coding(display="Accidental poisoning by acetaminophen"),  # keyword, no code
+        Coding(system=SNOMED, code="55680006"),  # code, no display
+    ],
+)
+def test_er_overdose_by_reason(reason: Coding) -> None:
+    result = triage(overdose_notice(reason), [], [], CAL)
+    assert result.risk_level is RiskLevel.HIGH and result.review_flags
+
+
+def test_overdose_on_another_encounter_does_not_count() -> None:
+    old = Condition(
+        id="od",
+        patient_id="p",
+        encounter_id="older-visit",
+        code=Coding(system=SNOMED, code="1149222004", display="Overdose (disorder)"),
+    )
+    result = triage(er_only(), [], [old], CAL)
+    assert result.risk_level is RiskLevel.LOW and result.review_flags == ()
+
+
+def test_overdose_rule_is_er_only() -> None:
+    notice, encounters = inpatient(1)
+    dx = Condition(
+        id="od",
+        patient_id="p",
+        encounter_id="imp",
+        code=Coding(system=SNOMED, code="1149222004", display="Overdose (disorder)"),
+    )
+    result = triage(notice, encounters, [dx], CAL)
+    assert result.review_flags == () and "ER_OVERDOSE" not in rule_ids(result)
 
 
 # --- Rules file -----------------------------------------------------------------------

@@ -104,7 +104,7 @@ def draft_plan(
         summary=draft.summary.strip(),
         risk_explanation=explain_risk(triage),
         med_changes=payload.medications,
-        review_flags=review_flags(payload.medications),
+        review_flags=(*triage.review_flags, *review_flags(payload.medications)),
         rn_call_checklist=tuple(item.strip() for item in draft.rn_call_checklist if item.strip()),
         model=model_name,
         prompt_version=prompt.version,

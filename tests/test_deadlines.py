@@ -61,6 +61,13 @@ def test_dst_fall_back_night() -> None:
         (datetime(2027, 1, 15, 22, 45, tzinfo=CST), date(2027, 1, 20), "Fri night + MLK Mon"),
         (datetime(2026, 9, 4, 23, 0, tzinfo=CDT), date(2026, 9, 9), "Fri night + Labor Day"),
         (datetime(2026, 7, 2, 10, 0, tzinfo=CDT), date(2026, 7, 7), "Jul 4 observed Fri Jul 3"),
+        (datetime(2023, 9, 1, 10, 0, tzinfo=CDT), date(2023, 9, 6), "Labor Day 2023 (Mon 9/4)"),
+        (datetime(2024, 11, 27, 10, 0, tzinfo=CST), date(2024, 12, 2), "Thanksgiving 2024"),
+        (
+            datetime(2023, 12, 22, 22, 0, tzinfo=CST),
+            date(2023, 12, 27),
+            "Fri night + Christmas Mon",
+        ),
     ],
 )
 def test_holiday_discharges(discharged: datetime, due: date, why: str) -> None:
@@ -97,6 +104,7 @@ def test_invalid_holidays_file(tmp_path: Path) -> None:
 
 
 def test_holiday_coverage() -> None:
+    assert CHICAGO.covers(date(2023, 1, 1)) and CHICAGO.covers(date(2024, 7, 1))
     assert CHICAGO.covers(date(2026, 5, 1))
     assert not CHICAGO.covers(date(2028, 5, 1))
 

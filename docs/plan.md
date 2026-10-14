@@ -29,6 +29,7 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 | Evals (Phase 12) | Labeled synthetic discharges; triage accuracy, med-change precision/recall, redaction leak rate |
 | Salesforce Flow (Phase 10) | Community__c -> Queue routing, Tasks, Field History Tracking on RN_Approved__c; export metadata |
 | Left-against-advice rule | Separate routing for `aadvice` dispositions |
+| Broader ER rule review | Clinical review of the ER-only rules (today: frequent use, comorbidity, overdose); e.g. repeat overdoses, falls in older adults, chest pain |
 | Retry folder | Failed notices written to RETRY_DIR for reprocessing |
 
 ## Phase notes
@@ -87,6 +88,11 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 - Synthea rarely produces high LACE: 6 of 138 scored inpatient discharges in the
   49-patient run (fixture `high_risk` is one). High-risk paths are mostly covered by
   constructed tests.
+- ER_OVERDOSE (added after the first full run): an ER visit with an overdose/poisoning
+  diagnosis is high risk and gets an RN review flag. Cases are never updated, so Cases
+  created before this rule (e.g. the three overdose ER visits in `high_risk`, created
+  as low risk) keep their original values; only new runs use the rule.
+- Holidays cover 2023-2027.
 - Phase 10: expired -> close-the-loop case for the care team lead; SNF -> facility
   coordination queue.
 

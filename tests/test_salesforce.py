@@ -248,3 +248,35 @@ def test_format_ai_draft_truncates() -> None:
 
 def test_llm_draft_schema_reexported() -> None:
     assert LLMDraft.model_fields.keys() == {"summary", "rn_call_checklist"}
+
+
+def test_cached_draft_gets_current_deterministic_parts(
+    pipeline_parts: dict[str, Any], tmp_path: Path
+) -> None:
+    from tests.conftest import HIGH_RISK_ER_2026_MAY, HIGH_RISK_ID
+
+    llm = StubLLM(GOOD)
+    pipe = make_pipeline(pipeline_parts, tmp_path, None, llm)
+    first = next(
+        o
+        for o in pipe.process_patient(HIGH_RISK_ID)
+        if o.notice.encounter_id == HIGH_RISK_ER_2026_MAY
+    )
+    assert first.draft is not None
+    assert [f.id for f in first.draft.review_flags] == ["ER_OVERDOSE"]
+    # Simulate a draft cached before the overdose rule existed.
+    stale = first.draft.model_copy(update={"review_flags": (), "risk_explanation": "old"})
+    pipe.cache.put(first.triage.idempotency_key, stale)  # type: ignore[union-attr]
+    llm.messages = []
+    again = next(
+        o
+        for o in pipe.process_patient(HIGH_RISK_ID)
+        if o.notice.encounter_id == HIGH_RISK_ER_2026_MAY
+    )
+    assert again.draft_from_cache and llm.messages == []
+    assert again.draft is not None
+    assert [f.id for f in again.draft.review_flags] == ["ER_OVERDOSE"]
+    assert again.draft.risk_explanation.startswith(
+        "High risk (ER visit rules, not LACE): ER_OVERDOSE"
+    )
+    assert "ER visit for overdose" in format_ai_draft(again.draft)

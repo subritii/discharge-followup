@@ -13,6 +13,8 @@ from agent.deadlines import BusinessCalendar
 from agent.draft_cache import DraftCache
 from agent.drafter import DraftPlan, Prompt, StructuredChatModel, draft_plan
 from agent.med_diff import med_diff
+from agent.review_flags import review_flags
+from agent.risk_explanation import explain_risk
 from agent.triage_rules import triage
 from detector.discharge import detect_for_patient
 from models import DischargeNotice, TriageResult
@@ -53,7 +55,14 @@ class Pipeline:
     def _draft(self, notice: DischargeNotice, result: TriageResult) -> tuple[DraftPlan, bool]:
         cached = self.cache.get(result.idempotency_key, self.model_name, self.prompt.version)
         if cached is not None:
-            return cached, True
+            # Only the LLM text is reused; deterministic parts follow the current rules.
+            refreshed = cached.model_copy(
+                update={
+                    "risk_explanation": explain_risk(result),
+                    "review_flags": (*result.review_flags, *review_flags(cached.med_changes)),
+                }
+            )
+            return refreshed, True
         pid = notice.patient_id
         patient = self.adapter.get_patient(pid)
         encounters = self.adapter.get_encounters(pid)
