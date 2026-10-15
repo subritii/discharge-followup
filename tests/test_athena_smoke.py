@@ -250,3 +250,74 @@ def test_fresh_token_401_expired_not_refreshed_again(settings: Settings) -> None
         with pytest.raises(smoke.SmokeTestError, match="not retried"):
             fhir.search("Patient", {"family": "x"})
     assert calls.count("/oauth2/v1/token") == 1
+
+
+# --- REST fallback -------------------------------------------------------------------
+
+
+DEPARTMENTS = {
+    "totalcount": 3,
+    "departments": [
+        {"departmentid": "1", "name": "Cardiology", "city": "Boston", "state": "MA"},
+        {"departmentid": "21", "name": "Primary Care", "state": "MA"},
+        {"departmentid": "150", "name": "Telehealth"},
+    ],
+}
+
+
+def test_rest_mode_lists_departments(
+    settings: Settings, monkeypatch: pytest.MonkeyPatch, token_cache: Path, capsys
+) -> None:  # type: ignore[no-untyped-def]
+    monkeypatch.setattr(smoke, "Settings", lambda: settings)
+    seen: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request)
+        if request.url.path.endswith("/token"):
+            assert b"Athenanet.MDP" in request.content
+            return httpx.Response(
+                200, json={"access_token": TOKEN, "expires_in": 3600, "scope": smoke.REST_SCOPE}
+            )
+        return httpx.Response(200, json=DEPARTMENTS)
+
+    real_client = httpx.Client
+    monkeypatch.setattr(
+        smoke.httpx, "Client", lambda **kw: real_client(transport=httpx.MockTransport(handler))
+    )
+    assert smoke.main(["--mode", "rest"]) == 0
+    out = capsys.readouterr().out
+    assert "practice 195900: 3 department(s)" in out
+    assert "Cardiology  (Boston, MA)" in out and "Telehealth" in out
+    assert TOKEN not in out and SECRET not in out
+    assert [r.url.path for r in seen] == ["/oauth2/v1/token", "/v1/195900/departments"]
+    assert json.loads(token_cache.read_text())["scope_requested"] == smoke.REST_SCOPE
+
+
+def test_tokens_cached_per_scope(settings: Settings, token_cache: Path) -> None:
+    cache_valid_token(token_cache)  # FHIR-scope token
+    posts: list[bytes] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        posts.append(request.content)
+        return httpx.Response(200, json={"access_token": TOKEN, "expires_in": 600})
+
+    with client(handler) as c:
+        assert smoke.get_token(c, settings) == "cached-tok"  # FHIR: from cache
+        assert smoke.get_token(c, settings, scope=smoke.REST_SCOPE) == TOKEN  # REST: requested
+    assert len(posts) == 1
+
+
+def test_rest_refused_mentions_mdp_scope(settings: Settings) -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.path.endswith("/token"):
+            return httpx.Response(200, json={"access_token": TOKEN, "expires_in": 600})
+        return httpx.Response(403, json={"error": "Forbidden"})
+
+    with client(handler) as c, pytest.raises(smoke.SmokeTestError, match="Athenanet.MDP"):
+        smoke.list_departments(c, settings, "195900")
+
+
+def test_summary_truncates() -> None:
+    body = {"departments": [{"departmentid": str(i), "name": f"D{i}"} for i in range(8)]}
+    text = smoke.summarize_departments(body, "195900")
+    assert "8 department(s)" in text and "... and 3 more" in text
