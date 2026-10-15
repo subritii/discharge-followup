@@ -14,7 +14,7 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
 | 8 | Salesforce Case via simple-salesforce (client credentials), AI draft + due dates in custom fields, skip duplicates by idempotency key | done |
 | run | `run.py`: process fixtures end to end, cache drafts in data/drafts/, `--model` override, print a summary | done |
 | smoke | `scripts/athena_smoke_test.py`: preview token + 3 FHIR encounters for practice 195900 | done: REST fallback works (33 departments); FHIR mode waits on system/*.read scopes |
-| docs | README: problem, diagram, how to run, limitations, Version 2 list | |
+| docs | README: problem, diagram, how to run, limitations, Version 2 list | done |
 
 ## Version 2 (deferred)
 | Item | Scope |
