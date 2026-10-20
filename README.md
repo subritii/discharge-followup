@@ -147,15 +147,34 @@ cp .env.example .env         # then fill in the values
 
 ```bash
 uv run python run.py                               # all fixtures -> drafts -> Salesforce Cases
-uv run python run.py --dry-run                     # no Salesforce
+uv run python run.py --dry-run                     # no Salesforce; prints each Case payload
+uv run python run.py --dry-run --offline --drafts demo/drafts   # demo: no Ollama, no secrets
 uv run python run.py --model llama3.2:3b --dry-run # compare another local model
 uv run python scripts/create_case.py <patient_id>  # one patient
 uv run python scripts/athena_smoke_test.py --mode rest   # athenaOne REST (works today)
 uv run python scripts/athena_smoke_test.py               # FHIR mode (needs system scopes)
 
-uv run pytest                    # 320 unit tests, no network, stub LLM
+uv run pytest                    # 323 unit tests, no network, stub LLM
 uv run pytest -m integration     # 1 test against real Ollama (~5 min)
 ```
+
+**Docker:**
+
+```bash
+docker compose run --rm app      # demo mode: saved drafts + Salesforce dry run, no secrets
+
+# full mode: live Ollama + Salesforce; .env is read at runtime, never copied into the image
+docker compose --profile ollama up -d ollama
+docker compose exec ollama ollama pull llama3.1:8b
+APP_ENV_FILE=.env docker compose run --rm app python run.py
+```
+
+Demo mode reads `demo/demo.env` (model names only) and the committed drafts in
+`demo/drafts/`, which are the same synthetic drafts `llama3.1:8b` produced locally.
+It uses saved drafts because **Ollama in Docker on a Mac is CPU-only**: Docker can't
+use the Apple GPU (Metal), so one `llama3.1:8b` draft can take many minutes. On a Mac,
+native Ollama is faster. To use it from the container, add
+`DOCKER_OLLAMA_URL=http://host.docker.internal:11434` to the full-mode command.
 
 ---
 
@@ -187,7 +206,7 @@ The 2025-05-22 contact is due on the 27th because Memorial Day falls on the 26th
 |---|---|
 | Full Synthea run (49 patients) | **306** qualifying hospital/ER encounters → **287** discharge notices after merging **19** ER→admission pairs |
 | Expired-patient rule | Close-the-loop cases fixed from **190 → 3** once "deceased" was limited to deaths during the stay or within 3 days after |
-| Tests | **320** unit tests + 1 live-LLM integration test |
+| Tests | **323** unit tests + 1 live-LLM integration test |
 | Fixtures | 5 patients trimmed from real Synthea v4.0.0 output (seeded, reproducible), each < 100 KB |
 
 ---
@@ -275,5 +294,7 @@ library/      rules (YAML), prompts, holidays, guides for clinical reviewers
 pipeline.py   one patient end to end      run.py   all fixtures + summary
 scripts/      create_case.py, athena_smoke_test.py, make_fixtures.py
 docs/         plan.md (build log, decisions), privacy.md
-tests/        320 unit tests + fixtures (trimmed Synthea v4.0.0)
+tests/        323 unit tests + fixtures (trimmed Synthea v4.0.0)
+demo/         saved synthetic drafts + secret-free settings for demo mode
+Dockerfile, docker-compose.yml   app + optional Ollama (profile "ollama")
 ```

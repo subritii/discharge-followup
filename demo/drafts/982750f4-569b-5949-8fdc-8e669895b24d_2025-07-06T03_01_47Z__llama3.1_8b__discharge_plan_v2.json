@@ -1,0 +1,23 @@
+{
+  "summary": "The patient was hospitalized for a sprain of the wrist. They were discharged after a brief stay. The patient was given Naproxen sodium 220 MG Oral Tablet as needed, which was only available in the hospital.",
+  "risk_explanation": "Low risk (ER visit rules, not LACE): no ER risk rule fired.",
+  "med_changes": [
+    {
+      "name": "Naproxen sodium 220 MG Oral Tablet",
+      "dosage": "Take as needed.",
+      "change": "inpatient_only"
+    }
+  ],
+  "review_flags": [],
+  "rn_call_checklist": [
+    "Confirm where the patient was discharged to.",
+    "Review the patient's understanding of taking Naproxen sodium 220 MG Oral Tablet as needed.",
+    "Ask about the patient's symptoms and if they are experiencing any pain or discomfort.",
+    "Check if the patient has any questions or concerns about their care.",
+    "Schedule a follow-up visit within the next 3 business days, skipping weekends and holidays.",
+    "Review the patient's plan for managing their sprain of the wrist."
+  ],
+  "model": "llama3.1:8b",
+  "prompt_version": "discharge_plan@v2",
+  "label": "AI draft — requires RN review and approval. Not sent to the patient."
+}

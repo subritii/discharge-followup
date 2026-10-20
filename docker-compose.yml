@@ -1,0 +1,31 @@
+# Demo (no secrets, no Ollama, no Salesforce; reads demo/demo.env, never .env):
+#   docker compose run --rm app
+# Full mode (live Ollama + Salesforce; your .env is read at runtime, never baked in):
+#   docker compose --profile ollama up -d ollama
+#   docker compose exec ollama ollama pull llama3.1:8b
+#   APP_ENV_FILE=.env docker compose run --rm app python run.py
+# Ollama in Docker on a Mac is CPU-only (no Metal GPU), so a draft can take many minutes;
+# to use a native Ollama instead, also set DOCKER_OLLAMA_URL=http://host.docker.internal:11434.
+
+services:
+  app:
+    build: .
+    image: discharge-followup:local
+    env_file:
+      - ${APP_ENV_FILE:-demo/demo.env}
+    environment:
+      # Overrides the env file: inside the container "localhost" is the container itself.
+      OLLAMA_BASE_URL: ${DOCKER_OLLAMA_URL:-http://ollama:11434}
+    volumes:
+      - ./data:/app/data  # draft cache and retry folder survive between runs
+
+  ollama:
+    profiles: ["ollama"]
+    image: ollama/ollama:0.12.6
+    volumes:
+      - ollama:/root/.ollama
+    ports:
+      - "11434:11434"
+
+volumes:
+  ollama:

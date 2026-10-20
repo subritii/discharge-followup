@@ -1,0 +1,21 @@
+# Secrets: passed at runtime (docker compose env_file), never baked into the image
+.env
+.env.*
+!.env.example
+
+# Generated data (drafts cache, retry folder, Synthea output); full mode mounts ./data
+data/
+
+# Not needed at runtime (fixtures are: run.py reads tests/fixtures/synthea)
+.git/
+.venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+tests/*
+!tests/fixtures/
+docs/
+.DS_Store
+.idea/
+.vscode/

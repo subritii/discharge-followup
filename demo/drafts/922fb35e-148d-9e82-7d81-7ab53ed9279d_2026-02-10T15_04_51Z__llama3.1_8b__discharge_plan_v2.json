@@ -1,0 +1,28 @@
+{
+  "summary": "The patient was in the hospital for 23 days. They were continued on albuterol and budesonide inhalers. The patient's discharge destination is unknown.",
+  "risk_explanation": "Moderate risk. LACE 7 = L7 (23-day stay) + A0 (no linked ER visit) + C0 (Charlson 0) + E0 (0 ED visits in prior 6 months).",
+  "med_changes": [
+    {
+      "name": "NDA020983 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Ventolin]",
+      "dosage": "Take as needed.",
+      "change": "continued"
+    },
+    {
+      "name": "budesonide 0.25 MG/ML Inhalation Suspension",
+      "dosage": "Take as needed.",
+      "change": "continued"
+    }
+  ],
+  "review_flags": [],
+  "rn_call_checklist": [
+    "Confirm where the patient was discharged to.",
+    "Review the patient's albuterol inhaler use and provide guidance on as-needed use.",
+    "Review the patient's budesonide inhaler use and provide guidance on as-needed use.",
+    "Ask the patient about any symptoms that may require urgent care, such as worsening shortness of breath or cough.",
+    "Schedule a follow-up visit with the patient within the next 14 calendar days.",
+    "Document the patient's discharge destination and any other relevant information."
+  ],
+  "model": "llama3.1:8b",
+  "prompt_version": "discharge_plan@v2",
+  "label": "AI draft — requires RN review and approval. Not sent to the patient."
+}

@@ -280,3 +280,19 @@ def test_cached_draft_gets_current_deterministic_parts(
         "High risk (ER visit rules, not LACE): ER_OVERDOSE"
     )
     assert "ER visit for overdose" in format_ai_draft(again.draft)
+
+
+def test_dry_run_payload_matches_what_a_live_run_sends(
+    pipeline_parts: dict[str, Any], tmp_path: Path
+) -> None:
+    [dry] = make_pipeline(pipeline_parts, tmp_path, None, StubLLM(GOOD)).process_patient(
+        MED_CHANGES_ID
+    )
+    sf = FakeSalesforce()
+    [live] = make_pipeline(pipeline_parts, tmp_path, sf, StubLLM(GOOD)).process_patient(
+        MED_CHANGES_ID
+    )
+    assert dry.case is None and dry.case_payload is not None
+    assert live.case is not None
+    assert dry.case_payload == live.case_payload == sf.store[live.case.case_id]
+    assert None not in dry.case_payload.values()

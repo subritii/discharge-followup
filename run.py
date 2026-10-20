@@ -1,7 +1,8 @@
 """Process every fixture patient end to end and print a summary.
 
   uv run python run.py                     # all fixtures -> drafts -> Salesforce Cases
-  uv run python run.py --dry-run           # no Salesforce; drafts and triage only
+  uv run python run.py --dry-run           # no Salesforce; print each Case payload instead
+  uv run python run.py --dry-run --offline --drafts demo/drafts   # demo: no Ollama, no secrets
   uv run python run.py --model llama3.2:3b --dry-run   # compare another local model
 
 Drafts are cached in data/drafts/ by idempotency key + model + prompt version, so a
@@ -10,6 +11,7 @@ once per idempotency key; existing Cases are skipped, never updated.
 """
 
 import argparse
+import json
 import sys
 import time
 from dataclasses import dataclass
@@ -19,6 +21,7 @@ from pathlib import Path
 from adapters.synthea import SyntheaAdapter
 from agent.deadlines import BusinessCalendar
 from agent.draft_cache import DraftCache
+from agent.drafter import StructuredChatModel
 from agent.llm import make_agent_llm
 from config import Settings
 from pipeline import Outcome, Pipeline
@@ -29,6 +32,20 @@ DEFAULT_DRAFTS = Path("data/drafts")
 # Fixture cutoff: older hospital encounters exist only as context for chronic conditions
 # (e.g. a 1964 ER visit where a diagnosis was first recorded), not as discharges to act on.
 DEFAULT_SINCE = "2023-06-01"
+
+
+class OfflineError(RuntimeError):
+    pass
+
+
+def offline_llm() -> StructuredChatModel:
+    raise OfflineError("no saved draft for this discharge, and --offline never calls Ollama")
+
+
+def format_payload(outcome: Outcome) -> str:
+    """The Case body a live run would send, as indented JSON (dry run only)."""
+    body = json.dumps(outcome.case_payload, indent=2, ensure_ascii=False)
+    return "\n".join("      " + line for line in ["Salesforce Case payload:", *body.splitlines()])
 
 
 @dataclass(frozen=True)
@@ -109,7 +126,16 @@ def render_summary(rows: list[Row], patients: int, model: str, seconds: float) -
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--model", help="Ollama model (default: AGENT_MODEL from .env)")
-    parser.add_argument("--dry-run", action="store_true", help="don't create Salesforce Cases")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="don't call Salesforce; print the exact Case payload instead",
+    )
+    parser.add_argument(
+        "--offline",
+        action="store_true",
+        help="never call Ollama; use saved drafts only (a missing draft is an error)",
+    )
     parser.add_argument("--fixtures", type=Path, default=DEFAULT_FIXTURES)
     parser.add_argument("--drafts", type=Path, default=DEFAULT_DRAFTS)
     parser.add_argument(
@@ -134,7 +160,7 @@ def main(argv: list[str] | None = None) -> int:
         adapter=adapter,
         calendar=BusinessCalendar.from_settings(settings),
         redactor=Redactor(),
-        llm=lambda: make_agent_llm(settings),
+        llm=offline_llm if args.offline else lambda: make_agent_llm(settings),
         model_name=settings.agent_model,
         cache=DraftCache(args.drafts),
         salesforce=salesforce,
@@ -153,6 +179,8 @@ def main(argv: list[str] | None = None) -> int:
                 + (f", ERROR {row.error}" if row.error else ""),
                 flush=True,
             )
+            if args.dry_run and outcome.case_payload is not None:
+                print(format_payload(outcome), flush=True)
 
     print()
     print(render_summary(rows, len(patient_ids), settings.agent_model, time.monotonic() - start))

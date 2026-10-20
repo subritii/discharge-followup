@@ -97,6 +97,11 @@ def build_case(
     }
 
 
+def case_payload(fields: Mapping[str, Any]) -> dict[str, Any]:
+    """The exact body sent to Salesforce: empty fields are left out."""
+    return {k: v for k, v in fields.items() if v is not None}
+
+
 # --- Writing --------------------------------------------------------------------------
 
 
@@ -135,7 +140,7 @@ def create_case_once(sf: SalesforceApi, fields: Mapping[str, Any]) -> CaseResult
     if existing:
         return CaseResult(existing, created=False)
     try:
-        result = sf.Case.create({k: v for k, v in fields.items() if v is not None})
+        result = sf.Case.create(case_payload(fields))
     except SalesforceMalformedRequest as exc:
         # Lost a race with another run: the unique field rejected the duplicate.
         if "DUPLICATE_VALUE" in str(exc.content):

@@ -7,6 +7,7 @@ errors, so one bad record doesn't stop the batch.
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
+from typing import Any
 
 from adapters.base import PatientDataAdapter
 from agent.deadlines import BusinessCalendar
@@ -21,7 +22,7 @@ from models import DischargeNotice, TriageResult
 from privacy.guard import KnownIdentifiers
 from privacy.prepare import prepare_llm_payload
 from privacy.redactor import Redactor
-from salesforce.client import CaseResult, SalesforceApi, build_case, create_case_once
+from salesforce.client import CaseResult, SalesforceApi, build_case, case_payload, create_case_once
 
 
 @dataclass
@@ -30,6 +31,7 @@ class Outcome:
     triage: TriageResult | None = None
     draft: DraftPlan | None = None
     draft_from_cache: bool = False
+    case_payload: dict[str, Any] | None = None  # exactly what is (or would be) sent
     case: CaseResult | None = None
     errors: list[str] = field(default_factory=list)
 
@@ -106,10 +108,12 @@ class Pipeline:
             except Exception as exc:  # noqa: BLE001
                 # Messages from the privacy guard carry kinds, never identifier values.
                 outcome.errors.append(f"draft: {type(exc).__name__}: {exc}")
-        if self.salesforce is not None and not outcome.errors:
-            try:
-                fields = build_case(notice, outcome.triage, outcome.draft)
-                outcome.case = create_case_once(self.salesforce, fields)
-            except Exception as exc:  # noqa: BLE001
-                outcome.errors.append(f"salesforce: {type(exc).__name__}: {exc}")
+        if outcome.errors:
+            return outcome
+        try:
+            outcome.case_payload = case_payload(build_case(notice, outcome.triage, outcome.draft))
+            if self.salesforce is not None:
+                outcome.case = create_case_once(self.salesforce, outcome.case_payload)
+        except Exception as exc:  # noqa: BLE001
+            outcome.errors.append(f"salesforce: {type(exc).__name__}: {exc}")
         return outcome
