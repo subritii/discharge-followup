@@ -18,6 +18,19 @@ the RN must approve**. The AI never contacts patients. All data is synthetic.
 >   summary and checklist. The medication list and risk explanation are deterministic.
 >   No PHI leaves the machine, and an RN approves everything.
 
+## Try it
+
+- **Live demo:** [subritii.github.io/discharge-followup](https://subritii.github.io/discharge-followup/).
+  Pick a synthetic patient and see each step: discharge detection, the LACE breakdown,
+  routing, deadlines, the AI draft, and the exact Salesforce Case payload. Nothing to
+  install, and no data leaves your browser.
+- **Docker, no secrets needed:**
+  ```bash
+  docker compose run --rm app    # saved drafts + Salesforce dry run; prints each Case payload
+  ```
+- **Full mode** (live Ollama + Salesforce): fill in `.env` from `.env.example`, then
+  `APP_ENV_FILE=.env docker compose run --rm app python run.py`. See [Docker](#docker) below.
+
 ---
 
 ## The problem
@@ -153,12 +166,13 @@ uv run python run.py --model llama3.2:3b --dry-run # compare another local model
 uv run python scripts/create_case.py <patient_id>  # one patient
 uv run python scripts/athena_smoke_test.py --mode rest   # athenaOne REST (works today)
 uv run python scripts/athena_smoke_test.py               # FHIR mode (needs system scopes)
+uv run python scripts/build_demo_site.py      # rebuild docs/index.html (the live demo)
 
-uv run pytest                    # 323 unit tests, no network, stub LLM
+uv run pytest                    # 329 unit tests, no network, stub LLM
 uv run pytest -m integration     # 1 test against real Ollama (~5 min)
 ```
 
-**Docker:**
+### Docker
 
 ```bash
 docker compose run --rm app      # demo mode: saved drafts + Salesforce dry run, no secrets
@@ -206,7 +220,7 @@ The 2025-05-22 contact is due on the 27th because Memorial Day falls on the 26th
 |---|---|
 | Full Synthea run (49 patients) | **306** qualifying hospital/ER encounters → **287** discharge notices after merging **19** ER→admission pairs |
 | Expired-patient rule | Close-the-loop cases fixed from **190 → 3** once "deceased" was limited to deaths during the stay or within 3 days after |
-| Tests | **323** unit tests + 1 live-LLM integration test |
+| Tests | **329** unit tests + 1 live-LLM integration test |
 | Fixtures | 5 patients trimmed from real Synthea v4.0.0 output (seeded, reproducible), each < 100 KB |
 
 ---
@@ -292,9 +306,9 @@ privacy/      allowlisted payload, Presidio redactor, identifier guard
 salesforce/   Case field spec + schema check, idempotent client
 library/      rules (YAML), prompts, holidays, guides for clinical reviewers
 pipeline.py   one patient end to end      run.py   all fixtures + summary
-scripts/      create_case.py, athena_smoke_test.py, make_fixtures.py
-docs/         plan.md (build log, decisions), privacy.md
-tests/        323 unit tests + fixtures (trimmed Synthea v4.0.0)
+scripts/      create_case.py, athena_smoke_test.py, make_fixtures.py, build_demo_site.py
+docs/         index.html (live demo, generated), plan.md (build log, decisions), privacy.md
+tests/        329 unit tests + fixtures (trimmed Synthea v4.0.0)
 demo/         saved synthetic drafts + secret-free settings for demo mode
 Dockerfile, docker-compose.yml   app + optional Ollama (profile "ollama")
 ```
