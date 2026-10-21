@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discharge Follow-Up Demo</title>
+<meta name="description" content="Demo of an automated hospital discharge follow-up workflow (synthetic data only).">
+<style>
+  :root {
+    --bg: #f7f7f5; --surface: #ffffff; --text: #1d1d1b; --muted: #5f5f5a;
+    --border: #e2e1dc; --accent: #2457a6; --accent-soft: #e8eef8;
+    --ok: #1e7a46; --warn: #9a5b00; --warn-soft: #fbf1e1; --high: #b3261e; --high-soft: #fbe9e7;
+    --ai: #6b3fa0; --ai-soft: #f1ebf8; --rules: #1e6a7a; --rules-soft: #e5f2f4;
+    --code-bg: #f1f0ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161615; --surface: #1f1f1d; --text: #ecebe6; --muted: #a3a29b;
+      --border: #34332f; --accent: #8fb4ef; --accent-soft: #23304a;
+      --ok: #6fcf97; --warn: #f0b45c; --warn-soft: #3a2e1a; --high: #f28b82; --high-soft: #3d2220;
+      --ai: #c4a6ec; --ai-soft: #2f2540; --rules: #7fcbd8; --rules-soft: #1b3236;
+      --code-bg: #262624;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 920px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.9rem; line-height: 1.2; margin: 8px 0 12px; }
+  h2 { font-size: 1.25rem; margin: 40px 0 12px; }
+  h3 { font-size: 1.05rem; margin: 0; }
+  p { margin: 0 0 12px; }
+  .muted { color: var(--muted); }
+  .small { font-size: 0.875rem; }
+  .banner {
+    background: var(--warn-soft); color: var(--warn); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 12px; font-size: 0.9rem; font-weight: 600;
+  }
+  .lead { font-size: 1.08rem; }
+  ol.how { padding-left: 20px; margin: 0; }
+  ol.how li { margin-bottom: 6px; }
+  .picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .pick, .tab {
+    font: inherit; color: inherit; text-align: left; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px;
+  }
+  .pick:hover, .tab:hover { border-color: var(--accent); }
+  .pick[aria-pressed="true"], .tab[aria-selected="true"] {
+    border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent);
+  }
+  .pick strong { display: block; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tab { padding: 8px 12px; font-size: 0.92rem; }
+  .step {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; margin-bottom: 12px;
+  }
+  .step-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .num {
+    flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--accent); color: var(--surface); font-weight: 700; font-size: 0.9rem;
+  }
+  .badge {
+    display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 2px 8px;
+    border-radius: 999px; white-space: nowrap;
+  }
+  .badge.ai { background: var(--ai-soft); color: var(--ai); }
+  .badge.rules { background: var(--rules-soft); color: var(--rules); }
+  .badge.low { background: var(--rules-soft); color: var(--ok); }
+  .badge.moderate { background: var(--warn-soft); color: var(--warn); }
+  .badge.high { background: var(--high-soft); color: var(--high); }
+  .plain { margin-bottom: 10px; }
+  dl.kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; margin: 0; }
+  dl.kv dt { color: var(--muted); }
+  dl.kv dd { margin: 0; overflow-wrap: anywhere; }
+  .check { color: var(--ok); font-weight: 700; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.total td { font-weight: 700; border-bottom: none; }
+  .scroll { overflow-x: auto; }
+  ul, ol { margin: 4px 0 12px; padding-left: 22px; }
+  .sub { font-weight: 600; margin: 12px 0 4px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .notice { border-left: 3px solid var(--ai); padding: 4px 10px; background: var(--ai-soft); border-radius: 0 6px 6px 0; margin-bottom: 8px; font-size: 0.9rem; }
+  pre {
+    background: var(--code-bg); border-radius: 8px; padding: 12px; overflow-x: auto;
+    font: 0.8rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; margin: 0;
+    white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+  code { font: 0.85em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
+  .empty { background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; padding: 20px; }
+  footer { margin-top: 48px; font-size: 0.875rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 16px; }
+  @media (max-width: 520px) {
+    dl.kv { grid-template-columns: 1fr; gap: 0; }
+    dl.kv dd { margin-bottom: 6px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="banner">Demo with synthetic data only (generated by Synthea). No real patients.</div>
+
+  <h1>Hospital discharge follow-up, automated</h1>
+  <p class="lead">
+    When someone leaves the hospital or the ER, a nurse care manager should check in with them within
+    a few days. Missed check-ins are a common reason people end up back in the hospital.
+    This project spots each discharge, scores how risky it is, and creates a follow-up case in
+    Salesforce for the right nurse. The case includes deadlines and an AI-drafted call plan.
+  </p>
+  <p>
+    <strong>The AI never contacts patients.</strong> It only drafts; a nurse reviews and approves
+    every case before anyone is called. Risk scores and deadlines come from explicit rules, not AI.
+  </p>
+
+  <h2>How it works</h2>
+  <ol class="how">
+    <li><strong>Detect</strong> a finished hospital stay or ER visit in the health record (FHIR).</li>
+    <li><strong>Score risk</strong> with the LACE readmission index (hospital stays) or ER rules.</li>
+    <li><strong>Route</strong> it to the right kind of follow-up.</li>
+    <li><strong>Set deadlines</strong> in business days (weekends and holidays skipped).</li>
+    <li><strong>Draft</strong> a call plan with a local AI model. Only clinical facts are sent to it, never names or contact details.</li>
+    <li><strong>Create the Salesforce case</strong>, at most once per discharge. A Salesforce Flow assigns it to the nurse team.</li>
+  </ol>
+
+  <h2>Pick a patient</h2>
+  <p class="muted small">Each card is one synthetic test patient. Discharges since <span id="since"></span> are processed.</p>
+  <div class="picker" id="picker"></div>
+
+  <div id="detail"></div>
+
+  <footer>
+    <p>
+      Everything on this page is precomputed from the pipeline's dry run: the AI drafts were made earlier
+      with <span id="model"></span> running locally (Ollama), and no Salesforce calls were made. The page
+      makes no network requests.
+    </p>
+    <p>
+      Risk rules (LACE, Charlson) are illustrative and pending clinical review. Built with Python,
+      FastAPI, LangChain + Ollama, Microsoft Presidio and Salesforce.
+    </p>
+  </footer>
+</main>
+
+<script id="demo-data" type="application/json">{"model":"llama3.1:8b","since":"2023-06-01","patients":[{"id":"922fb35e-148d-9e82-7e65-bfa05e3b3515","scenario":"Hospital stay, moderate risk","discharges":[{"detection":{"encounter_id":"922fb35e-148d-9e82-7d81-7ab53ed9279d","class_code":"IMP","status":"finished","period_start":"2026-01-18T07:49:51-07:00","period_end":"2026-02-10T08:04:51-07:00","destination":"unknown","linked_er_encounter_id":null,"reasons":["Patient transfer to skilled nursing facility (procedure)"]},"triage":{"patient_id":"922fb35e-148d-9e82-7e65-bfa05e3b3515","encounter_id":"922fb35e-148d-9e82-7d81-7ab53ed9279d","idempotency_key":"922fb35e-148d-9e82-7d81-7ab53ed9279d|2026-02-10T15:04:51Z","pathway":"inpatient","route":"patient_follow_up","risk_level":"moderate","lace":{"length_of_stay_days":23,"l_points":7,"emergent":false,"a_points":0,"charlson":{"score":0,"categories":[]},"c_points":0,"ed_visits_prior_6_months":0,"e_points":0},"charlson":{"score":0,"categories":[]},"prior_ed_visit_ids":[],"fired_rules":[{"id":"LACE_MODERATE","detail":"LACE 7 = L7 (LOS 23d) + A0 (no linked ER visit) + C0 (Charlson 0) + E0 (0 ED visits in prior 182d); high >= 10, moderate >= 5"},{"id":"ROUTE_PATIENT_FOLLOW_UP","detail":"inpatient discharge, destination unknown"},{"id":"DESTINATION_UNVERIFIED","detail":"Discharge destination is 'unknown'; RN to confirm before contacting the patient."}],"review_flags":[],"tasks":[{"kind":"patient_contact","due_date":"2026-02-12","basis":"2 business days after discharge (America/Chicago, weekends/holidays skipped)","contacts_patient":true},{"kind":"follow_up_visit","due_date":"2026-02-24","basis":"within 14 calendar days (moderate risk); moved earlier if day falls on a weekend/holiday","contacts_patient":true}],"discharge_local_date":"2026-02-10","timezone":"America/Chicago","ai_draft_allowed":true,"disclaimer":"Illustrative rules (LACE / Charlson) pending clinical review."},"risk_explanation":"Moderate risk. LACE 7 = L7 (23-day stay) + A0 (no linked ER visit) + C0 (Charlson 0) + E0 (0 ED visits in prior 6 months).","draft":{"summary":"The patient was in the hospital for 23 days. They were continued on albuterol and budesonide inhalers. The patient's discharge destination is unknown.","risk_explanation":"Moderate risk. LACE 7 = L7 (23-day stay) + A0 (no linked ER visit) + C0 (Charlson 0) + E0 (0 ED visits in prior 6 months).","med_changes":[{"name":"NDA020983 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Ventolin]","dosage":"Take as needed.","change":"continued"},{"name":"budesonide 0.25 MG/ML Inhalation Suspension","dosage":"Take as needed.","change":"continued"}],"review_flags":[],"rn_call_checklist":["Confirm where the patient was discharged to.","Review the patient's albuterol inhaler use and provide guidance on as-needed use.","Review the patient's budesonide inhaler use and provide guidance on as-needed use.","Ask the patient about any symptoms that may require urgent care, such as worsening shortness of breath or cough.","Schedule a follow-up visit with the patient within the next 14 calendar days.","Document the patient's discharge destination and any other relevant information."],"model":"llama3.1:8b","prompt_version":"discharge_plan@v2","label":"AI draft — requires RN review and approval. Not sent to the patient."},"case_payload":{"Subject":"Discharge follow-up: patient_follow_up (moderate)","Description":"Created by the discharge follow-up pipeline (synthetic data). See Risk Explanation and AI Draft. Nothing is sent to the patient until an RN approves.","Status":"New","Priority":"Medium","Idempotency_Key__c":"922fb35e-148d-9e82-7d81-7ab53ed9279d|2026-02-10T15:04:51Z","Patient_FHIR_Id__c":"922fb35e-148d-9e82-7e65-bfa05e3b3515","Encounter_FHIR_Id__c":"922fb35e-148d-9e82-7d81-7ab53ed9279d","Discharge_Date__c":"2026-02-10","Follow_Up_Route__c":"patient_follow_up","Risk_Level__c":"moderate","Risk_Explanation__c":"Moderate risk. LACE 7 = L7 (23-day stay) + A0 (no linked ER visit) + C0 (Charlson 0) + E0 (0 ED visits in prior 6 months).","AI_Draft__c":"AI draft — requires RN review and approval. Not sent to the patient.\nModel: llama3.1:8b | Prompt: discharge_plan@v2\n\nSUMMARY (AI)\nThe patient was in the hospital for 23 days. They were continued on albuterol and budesonide inhalers. The patient's discharge destination is unknown.\n\nMEDICATION CHANGES (from orders, not AI)\nContinued:\n- NDA020983 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Ventolin] -- Take as needed.\n- budesonide 0.25 MG/ML Inhalation Suspension -- Take as needed.\n\nRN CALL CHECKLIST (AI)\n1. Confirm where the patient was discharged to.\n2. Review the patient's albuterol inhaler use and provide guidance on as-needed use.\n3. Review the patient's budesonide inhaler use and provide guidance on as-needed use.\n4. Ask the patient about any symptoms that may require urgent care, such as worsening shortness of breath or cough.\n5. Schedule a follow-up visit with the patient within the next 14 calendar days.\n6. Document the patient's discharge destination and any other relevant information.","Next_Action__c":"patient_contact","Next_Action_Due__c":"2026-02-12","Visit_Due_Date__c":"2026-02-24","RN_Approved__c":false},"errors":[]}]},{"id":"ea33f67a-c1d2-1f17-720a-0f7ed938f253","scenario":"Hospital stay with medication changes","discharges":[{"detection":{"encounter_id":"ea33f67a-c1d2-1f17-008d-1f519af64a3c","class_code":"IMP","status":"finished","period_start":"2025-05-21T12:20:59-06:00","period_end":"2025-05-22T12:20:59-06:00","destination":"unknown","linked_er_encounter_id":"ea33f67a-c1d2-1f17-af32-2873e6ef1b5f","reasons":["Acute ST segment elevation myocardial infarction (disorder)"]},"triage":{"patient_id":"ea33f67a-c1d2-1f17-720a-0f7ed938f253","encounter_id":"ea33f67a-c1d2-1f17-008d-1f519af64a3c","idempotency_key":"ea33f67a-c1d2-1f17-008d-1f519af64a3c|2025-05-22T18:20:59Z","pathway":"inpatient","route":"patient_follow_up","risk_level":"moderate","lace":{"length_of_stay_days":1,"l_points":1,"emergent":true,"a_points":3,"charlson":{"score":1,"categories":["myocardial_infarction"]},"c_points":1,"ed_visits_prior_6_months":0,"e_points":0},"charlson":{"score":1,"categories":["myocardial_infarction"]},"prior_ed_visit_ids":[],"fired_rules":[{"id":"LACE_MODERATE","detail":"LACE 5 = L1 (LOS 1d) + A3 (emergent via ER) + C1 (Charlson 1) + E0 (0 ED visits in prior 182d); high >= 10, moderate >= 5"},{"id":"ROUTE_PATIENT_FOLLOW_UP","detail":"inpatient discharge, destination unknown"},{"id":"DESTINATION_UNVERIFIED","detail":"Discharge destination is 'unknown'; RN to confirm before contacting the patient."}],"review_flags":[],"tasks":[{"kind":"patient_contact","due_date":"2025-05-27","basis":"2 business days after discharge (America/Chicago, weekends/holidays skipped)","contacts_patient":true},{"kind":"follow_up_visit","due_date":"2025-06-05","basis":"within 14 calendar days (moderate risk); moved earlier if day falls on a weekend/holiday","contacts_patient":true}],"discharge_local_date":"2025-05-22","timezone":"America/Chicago","ai_draft_allowed":true,"disclaimer":"Illustrative rules (LACE / Charlson) pending clinical review."},"risk_explanation":"Moderate risk. LACE 5 = L1 (1-day stay) + A3 (admitted through the ER) + C1 (Charlson 1: myocardial infarction) + E0 (0 ED visits in prior 6 months).","draft":{"summary":"The patient was hospitalized for 1 day due to a myocardial infarction, acute ST segment elevation myocardial infarction, and history of myocardial infarction. The patient was started on several new medications, including aspirin 81 MG Oral Tablet, 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet, atorvastatin 10 MG Oral Tablet, sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto], and prasugrel 10 MG Oral Tablet.","risk_explanation":"Moderate risk. LACE 5 = L1 (1-day stay) + A3 (admitted through the ER) + C1 (Charlson 1: myocardial infarction) + E0 (0 ED visits in prior 6 months).","med_changes":[{"name":"aspirin 81 MG Oral Tablet","dosage":null,"change":"started"},{"name":"24 HR metoprolol succinate 50 MG Extended Release Oral Tablet","dosage":"Take as needed.","change":"started"},{"name":"atorvastatin 10 MG Oral Tablet","dosage":"Take as needed.","change":"started"},{"name":"sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto]","dosage":"Take as needed.","change":"started"},{"name":"prasugrel 10 MG Oral Tablet","dosage":null,"change":"started"},{"name":"aspirin 325 MG Oral Tablet","dosage":null,"change":"inpatient_only"},{"name":"nitroglycerin 0.4 MG Sublingual Tablet","dosage":null,"change":"inpatient_only"},{"name":"2 ML morphine sulfate 1 MG/ML Injection","dosage":null,"change":"inpatient_only"},{"name":"50 ML bivalirudin 5 MG/ML Injection","dosage":null,"change":"inpatient_only"},{"name":"ticagrelor 90 MG Oral Tablet","dosage":null,"change":"inpatient_only"}],"review_flags":[{"id":"STARTED_MED_AS_NEEDED","detail":"Verify instructions: 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet was started with \"Take as needed.\" dosing."},{"id":"STARTED_MED_AS_NEEDED","detail":"Verify instructions: atorvastatin 10 MG Oral Tablet was started with \"Take as needed.\" dosing."},{"id":"STARTED_MED_AS_NEEDED","detail":"Verify instructions: sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto] was started with \"Take as needed.\" dosing."}],"rn_call_checklist":["Confirm where the patient was discharged to","Review the patient's new medications, including aspirin 81 MG Oral Tablet, 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet, atorvastatin 10 MG Oral Tablet, sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto], and prasugrel 10 MG Oral Tablet","Ask the patient about any symptoms of chest pain, shortness of breath, or dizziness","Schedule a follow-up visit with the patient within the next 14 calendar days","Review the patient's understanding of their medication regimen and provide education as needed"],"model":"llama3.1:8b","prompt_version":"discharge_plan@v2","label":"AI draft — requires RN review and approval. Not sent to the patient."},"case_payload":{"Subject":"Discharge follow-up: patient_follow_up (moderate)","Description":"Created by the discharge follow-up pipeline (synthetic data). See Risk Explanation and AI Draft. Nothing is sent to the patient until an RN approves.","Status":"New","Priority":"Medium","Idempotency_Key__c":"ea33f67a-c1d2-1f17-008d-1f519af64a3c|2025-05-22T18:20:59Z","Patient_FHIR_Id__c":"ea33f67a-c1d2-1f17-720a-0f7ed938f253","Encounter_FHIR_Id__c":"ea33f67a-c1d2-1f17-008d-1f519af64a3c","Discharge_Date__c":"2025-05-22","Follow_Up_Route__c":"patient_follow_up","Risk_Level__c":"moderate","Risk_Explanation__c":"Moderate risk. LACE 5 = L1 (1-day stay) + A3 (admitted through the ER) + C1 (Charlson 1: myocardial infarction) + E0 (0 ED visits in prior 6 months).","AI_Draft__c":"AI draft — requires RN review and approval. Not sent to the patient.\nModel: llama3.1:8b | Prompt: discharge_plan@v2\n\nSUMMARY (AI)\nThe patient was hospitalized for 1 day due to a myocardial infarction, acute ST segment elevation myocardial infarction, and history of myocardial infarction. The patient was started on several new medications, including aspirin 81 MG Oral Tablet, 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet, atorvastatin 10 MG Oral Tablet, sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto], and prasugrel 10 MG Oral Tablet.\n\nMEDICATION CHANGES (from orders, not AI)\nStarted:\n- aspirin 81 MG Oral Tablet\n- 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet -- Take as needed.\n- atorvastatin 10 MG Oral Tablet -- Take as needed.\n- sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto] -- Take as needed.\n- prasugrel 10 MG Oral Tablet\nGiven in hospital only (not continued):\n- aspirin 325 MG Oral Tablet\n- nitroglycerin 0.4 MG Sublingual Tablet\n- 2 ML morphine sulfate 1 MG/ML Injection\n- 50 ML bivalirudin 5 MG/ML Injection\n- ticagrelor 90 MG Oral Tablet\n\nREVIEW FLAGS (rules, not AI)\n- Verify instructions: 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet was started with \"Take as needed.\" dosing.\n- Verify instructions: atorvastatin 10 MG Oral Tablet was started with \"Take as needed.\" dosing.\n- Verify instructions: sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto] was started with \"Take as needed.\" dosing.\n\nRN CALL CHECKLIST (AI)\n1. Confirm where the patient was discharged to\n2. Review the patient's new medications, including aspirin 81 MG Oral Tablet, 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet, atorvastatin 10 MG Oral Tablet, sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto], and prasugrel 10 MG Oral Tablet\n3. Ask the patient about any symptoms of chest pain, shortness of breath, or dizziness\n4. Schedule a follow-up visit with the patient within the next 14 calendar days\n5. Review the patient's understanding of their medication regimen and provide education as needed","Next_Action__c":"patient_contact","Next_Action_Due__c":"2025-05-27","Visit_Due_Date__c":"2025-06-05","RN_Approved__c":false},"errors":[]}]},{"id":"91c3a84d-ed05-266b-2681-0a62cb9ab6f5","scenario":"Frequent ER visits, high risk","discharges":[{"detection":{"encounter_id":"91c3a84d-ed05-266b-c5ea-5bcd0d4c06cc","class_code":"EMER","status":"finished","period_start":"2023-08-31T19:17:53-06:00","period_end":"2023-09-01T10:17:53-06:00","destination":"unknown","linked_er_encounter_id":null,"reasons":["Overdose (disorder)"]},"triage":{"patient_id":"91c3a84d-ed05-266b-2681-0a62cb9ab6f5","encounter_id":"91c3a84d-ed05-266b-c5ea-5bcd0d4c06cc","idempotency_key":"91c3a84d-ed05-266b-c5ea-5bcd0d4c06cc|2023-09-01T16:17:53Z","pathway":"er","route":"er_outreach","risk_level":"high","lace":null,"charlson":{"score":0,"categories":[]},"prior_ed_visit_ids":[],"fired_rules":[{"id":"ER_OVERDOSE","detail":"ER visit for overdose/poisoning (Overdose (disorder))"},{"id":"ROUTE_ER_OUTREACH","detail":"er discharge, destination unknown"},{"id":"DESTINATION_UNVERIFIED","detail":"Discharge destination is 'unknown'; RN to confirm before contacting the patient."}],"review_flags":[{"id":"ER_OVERDOSE","detail":"ER visit for overdose — RN review"}],"tasks":[{"kind":"er_outreach","due_date":"2023-09-07","basis":"3 business days after discharge (America/Chicago, weekends/holidays skipped)","contacts_patient":true}],"discharge_local_date":"2023-09-01","timezone":"America/Chicago","ai_draft_allowed":true,"disclaimer":"Illustrative rules (LACE / Charlson) pending clinical review."},"risk_explanation":"High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).","draft":{"summary":"The patient was in the hospital for 6 days due to an overdose. They were discharged without any medications. The patient needs to be contacted to confirm their destination.","risk_explanation":"High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).","med_changes":[],"review_flags":[{"id":"ER_OVERDOSE","detail":"ER visit for overdose — RN review"}],"rn_call_checklist":["Confirm where the patient was discharged to","Review the patient's medication list and ensure they understand any changes","Ask the patient about their symptoms and if they need urgent care for the overdose","Schedule a follow-up visit within the next 3 business days","Discuss any concerns or questions the patient may have about their care"],"model":"llama3.1:8b","prompt_version":"discharge_plan@v2","label":"AI draft — requires RN review and approval. Not sent to the patient."},"case_payload":{"Subject":"Discharge follow-up: er_outreach (high)","Description":"Created by the discharge follow-up pipeline (synthetic data). See Risk Explanation and AI Draft. Nothing is sent to the patient until an RN approves.","Status":"New","Priority":"High","Idempotency_Key__c":"91c3a84d-ed05-266b-c5ea-5bcd0d4c06cc|2023-09-01T16:17:53Z","Patient_FHIR_Id__c":"91c3a84d-ed05-266b-2681-0a62cb9ab6f5","Encounter_FHIR_Id__c":"91c3a84d-ed05-266b-c5ea-5bcd0d4c06cc","Discharge_Date__c":"2023-09-01","Follow_Up_Route__c":"er_outreach","Risk_Level__c":"high","Risk_Explanation__c":"High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).","AI_Draft__c":"AI draft — requires RN review and approval. Not sent to the patient.\nModel: llama3.1:8b | Prompt: discharge_plan@v2\n\nSUMMARY (AI)\nThe patient was in the hospital for 6 days due to an overdose. They were discharged without any medications. The patient needs to be contacted to confirm their destination.\n\nMEDICATION CHANGES (from orders, not AI)\n- none found\n\nREVIEW FLAGS (rules, not AI)\n- ER visit for overdose — RN review\n\nRN CALL CHECKLIST (AI)\n1. Confirm where the patient was discharged to\n2. Review the patient's medication list and ensure they understand any changes\n3. Ask the patient about their symptoms and if they need urgent care for the overdose\n4. Schedule a follow-up visit within the next 3 business days\n5. Discuss any concerns or questions the patient may have about their care","Next_Action__c":"er_outreach","Next_Action_Due__c":"2023-09-07","RN_Approved__c":false},"errors":[]},{"detection":{"encounter_id":"91c3a84d-ed05-266b-0a1e-ba0e976152b2","class_code":"IMP","status":"finished","period_start":"2023-12-02T14:19:41-07:00","period_end":"2023-12-17T14:34:41-07:00","destination":"unknown","linked_er_encounter_id":"91c3a84d-ed05-266b-4d87-85528531d6df","reasons":["Patient transfer to skilled nursing facility (procedure)"]},"triage":{"patient_id":"91c3a84d-ed05-266b-2681-0a62cb9ab6f5","encounter_id":"91c3a84d-ed05-266b-0a1e-ba0e976152b2","idempotency_key":"91c3a84d-ed05-266b-0a1e-ba0e976152b2|2023-12-17T21:34:41Z","pathway":"inpatient","route":"patient_follow_up","risk_level":"high","lace":{"length_of_stay_days":15,"l_points":7,"emergent":true,"a_points":3,"charlson":{"score":0,"categories":[]},"c_points":0,"ed_visits_prior_6_months":1,"e_points":1},"charlson":{"score":0,"categories":[]},"prior_ed_visit_ids":["91c3a84d-ed05-266b-c5ea-5bcd0d4c06cc"],"fired_rules":[{"id":"LACE_HIGH","detail":"LACE 11 = L7 (LOS 15d) + A3 (emergent via ER) + C0 (Charlson 0) + E1 (1 ED visits in prior 182d); high >= 10, moderate >= 5"},{"id":"ROUTE_PATIENT_FOLLOW_UP","detail":"inpatient discharge, destination unknown"},{"id":"DESTINATION_UNVERIFIED","detail":"Discharge destination is 'unknown'; RN to confirm before contacting the patient."}],"review_flags":[],"tasks":[{"kind":"patient_contact","due_date":"2023-12-19","basis":"2 business days after discharge (America/Chicago, weekends/holidays skipped)","contacts_patient":true},{"kind":"follow_up_visit","due_date":"2023-12-22","basis":"within 7 calendar days (high risk); moved earlier if day falls on a weekend/holiday","contacts_patient":true}],"discharge_local_date":"2023-12-17","timezone":"America/Chicago","ai_draft_allowed":true,"disclaimer":"Illustrative rules (LACE / Charlson) pending clinical review."},"risk_explanation":"High risk. LACE 11 = L7 (15-day stay) + A3 (admitted through the ER) + C0 (Charlson 0) + E1 (1 ED visit in prior 6 months).","draft":{"summary":"The patient was hospitalized for 15 days due to a fracture of the bone, specifically a closed fracture of the hip and an osteoporotic fracture of the bone. During their stay, they were only prescribed Naproxen sodium 220 MG Oral Tablet as needed. The patient's discharge destination is unknown.","risk_explanation":"High risk. LACE 11 = L7 (15-day stay) + A3 (admitted through the ER) + C0 (Charlson 0) + E1 (1 ED visit in prior 6 months).","med_changes":[{"name":"Naproxen sodium 220 MG Oral Tablet","dosage":"Take as needed.","change":"inpatient_only"}],"review_flags":[],"rn_call_checklist":["Confirm where the patient was discharged to","Review the patient's understanding of taking Naproxen sodium 220 MG Oral Tablet as needed","Ask about any symptoms of pain or discomfort that may require urgent care","Discuss the importance of following up with a healthcare provider within the next 7 calendar days","Schedule the follow-up visit with the patient's healthcare provider","Review the patient's plan for managing their fracture and osteoporosis"],"model":"llama3.1:8b","prompt_version":"discharge_plan@v2","label":"AI draft — requires RN review and approval. Not sent to the patient."},"case_payload":{"Subject":"Discharge follow-up: patient_follow_up (high)","Description":"Created by the discharge follow-up pipeline (synthetic data). See Risk Explanation and AI Draft. Nothing is sent to the patient until an RN approves.","Status":"New","Priority":"High","Idempotency_Key__c":"91c3a84d-ed05-266b-0a1e-ba0e976152b2|2023-12-17T21:34:41Z","Patient_FHIR_Id__c":"91c3a84d-ed05-266b-2681-0a62cb9ab6f5","Encounter_FHIR_Id__c":"91c3a84d-ed05-266b-0a1e-ba0e976152b2","Discharge_Date__c":"2023-12-17","Follow_Up_Route__c":"patient_follow_up","Risk_Level__c":"high","Risk_Explanation__c":"High risk. LACE 11 = L7 (15-day stay) + A3 (admitted through the ER) + C0 (Charlson 0) + E1 (1 ED visit in prior 6 months).","AI_Draft__c":"AI draft — requires RN review and approval. Not sent to the patient.\nModel: llama3.1:8b | Prompt: discharge_plan@v2\n\nSUMMARY (AI)\nThe patient was hospitalized for 15 days due to a fracture of the bone, specifically a closed fracture of the hip and an osteoporotic fracture of the bone. During their stay, they were only prescribed Naproxen sodium 220 MG Oral Tablet as needed. The patient's discharge destination is unknown.\n\nMEDICATION CHANGES (from orders, not AI)\nGiven in hospital only (not continued):\n- Naproxen sodium 220 MG Oral Tablet -- Take as needed.\n\nRN CALL CHECKLIST (AI)\n1. Confirm where the patient was discharged to\n2. Review the patient's understanding of taking Naproxen sodium 220 MG Oral Tablet as needed\n3. Ask about any symptoms of pain or discomfort that may require urgent care\n4. Discuss the importance of following up with a healthcare provider within the next 7 calendar days\n5. Schedule the follow-up visit with the patient's healthcare provider\n6. Review the patient's plan for managing their fracture and osteoporosis","Next_Action__c":"patient_contact","Next_Action_Due__c":"2023-12-19","Visit_Due_Date__c":"2023-12-22","RN_Approved__c":false},"errors":[]},{"detection":{"encounter_id":"91c3a84d-ed05-266b-d706-fc7e7e4ea279","class_code":"EMER","status":"finished","period_start":"2026-04-04T19:29:31-06:00","period_end":"2026-04-04T23:29:31-06:00","destination":"unknown","linked_er_encounter_id":null,"reasons":["Overdose (disorder)"]},"triage":{"patient_id":"91c3a84d-ed05-266b-2681-0a62cb9ab6f5","encounter_id":"91c3a84d-ed05-266b-d706-fc7e7e4ea279","idempotency_key":"91c3a84d-ed05-266b-d706-fc7e7e4ea279|2026-04-05T05:29:31Z","pathway":"er","route":"er_outreach","risk_level":"high","lace":null,"charlson":{"score":0,"categories":[]},"prior_ed_visit_ids":[],"fired_rules":[{"id":"ER_OVERDOSE","detail":"ER visit for overdose/poisoning (Overdose (disorder))"},{"id":"ROUTE_ER_OUTREACH","detail":"er discharge, destination unknown"},{"id":"DESTINATION_UNVERIFIED","detail":"Discharge destination is 'unknown'; RN to confirm before contacting the patient."}],"review_flags":[{"id":"ER_OVERDOSE","detail":"ER visit for overdose — RN review"}],"tasks":[{"kind":"er_outreach","due_date":"2026-04-08","basis":"3 business days after discharge (America/Chicago, weekends/holidays skipped)","contacts_patient":true}],"discharge_local_date":"2026-04-05","timezone":"America/Chicago","ai_draft_allowed":true,"disclaimer":"Illustrative rules (LACE / Charlson) pending clinical review."},"risk_explanation":"High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).","draft":{"summary":"The patient was in the hospital for 2 days due to an overdose. They were continued on Alendronic acid 10 MG Oral Tablet. The patient's discharge destination is unknown.","risk_explanation":"High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).","med_changes":[{"name":"Alendronic acid 10 MG Oral Tablet","dosage":null,"change":"continued"}],"review_flags":[{"id":"ER_OVERDOSE","detail":"ER visit for overdose — RN review"}],"rn_call_checklist":["Confirm where the patient was discharged to","Review Alendronic acid 10 MG Oral Tablet: confirm patient is taking it as directed","Ask about any new or worsening symptoms related to the overdose","Schedule a follow-up visit within the next 3 business days","Document the patient's contact information and follow-up plan"],"model":"llama3.1:8b","prompt_version":"discharge_plan@v2","label":"AI draft — requires RN review and approval. Not sent to the patient."},"case_payload":{"Subject":"Discharge follow-up: er_outreach (high)","Description":"Created by the discharge follow-up pipeline (synthetic data). See Risk Explanation and AI Draft. Nothing is sent to the patient until an RN approves.","Status":"New","Priority":"High","Idempotency_Key__c":"91c3a84d-ed05-266b-d706-fc7e7e4ea279|2026-04-05T05:29:31Z","Patient_FHIR_Id__c":"91c3a84d-ed05-266b-2681-0a62cb9ab6f5","Encounter_FHIR_Id__c":"91c3a84d-ed05-266b-d706-fc7e7e4ea279","Discharge_Date__c":"2026-04-05","Follow_Up_Route__c":"er_outreach","Risk_Level__c":"high","Risk_Explanation__c":"High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).","AI_Draft__c":"AI draft — requires RN review and approval. Not sent to the patient.\nModel: llama3.1:8b | Prompt: discharge_plan@v2\n\nSUMMARY (AI)\nThe patient was in the hospital for 2 days due to an overdose. They were continued on Alendronic acid 10 MG Oral Tablet. The patient's discharge destination is unknown.\n\nMEDICATION CHANGES (from orders, not AI)\nContinued:\n- Alendronic acid 10 MG Oral Tablet\n\nREVIEW FLAGS (rules, not AI)\n- ER visit for overdose — RN review\n\nRN CALL CHECKLIST (AI)\n1. Confirm where the patient was discharged to\n2. Review Alendronic acid 10 MG Oral Tablet: confirm patient is taking it as directed\n3. Ask about any new or worsening symptoms related to the overdose\n4. Schedule a follow-up visit within the next 3 business days\n5. Document the patient's contact information and follow-up plan","Next_Action__c":"er_outreach","Next_Action_Due__c":"2026-04-08","RN_Approved__c":false},"errors":[]},{"detection":{"encounter_id":"91c3a84d-ed05-266b-2bd3-ad550ddf2c7d","class_code":"EMER","status":"finished","period_start":"2026-05-09T23:29:31-06:00","period_end":"2026-05-10T03:29:31-06:00","destination":"unknown","linked_er_encounter_id":null,"reasons":["Overdose (disorder)"]},"triage":{"patient_id":"91c3a84d-ed05-266b-2681-0a62cb9ab6f5","encounter_id":"91c3a84d-ed05-266b-2bd3-ad550ddf2c7d","idempotency_key":"91c3a84d-ed05-266b-2bd3-ad550ddf2c7d|2026-05-10T09:29:31Z","pathway":"er","route":"er_outreach","risk_level":"high","lace":null,"charlson":{"score":0,"categories":[]},"prior_ed_visit_ids":["91c3a84d-ed05-266b-d706-fc7e7e4ea279"],"fired_rules":[{"id":"ER_OVERDOSE","detail":"ER visit for overdose/poisoning (Overdose (disorder))"},{"id":"ROUTE_ER_OUTREACH","detail":"er discharge, destination unknown"},{"id":"DESTINATION_UNVERIFIED","detail":"Discharge destination is 'unknown'; RN to confirm before contacting the patient."}],"review_flags":[{"id":"ER_OVERDOSE","detail":"ER visit for overdose — RN review"}],"tasks":[{"kind":"er_outreach","due_date":"2026-05-13","basis":"3 business days after discharge (America/Chicago, weekends/holidays skipped)","contacts_patient":true}],"discharge_local_date":"2026-05-10","timezone":"America/Chicago","ai_draft_allowed":true,"disclaimer":"Illustrative rules (LACE / Charlson) pending clinical review."},"risk_explanation":"High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).","draft":{"summary":"The patient was in the hospital for 2 days due to an overdose. They were continued on Alendronic acid 10 MG Oral Tablet. The patient's discharge destination is unknown.","risk_explanation":"High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).","med_changes":[{"name":"Alendronic acid 10 MG Oral Tablet","dosage":null,"change":"continued"}],"review_flags":[{"id":"ER_OVERDOSE","detail":"ER visit for overdose — RN review"}],"rn_call_checklist":["Confirm where the patient was discharged to","Review Alendronic acid 10 MG Oral Tablet: confirm patient is taking it as directed","Ask about any new or worsening symptoms related to the overdose","Schedule a follow-up visit within the next 3 business days","Document the patient's contact information and follow-up plan"],"model":"llama3.1:8b","prompt_version":"discharge_plan@v2","label":"AI draft — requires RN review and approval. Not sent to the patient."},"case_payload":{"Subject":"Discharge follow-up: er_outreach (high)","Description":"Created by the discharge follow-up pipeline (synthetic data). See Risk Explanation and AI Draft. Nothing is sent to the patient until an RN approves.","Status":"New","Priority":"High","Idempotency_Key__c":"91c3a84d-ed05-266b-2bd3-ad550ddf2c7d|2026-05-10T09:29:31Z","Patient_FHIR_Id__c":"91c3a84d-ed05-266b-2681-0a62cb9ab6f5","Encounter_FHIR_Id__c":"91c3a84d-ed05-266b-2bd3-ad550ddf2c7d","Discharge_Date__c":"2026-05-10","Follow_Up_Route__c":"er_outreach","Risk_Level__c":"high","Risk_Explanation__c":"High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).","AI_Draft__c":"AI draft — requires RN review and approval. Not sent to the patient.\nModel: llama3.1:8b | Prompt: discharge_plan@v2\n\nSUMMARY (AI)\nThe patient was in the hospital for 2 days due to an overdose. They were continued on Alendronic acid 10 MG Oral Tablet. The patient's discharge destination is unknown.\n\nMEDICATION CHANGES (from orders, not AI)\nContinued:\n- Alendronic acid 10 MG Oral Tablet\n\nREVIEW FLAGS (rules, not AI)\n- ER visit for overdose — RN review\n\nRN CALL CHECKLIST (AI)\n1. Confirm where the patient was discharged to\n2. Review Alendronic acid 10 MG Oral Tablet: confirm patient is taking it as directed\n3. Ask about any new or worsening symptoms related to the overdose\n4. Schedule a follow-up visit within the next 3 business days\n5. Document the patient's contact information and follow-up plan","Next_Action__c":"er_outreach","Next_Action_Due__c":"2026-05-13","RN_Approved__c":false},"errors":[]}]},{"id":"982750f4-569b-5949-196b-60699bdda3fb","scenario":"Single ER visit","discharges":[{"detection":{"encounter_id":"982750f4-569b-5949-8fdc-8e669895b24d","class_code":"EMER","status":"finished","period_start":"2025-07-05T20:01:47-06:00","period_end":"2025-07-05T21:01:47-06:00","destination":"unknown","linked_er_encounter_id":null,"reasons":["Sprain (morphologic abnormality)"]},"triage":{"patient_id":"982750f4-569b-5949-196b-60699bdda3fb","encounter_id":"982750f4-569b-5949-8fdc-8e669895b24d","idempotency_key":"982750f4-569b-5949-8fdc-8e669895b24d|2025-07-06T03:01:47Z","pathway":"er","route":"er_outreach","risk_level":"low","lace":null,"charlson":{"score":0,"categories":[]},"prior_ed_visit_ids":[],"fired_rules":[{"id":"ER_STANDARD","detail":"No ER risk rule fired"},{"id":"ROUTE_ER_OUTREACH","detail":"er discharge, destination unknown"},{"id":"DESTINATION_UNVERIFIED","detail":"Discharge destination is 'unknown'; RN to confirm before contacting the patient."}],"review_flags":[],"tasks":[{"kind":"er_outreach","due_date":"2025-07-09","basis":"3 business days after discharge (America/Chicago, weekends/holidays skipped)","contacts_patient":true}],"discharge_local_date":"2025-07-05","timezone":"America/Chicago","ai_draft_allowed":true,"disclaimer":"Illustrative rules (LACE / Charlson) pending clinical review."},"risk_explanation":"Low risk (ER visit rules, not LACE): no ER risk rule fired.","draft":{"summary":"The patient was hospitalized for a sprain of the wrist. They were discharged after a brief stay. The patient was given Naproxen sodium 220 MG Oral Tablet as needed, which was only available in the hospital.","risk_explanation":"Low risk (ER visit rules, not LACE): no ER risk rule fired.","med_changes":[{"name":"Naproxen sodium 220 MG Oral Tablet","dosage":"Take as needed.","change":"inpatient_only"}],"review_flags":[],"rn_call_checklist":["Confirm where the patient was discharged to.","Review the patient's understanding of taking Naproxen sodium 220 MG Oral Tablet as needed.","Ask about the patient's symptoms and if they are experiencing any pain or discomfort.","Check if the patient has any questions or concerns about their care.","Schedule a follow-up visit within the next 3 business days, skipping weekends and holidays.","Review the patient's plan for managing their sprain of the wrist."],"model":"llama3.1:8b","prompt_version":"discharge_plan@v2","label":"AI draft — requires RN review and approval. Not sent to the patient."},"case_payload":{"Subject":"Discharge follow-up: er_outreach (low)","Description":"Created by the discharge follow-up pipeline (synthetic data). See Risk Explanation and AI Draft. Nothing is sent to the patient until an RN approves.","Status":"New","Priority":"Low","Idempotency_Key__c":"982750f4-569b-5949-8fdc-8e669895b24d|2025-07-06T03:01:47Z","Patient_FHIR_Id__c":"982750f4-569b-5949-196b-60699bdda3fb","Encounter_FHIR_Id__c":"982750f4-569b-5949-8fdc-8e669895b24d","Discharge_Date__c":"2025-07-05","Follow_Up_Route__c":"er_outreach","Risk_Level__c":"low","Risk_Explanation__c":"Low risk (ER visit rules, not LACE): no ER risk rule fired.","AI_Draft__c":"AI draft — requires RN review and approval. Not sent to the patient.\nModel: llama3.1:8b | Prompt: discharge_plan@v2\n\nSUMMARY (AI)\nThe patient was hospitalized for a sprain of the wrist. They were discharged after a brief stay. The patient was given Naproxen sodium 220 MG Oral Tablet as needed, which was only available in the hospital.\n\nMEDICATION CHANGES (from orders, not AI)\nGiven in hospital only (not continued):\n- Naproxen sodium 220 MG Oral Tablet -- Take as needed.\n\nRN CALL CHECKLIST (AI)\n1. Confirm where the patient was discharged to.\n2. Review the patient's understanding of taking Naproxen sodium 220 MG Oral Tablet as needed.\n3. Ask about the patient's symptoms and if they are experiencing any pain or discomfort.\n4. Check if the patient has any questions or concerns about their care.\n5. Schedule a follow-up visit within the next 3 business days, skipping weekends and holidays.\n6. Review the patient's plan for managing their sprain of the wrist.","Next_Action__c":"er_outreach","Next_Action_Due__c":"2025-07-09","RN_Approved__c":false},"errors":[]}]},{"id":"aee7bbe1-0c45-c028-1e62-1f4cdb30c273","scenario":"No hospital visits (nothing to do)","discharges":[]}]}</script>
+<script>
+(function () {
+  "use strict";
+  var DATA = JSON.parse(document.getElementById("demo-data").textContent);
+
+  var ROUTES = {
+    patient_follow_up: "Nurse calls the patient after a hospital stay, then a follow-up visit is booked.",
+    facility_coordination: "Patient went to a nursing facility, so the nurse coordinates with the facility.",
+    close_the_loop: "Patient died in hospital. Informational case for the care team; no patient contact.",
+    er_outreach: "ER visit only: the nurse reaches out to check in and arrange follow-up care.",
+    deceased_status_review: "Record says deceased with no date, so a nurse confirms before anyone calls."
+  };
+  var TASKS = {
+    patient_contact: "Call the patient",
+    follow_up_visit: "Follow-up visit",
+    facility_coordination: "Coordinate with facility",
+    er_outreach: "ER outreach call",
+    rn_review: "Nurse review"
+  };
+  var CLASSES = { IMP: "Inpatient (hospital stay)", EMER: "Emergency (ER visit)" };
+  var MED_KINDS = [
+    ["started", "Started"],
+    ["continued", "Continued"],
+    ["inpatient_only", "Given in hospital only (not continued)"]
+  ];
+
+  function el(tag, attrs, children) {
+    var node = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) {
+      if (k === "text") node.textContent = attrs[k];
+      else if (k === "class") node.className = attrs[k];
+      else node.setAttribute(k, attrs[k]);
+    });
+    (children || []).forEach(function (c) {
+      if (c == null) return;
+      node.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+    });
+    return node;
+  }
+  function badge(kind, text) { return el("span", { class: "badge " + kind, text: text }); }
+  function kv(pairs) {
+    var dl = el("dl", { class: "kv" });
+    pairs.forEach(function (p) {
+      if (p[1] == null || p[1] === "") return;
+      dl.appendChild(el("dt", { text: p[0] }));
+      dl.appendChild(el("dd", {}, [p[1]]));
+    });
+    return dl;
+  }
+  function list(items, ordered) {
+    return el(ordered ? "ol" : "ul", {}, items.map(function (t) { return el("li", { text: t }); }));
+  }
+  function fmtTime(iso) {
+    if (!iso) return "not set";
+    var m = /^(\d{4}-\d\d-\d\d)T(\d\d:\d\d)(?::\d\d(?:\.\d+)?)?(Z|[+-]\d\d:\d\d)?$/.exec(iso);
+    if (!m) return iso;
+    return m[1] + " " + m[2] + (m[3] ? " (UTC" + (m[3] === "Z" ? "" : m[3]) + ")" : "");
+  }
+  function shortId(id) { return id ? id.slice(0, 8) : ""; }
+  function step(n, title, tags, plain, body) {
+    var head = el("div", { class: "step-head" }, [el("span", { class: "num", text: String(n) }), el("h3", { text: title })]);
+    (tags || []).forEach(function (t) { head.appendChild(t); });
+    return el("section", { class: "step" }, [head, plain ? el("p", { class: "plain", text: plain }) : null].concat(body));
+  }
+
+  function detectionStep(d) {
+    var det = d.detection;
+    var ok = el("span", { class: "check", text: "\u2713 " });
+    return step(1, "Discharge detected", [badge("rules", "rules")],
+      "The health record shows a finished " + (det.class_code === "IMP" ? "hospital stay" : "ER visit") +
+      " with an end time, so this counts as a discharge.",
+      [
+        kv([
+          ["Encounter type", el("span", {}, [ok.cloneNode(true), (CLASSES[det.class_code] || det.class_code) + " \u2014 class " + det.class_code])],
+          ["Status", el("span", {}, [ok.cloneNode(true), det.status])],
+          ["Discharged", el("span", {}, [ok.cloneNode(true), fmtTime(det.period_end)])],
+          ["Admitted", fmtTime(det.period_start)],
+          ["Reason", det.reasons.length ? det.reasons.join("; ") : "not recorded"],
+          ["Destination", det.destination + (det.destination === "unknown" ? " (nurse confirms on the call)" : "")],
+          ["Linked ER visit", det.linked_er_encounter_id ? "ER visit " + shortId(det.linked_er_encounter_id) + " led to this admission (one episode)" : null],
+          ["Encounter id", el("code", { text: det.encounter_id })]
+        ])
+      ]);
+  }
+
+  function riskStep(d) {
+    var t = d.triage;
+    var body = [];
+    if (t.lace) {
+      var L = t.lace;
+      var rows = [
+        ["L \u2014 Length of stay", L.length_of_stay_days + " day" + (L.length_of_stay_days === 1 ? "" : "s"), L.l_points],
+        ["A \u2014 Acute (emergency) admission", L.emergent ? "yes, through the ER" : "no, planned", L.a_points],
+        ["C \u2014 Comorbidities (Charlson)", "score " + L.charlson.score + (L.charlson.categories.length ? ": " + L.charlson.categories.join(", ") : ""), L.c_points],
+        ["E \u2014 ER visits, prior 6 months", String(L.ed_visits_prior_6_months), L.e_points]
+      ];
+      var tbody = el("tbody", {}, rows.map(function (r) {
+        return el("tr", {}, [el("td", { text: r[0] }), el("td", { text: r[1] }), el("td", { class: "n", text: String(r[2]) })]);
+      }));
+      tbody.appendChild(el("tr", { class: "total" }, [el("td", { text: "LACE total" }), el("td", { text: "" }), el("td", { class: "n", text: String(L.l_points + L.a_points + L.c_points + L.e_points) })]));
+      body.push(el("div", { class: "scroll" }, [el("table", {}, [
+        el("thead", {}, [el("tr", {}, [el("th", { text: "Component" }), el("th", { text: "Input" }), el("th", { class: "n", text: "Points" })])]),
+        tbody
+      ])]));
+    }
+    var rules = t.fired_rules.filter(function (r) { return r.id.indexOf("ROUTE_") !== 0; });
+    if (rules.length) {
+      body.push(el("div", { class: "sub", text: "Rules that fired" }));
+      body.push(el("ul", {}, rules.map(function (r) {
+        return el("li", {}, [el("code", { text: r.id }), " \u2014 " + r.detail]);
+      })));
+    }
+    body.push(el("p", { class: "muted small", text: t.disclaimer }));
+    var plain = t.lace
+      ? "LACE is a standard readmission-risk score. Higher points mean a higher chance of coming back to the hospital."
+      : "ER visits aren't scored with LACE; explicit ER rules (for example, repeat visits) set the risk level.";
+    var tags = [badge("rules", "rules")];
+    if (t.risk_level) tags.push(badge(t.risk_level, t.risk_level + " risk"));
+    return step(2, "Risk score", tags, plain + " " + d.risk_explanation, body);
+  }
+
+  function routeStep(d) {
+    var t = d.triage;
+    var why = t.fired_rules.filter(function (r) { return r.id.indexOf("ROUTE_") === 0; })[0];
+    return step(3, "Routing", [badge("rules", "rules")], ROUTES[t.route] || t.route, [
+      kv([
+        ["Route", el("code", { text: t.route })],
+        ["Why", why ? why.detail : null],
+        ["Assigned by", "Salesforce Flow: puts the case in the nurse team's queue for the patient's community and creates the tasks."]
+      ])
+    ]);
+  }
+
+  function deadlineStep(d) {
+    var t = d.triage;
+    var tbody = el("tbody", {}, t.tasks.map(function (k) {
+      return el("tr", {}, [
+        el("td", { text: TASKS[k.kind] || k.kind }),
+        el("td", { text: k.due_date }),
+        el("td", { text: k.basis }),
+        el("td", { text: k.contacts_patient ? "yes, after nurse approval" : "no" })
+      ]);
+    }));
+    return step(4, "Deadlines", [badge("rules", "rules")],
+      "Discharged " + t.discharge_local_date + " (" + t.timezone + "). Due dates count business days, skipping weekends and holidays.",
+      [el("div", { class: "scroll" }, [el("table", {}, [
+        el("thead", {}, [el("tr", {}, ["Task", "Due", "How it was computed", "Contacts patient"].map(function (h) { return el("th", { text: h }); }))]),
+        tbody
+      ])])]);
+  }
+
+  function draftStep(d) {
+    var p = d.draft;
+    if (!p) {
+      return step(5, "AI draft", [badge("rules", "skipped by rule")],
+        "No AI draft for this case: the rules don't allow one here (for example, the patient died). A nurse handles it directly.", []);
+    }
+    var body = [
+      el("div", { class: "notice", text: p.label }),
+      el("div", { class: "sub" }, ["Summary", badge("ai", "AI")]),
+      el("p", { text: p.summary }),
+      el("div", { class: "sub" }, ["Medication changes", badge("rules", "from orders, not AI")])
+    ];
+    var anyMed = false;
+    MED_KINDS.forEach(function (mk) {
+      var meds = p.med_changes.filter(function (m) { return m.change === mk[0]; });
+      if (!meds.length) return;
+      anyMed = true;
+      body.push(el("p", { class: "small muted", text: mk[1] }));
+      body.push(list(meds.map(function (m) { return m.name + (m.dosage ? " \u2014 " + m.dosage : ""); })));
+    });
+    if (!anyMed) body.push(el("p", { class: "muted", text: "None found." }));
+    if (p.review_flags.length) {
+      body.push(el("div", { class: "sub" }, ["Review flags", badge("rules", "rules, not AI")]));
+      body.push(list(p.review_flags.map(function (f) { return f.detail; })));
+    }
+    body.push(el("div", { class: "sub" }, ["Nurse call checklist", badge("ai", "AI")]));
+    body.push(list(p.rn_call_checklist, true));
+    body.push(el("p", { class: "muted small", text: "Model " + p.model + " (local, via Ollama) \u00b7 prompt " + p.prompt_version + ". AI text can be wrong; that's why a nurse reviews it." }));
+    return step(5, "AI draft", [badge("ai", "AI"), badge("rules", "+ rules")],
+      "A local AI model writes a short summary and call checklist from clinical facts only: no name, birth date, record number or contact details are sent to it.",
+      body);
+  }
+
+  function caseStep(d) {
+    var c = d.case_payload;
+    return step(6, "Salesforce case", [badge("rules", "dry run")],
+      "This is the exact record the pipeline would create in Salesforce. It's created at most once per discharge: the idempotency key (encounter id + discharge time) is checked first. RN_Approved__c starts as false.",
+      [
+        kv([
+          ["Idempotency key", el("code", { text: c.Idempotency_Key__c })],
+          ["Priority", c.Priority]
+        ]),
+        el("div", { class: "sub", text: "Case payload (JSON)" }),
+        el("pre", { text: JSON.stringify(c, null, 2) })
+      ]);
+  }
+
+  function renderDischarge(container, d) {
+    container.replaceChildren(detectionStep(d), riskStep(d), routeStep(d), deadlineStep(d), draftStep(d), caseStep(d));
+  }
+
+  function renderPatient(p) {
+    var detail = document.getElementById("detail");
+    detail.replaceChildren();
+    detail.appendChild(el("h2", { text: p.scenario }));
+    detail.appendChild(el("p", { class: "muted small" }, ["Synthetic patient id ", el("code", { text: p.id })]));
+    if (!p.discharges.length) {
+      detail.appendChild(el("div", { class: "empty" }, [
+        el("p", { text: "No hospital or ER discharge found for this patient, so no case is created." }),
+        el("p", { class: "muted small", text: "That's the expected result: the pipeline only acts on finished inpatient (IMP) or emergency (EMER) encounters with an end time." })
+      ]));
+      return;
+    }
+    var steps = el("div");
+    if (p.discharges.length > 1) {
+      var tabs = el("div", { class: "tabs", role: "tablist" });
+      p.discharges.forEach(function (d, i) {
+        var t = d.triage;
+        var b = el("button", { class: "tab", role: "tab", type: "button", "aria-selected": i === 0 ? "true" : "false",
+          text: t.discharge_local_date + " \u00b7 " + (t.pathway === "er" ? "ER visit" : "Hospital stay") + " \u00b7 " + (t.risk_level || "not scored") });
+        b.addEventListener("click", function () {
+          Array.prototype.forEach.call(tabs.children, function (x) { x.setAttribute("aria-selected", "false"); });
+          b.setAttribute("aria-selected", "true");
+          renderDischarge(steps, d);
+        });
+        tabs.appendChild(b);
+      });
+      detail.appendChild(el("p", { text: p.discharges.length + " discharges for this patient. Each one becomes its own case:" }));
+      detail.appendChild(tabs);
+    }
+    detail.appendChild(steps);
+    renderDischarge(steps, p.discharges[0]);
+  }
+
+  document.getElementById("since").textContent = DATA.since;
+  document.getElementById("model").textContent = DATA.model;
+  var picker = document.getElementById("picker");
+  DATA.patients.forEach(function (p, i) {
+    var n = p.discharges.length;
+    var b = el("button", { class: "pick", type: "button", "aria-pressed": i === 0 ? "true" : "false" }, [
+      el("strong", { text: p.scenario }),
+      el("span", { class: "muted small", text: n + " discharge" + (n === 1 ? "" : "s") + " \u00b7 id " + shortId(p.id) })
+    ]);
+    b.addEventListener("click", function () {
+      Array.prototype.forEach.call(picker.children, function (x) { x.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true");
+      renderPatient(p);
+    });
+    picker.appendChild(b);
+  });
+  if (DATA.patients.length) renderPatient(DATA.patients[0]);
+})();
+</script>
+</body>
+</html>
