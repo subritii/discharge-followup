@@ -63,9 +63,9 @@ def episode_payload(adapter: SyntheaAdapter, patient_id: str) -> tuple[LLMPayloa
 
 def test_allowlist_is_exactly_the_approved_fields() -> None:
     approved = {
-        "encounter_class",
+        "visit_type",
         "destination",
-        "length_of_stay_days",
+        "length_of_stay",
         "diagnoses",
         "medications",
         "instructions",
@@ -77,9 +77,9 @@ def test_allowlist_is_exactly_the_approved_fields() -> None:
 def test_extra_fields_rejected() -> None:
     with pytest.raises(ValidationError):
         LLMPayload(
-            encounter_class="IMP",
+            visit_type="hospital stay (admitted)",
             destination=DischargeDestination.HOME,
-            length_of_stay_days=1,
+            length_of_stay="1 day",
             patient_name="Jane Doe",  # type: ignore[call-arg]
         )
 
@@ -121,9 +121,9 @@ def test_no_identifiers_in_payload_from_fixtures(synthea: SyntheaAdapter, patien
 
 def test_med_changes_payload_content(synthea: SyntheaAdapter) -> None:
     payload, _ = episode_payload(synthea, MED_CHANGES_ID)
-    assert payload.encounter_class == "IMP"
+    assert payload.visit_type == "hospital stay (admitted)"
     assert payload.destination == DischargeDestination.UNKNOWN
-    assert payload.length_of_stay_days == 1.0
+    assert payload.length_of_stay == "1 day"
     assert "Acute ST segment elevation myocardial infarction (disorder)" in payload.diagnoses
     started = [m.name for m in payload.medications if m.change == "started"]
     assert "aspirin 81 MG Oral Tablet" in started
@@ -143,9 +143,25 @@ def test_deceased_date_unknown_gets_no_ai_draft() -> None:
         build_llm_payload(notice(deceased_date_unknown=True), [], [])
 
 
-def test_length_of_stay_rounded_days() -> None:
-    n = notice(discharge_time=T0 + timedelta(days=2, hours=7))
-    assert build_llm_payload(n, [], []).length_of_stay_days == 2.3
+@pytest.mark.parametrize(
+    ("stay", "expected"),
+    [
+        (timedelta(minutes=20), "1 hour"),
+        (timedelta(hours=15), "15 hours"),
+        (timedelta(hours=23, minutes=20), "23 hours"),
+        (timedelta(hours=23, minutes=40), "1 day"),
+        (timedelta(days=2, hours=7), "2 days"),
+        (timedelta(days=23), "23 days"),
+    ],
+)
+def test_length_of_stay_in_words(stay: timedelta, expected: str) -> None:
+    n = notice(discharge_time=T0 + stay)
+    assert build_llm_payload(n, [], []).length_of_stay == expected
+
+
+def test_er_visit_is_named_in_words() -> None:
+    n = notice(encounter_class="EMER", discharge_time=T0 + timedelta(hours=15))
+    assert build_llm_payload(n, [], []).visit_type == "ER visit (not admitted)"
 
 
 def test_diagnoses_deduplicated_and_meds_passed_through() -> None:
@@ -178,4 +194,4 @@ def test_triage_context_has_no_ids_or_dates(synthea: SyntheaAdapter) -> None:
     assert not re.search(r"\d{4}-\d{2}-\d{2}", dumped)
     assert "lace" not in dumped.lower() and "moderate" not in dumped
     assert [n.id for n in ctx.notes] == ["ROUTE_PATIENT_FOLLOW_UP", "DESTINATION_UNVERIFIED"]
-    assert [t.kind for t in ctx.tasks] == ["patient_contact", "follow_up_visit"]
+    assert "days" not in dumped  # no task deadlines: they are rules on the Case, not AI text

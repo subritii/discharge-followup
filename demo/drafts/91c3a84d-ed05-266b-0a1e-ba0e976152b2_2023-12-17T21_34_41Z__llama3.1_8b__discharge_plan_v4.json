@@ -1,0 +1,22 @@
+{
+  "summary": "The patient had a hospital stay lasting 15 days due to a fracture of bone, a closed fracture of hip, and an osteoporotic fracture of bone. During their stay, they were given Naproxen sodium 220 MG Oral Tablet as needed, but it was only given in the hospital and should not be continued at home. The patient was discharged to an unknown location.",
+  "risk_explanation": "High risk. LACE 11 = L7 (15-day stay) + A3 (admitted through the ER) + C0 (Charlson 0) + E1 (1 ED visit in prior 6 months).",
+  "med_changes": [
+    {
+      "name": "Naproxen sodium 220 MG Oral Tablet",
+      "dosage": "Take as needed.",
+      "change": "inpatient_only"
+    }
+  ],
+  "review_flags": [],
+  "rn_call_checklist": [
+    "Confirm where the patient was discharged to.",
+    "Review the patient's symptoms related to the fracture of bone, closed fracture of hip, and osteoporotic fracture of bone.",
+    "Review the patient's symptoms that require urgent care for the listed diagnoses.",
+    "Review the patient's understanding of their discharge instructions and answer any questions they may have.",
+    "Review the patient's plan for follow-up care and ensure they have a clear understanding of their next steps."
+  ],
+  "model": "llama3.1:8b",
+  "prompt_version": "discharge_plan@v4",
+  "label": "AI draft — requires RN review and approval. Not sent to the patient."
+}

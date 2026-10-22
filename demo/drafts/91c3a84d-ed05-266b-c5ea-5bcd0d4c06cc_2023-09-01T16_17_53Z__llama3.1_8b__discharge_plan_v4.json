@@ -1,0 +1,20 @@
+{
+  "summary": "The patient had an ER visit due to an overdose. They stayed in the ER for 15 hours. The patient was discharged to an unknown location.",
+  "risk_explanation": "High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).",
+  "med_changes": [],
+  "review_flags": [
+    {
+      "id": "ER_OVERDOSE",
+      "detail": "ER visit for overdose — RN review"
+    }
+  ],
+  "rn_call_checklist": [
+    "Confirm where the patient was discharged to.",
+    "Review the medication list to ensure the patient is taking all medications as directed.",
+    "Check if the patient has any symptoms related to the overdose, such as difficulty breathing, chest pain, or severe headache.",
+    "Ask the patient to report any changes in their condition or if they have any concerns."
+  ],
+  "model": "llama3.1:8b",
+  "prompt_version": "discharge_plan@v4",
+  "label": "AI draft — requires RN review and approval. Not sent to the patient."
+}

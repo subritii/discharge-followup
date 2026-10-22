@@ -1,5 +1,5 @@
 {
-  "summary": "The patient was hospitalized for 1 day due to a myocardial infarction, acute ST segment elevation myocardial infarction, and history of myocardial infarction. The patient was started on several new medications, including aspirin 81 MG Oral Tablet, 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet, atorvastatin 10 MG Oral Tablet, sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto], and prasugrel 10 MG Oral Tablet.",
+  "summary": "The patient had a hospital stay due to a myocardial infarction, acute ST segment elevation myocardial infarction, and history of myocardial infarction. They were started on several new medications, including aspirin 81 MG Oral Tablet, 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet, atorvastatin 10 MG Oral Tablet, sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto], and prasugrel 10 MG Oral Tablet. The length of stay was 1 day.",
   "risk_explanation": "Moderate risk. LACE 5 = L1 (1-day stay) + A3 (admitted through the ER) + C1 (Charlson 1: myocardial infarction) + E0 (0 ED visits in prior 6 months).",
   "med_changes": [
     {
@@ -68,13 +68,13 @@
     }
   ],
   "rn_call_checklist": [
-    "Confirm where the patient was discharged to",
-    "Review the patient's new medications, including aspirin 81 MG Oral Tablet, 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet, atorvastatin 10 MG Oral Tablet, sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto], and prasugrel 10 MG Oral Tablet",
-    "Ask the patient about any symptoms of chest pain, shortness of breath, or dizziness",
-    "Schedule a follow-up visit with the patient within the next 14 calendar days",
-    "Review the patient's understanding of their medication regimen and provide education as needed"
+    "Confirm where the patient was discharged to.",
+    "Review the patient's symptoms related to myocardial infarction, such as chest pain, shortness of breath, and arm or shoulder pain.",
+    "Review the patient's symptoms related to acute ST segment elevation myocardial infarction, such as severe chest pain, shortness of breath, and lightheadedness.",
+    "Review the patient's symptoms related to history of myocardial infarction, such as chest pain, shortness of breath, and arm or shoulder pain.",
+    "Review the patient's new medications, including aspirin 81 MG Oral Tablet, 24 HR metoprolol succinate 50 MG Extended Release Oral Tablet, atorvastatin 10 MG Oral Tablet, sacubitril 24 MG / valsartan 26 MG Oral Tablet [Entresto], and prasugrel 10 MG Oral Tablet, and ask about any questions or concerns the patient may have."
   ],
   "model": "llama3.1:8b",
-  "prompt_version": "discharge_plan@v2",
+  "prompt_version": "discharge_plan@v4",
   "label": "AI draft — requires RN review and approval. Not sent to the patient."
 }

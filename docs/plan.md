@@ -64,6 +64,16 @@ Each phase is testable on its own. Phase numbers are kept from the original prop
   meds with "as needed" instructions).
 - llama3.1:8b on an 8 GB M1: ~5-8 min per draft (swapping). `run.py` caches drafts in
   `data/drafts/` keyed by idempotency key + model + prompt version.
+- Prompt v3 (after reviewing the v2 demo drafts): every ER draft said "hospitalized",
+  a 15-hour ER visit became "6 days" (it read `length_of_stay_days: 0.6`), and ER
+  checklists invented "a follow-up visit within 3 business days". Fixes: the payload
+  now says `visit_type: "ER visit (not admitted)"` and `length_of_stay: "15 hours"`
+  instead of codes and decimals, and the prompt allows a follow-up visit item only when
+  TRIAGE has a `follow_up_visit` task.
+- Prompt v4: v3 fixed the visit type and length, but ER checklists still turned the
+  outreach call into "a follow-up visit" and quoted internal task names. Tasks and
+  deadlines are now removed from the model's input entirely, like risk: they live on
+  the Case as rule-based fields, and the prompt forbids scheduling items.
 
 ### Phase 3: privacy (done)
 - See `docs/privacy.md`: allowlisted `LLMPayload`, Presidio on free text only

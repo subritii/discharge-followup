@@ -86,7 +86,7 @@ flowchart LR
      - expired → informational "close the loop" case
    - Business days are counted in the practice's time zone, with a holiday calendar.
 3. **Privacy** (`privacy/`). Only an allowlist of clinical fields can reach the model:
-   encounter class, destination, length of stay, diagnoses, medication changes, and
+   visit type, destination, length of stay, diagnoses, medication changes, and
    instructions. Free text goes through Presidio, then a guard checks the final prompt
    for this patient's known identifiers.
 4. **Draft** (`agent/drafter.py`). One structured-output call to a **local** model
@@ -168,7 +168,7 @@ uv run python scripts/athena_smoke_test.py --mode rest   # athenaOne REST (works
 uv run python scripts/athena_smoke_test.py               # FHIR mode (needs system scopes)
 uv run python scripts/build_demo_site.py      # rebuild docs/index.html (the live demo)
 
-uv run pytest                    # 329 unit tests, no network, stub LLM
+uv run pytest                    # 335 unit tests, no network, stub LLM
 uv run pytest -m integration     # 1 test against real Ollama (~5 min)
 ```
 
@@ -220,7 +220,7 @@ The 2025-05-22 contact is due on the 27th because Memorial Day falls on the 26th
 |---|---|
 | Full Synthea run (49 patients) | **306** qualifying hospital/ER encounters → **287** discharge notices after merging **19** ER→admission pairs |
 | Expired-patient rule | Close-the-loop cases fixed from **190 → 3** once "deceased" was limited to deaths during the stay or within 3 days after |
-| Tests | **329** unit tests + 1 live-LLM integration test |
+| Tests | **335** unit tests + 1 live-LLM integration test |
 | Fixtures | 5 patients trimmed from real Synthea v4.0.0 output (seeded, reproducible), each < 100 KB |
 
 ---
@@ -308,7 +308,7 @@ library/      rules (YAML), prompts, holidays, guides for clinical reviewers
 pipeline.py   one patient end to end      run.py   all fixtures + summary
 scripts/      create_case.py, athena_smoke_test.py, make_fixtures.py, build_demo_site.py
 docs/         index.html (live demo, generated), plan.md (build log, decisions), privacy.md
-tests/        329 unit tests + fixtures (trimmed Synthea v4.0.0)
+tests/        335 unit tests + fixtures (trimmed Synthea v4.0.0)
 demo/         saved synthetic drafts + secret-free settings for demo mode
 Dockerfile, docker-compose.yml   app + optional Ollama (profile "ollama")
 ```

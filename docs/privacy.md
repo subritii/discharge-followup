@@ -24,9 +24,9 @@ field set so any new field needs a reviewed test change.
 
 | Field | Source | Notes |
 |---|---|---|
-| `encounter_class` | DischargeNotice | `IMP` or `EMER` |
+| `visit_type` | DischargeNotice class | `ER visit (not admitted)` or `hospital stay (admitted)`; words, not codes, so the model can't misread EMER as a hospital stay |
 | `destination` | DischargeNotice | home / snf / other / unknown |
-| `length_of_stay_days` | discharge − admit | Replaces dates, which are Safe Harbor identifiers |
+| `length_of_stay` | discharge − admit | e.g. `15 hours`, `23 days`. Replaces dates, which are Safe Harbor identifiers; words, because the model read `0.6` days as "6 days" |
 | `diagnoses` | Condition displays | Coded terms |
 | `medications` | name + dosage text | Dosage is **free text** |
 | `instructions` | discharge instructions | **Free text** |

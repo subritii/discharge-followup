@@ -61,25 +61,25 @@ def test_draft_combines_llm_text_with_deterministic_meds(episode: Episode) -> No
     assert {f.id for f in plan.review_flags} == {"STARTED_MED_AS_NEEDED"}
     assert len(plan.review_flags) == 3  # metoprolol, atorvastatin, Entresto
     assert plan.model == "stub-model"
-    assert plan.prompt_version == "discharge_plan@v2"
+    assert plan.prompt_version == "discharge_plan@v4"
     assert plan.label == AI_DRAFT_LABEL
     assert llm.schema is LLMDraft
     assert llm.kwargs == {"method": "json_schema"}
 
 
-def test_prompt_contains_clinical_facts_and_tasks_but_no_risk(episode: Episode) -> None:
+def test_prompt_contains_clinical_facts_but_no_risk_or_deadlines(episode: Episode) -> None:
     llm = StubLLM(GOOD)
     draft_plan(episode.payload, episode.triage, episode.known, llm, "stub")
     text = llm.prompt_text
     assert "Acute ST segment elevation myocardial infarction" in text
     assert '"change": "started"' in text
     assert "DESTINATION_UNVERIFIED" in text
-    assert "within 14 calendar days" in text
     assert "never contact the patient" in text
     assert "Do NOT discuss risk" in text
-    # Risk data never reaches the model.
+    # Risk data and task deadlines never reach the model.
     human = llm.messages[1][1]
-    for token in ("risk_level", "lace", "LACE", "charlson", "moderate"):
+    assert "hospital stay (admitted)" in human and "1 day" in human
+    for token in ("risk_level", "lace", "LACE", "charlson", "moderate", "calendar days", "tasks"):
         assert token not in human
 
 
@@ -138,6 +138,6 @@ def test_no_draft_when_not_allowed(episode: Episode, route: CaseRoute) -> None:
 
 def test_prompt_file_parses() -> None:
     prompt = Prompt.load()
-    assert prompt.version == "discharge_plan@v2"
+    assert prompt.version == "discharge_plan@v4"
     assert "{{payload}}" in prompt.user and "{{triage}}" in prompt.user
     assert "{{" not in prompt.system

@@ -9,11 +9,10 @@ Free-text fields (`instructions`, `MedicationLine.dosage`) still need redaction
 (privacy/redactor.py), and the whole payload is checked by privacy/guard.py.
 """
 
-import re
 from collections.abc import Iterable
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 
 from models import (
     CaseRoute,
@@ -36,10 +35,28 @@ class MedicationLine(_Strict):
     change: MedChangeKind  # from agent/med_diff.py (deterministic)
 
 
+# Plain wording instead of codes: an 8B model read "EMER" as a hospital stay and
+# 0.6 days as "6 days".
+VisitType = Literal["ER visit (not admitted)", "hospital stay (admitted)"]
+VISIT_TYPES: dict[str, VisitType] = {
+    "EMER": "ER visit (not admitted)",
+    "IMP": "hospital stay (admitted)",
+}
+
+
+def format_length_of_stay(seconds: float) -> str:
+    """Hours under a day ("15 hours"), whole days after that ("23 days")."""
+    hours = max(round(seconds / 3600), 1)
+    if hours < 24:
+        return f"{hours} hour{'s' if hours != 1 else ''}"
+    days = round(seconds / 86400)
+    return f"{days} day{'s' if days != 1 else ''}"
+
+
 class LLMPayload(_Strict):
-    encounter_class: Literal["IMP", "EMER"]
+    visit_type: VisitType
     destination: DischargeDestination
-    length_of_stay_days: float = Field(ge=0)
+    length_of_stay: str
     diagnoses: tuple[str, ...] = ()
     medications: tuple[MedicationLine, ...] = ()
     instructions: str | None = None  # free text
@@ -48,9 +65,9 @@ class LLMPayload(_Strict):
 # Reviewed allowlist. Changing LLMPayload must also change this (see test_payload.py).
 ALLOWED_FIELDS = frozenset(
     {
-        "encounter_class",
+        "visit_type",
         "destination",
-        "length_of_stay_days",
+        "length_of_stay",
         "diagnoses",
         "medications",
         "instructions",
@@ -80,9 +97,9 @@ def build_llm_payload(
         raise NoAIDraftError(f"no AI draft: {reason}")
     stay = notice.discharge_time - notice.admit_time
     return LLMPayload(
-        encounter_class=notice.encounter_class,  # type: ignore[arg-type]
+        visit_type=VISIT_TYPES[notice.encounter_class],
         destination=notice.destination,
-        length_of_stay_days=round(max(stay.total_seconds(), 0) / 86400, 1),
+        length_of_stay=format_length_of_stay(max(stay.total_seconds(), 0)),
         diagnoses=_unique(c.code.display for c in diagnoses),
         medications=tuple(
             MedicationLine(name=m.name, dosage=m.dosage, change=m.change) for m in med_changes
@@ -99,31 +116,24 @@ class RuleLine(_Strict):
     detail: str
 
 
-class TaskLine(_Strict):
-    kind: str
-    basis: str  # e.g. "2 business days after discharge" -- relative, never a date
-    contacts_patient: bool
-
-
 class TriageContext(_Strict):
-    """The parts of a TriageResult the LLM may see: route, tasks, and non-risk notes.
+    """The parts of a TriageResult the LLM may see: route and non-risk notes.
 
     No ids, no calendar dates, and no risk tier / LACE / Charlson: the risk explanation
     is built deterministically (agent/risk_explanation.py), so the model has nothing to
-    misstate.
+    misstate. Tasks and deadlines are left out for the same reason: given them, the
+    model turned an ER outreach call into "a follow-up visit". They are on the Case as
+    rule-based fields (Next_Action_Due__c, Visit_Due_Date__c).
     """
 
     route: CaseRoute
     notes: tuple[RuleLine, ...] = ()  # e.g. DESTINATION_UNVERIFIED
-    tasks: tuple[TaskLine, ...] = ()
 
 
-TRIAGE_CONTEXT_FIELDS = frozenset({"route", "notes", "tasks"})
+TRIAGE_CONTEXT_FIELDS = frozenset({"route", "notes"})
 
 # Rules that explain risk; kept out of the LLM input.
 RISK_RULE_PREFIXES = ("LACE_", "ER_")
-# Task wording like "within 14 calendar days (moderate risk)" would leak the tier.
-_RISK_IN_TEXT = re.compile(r"\s*\((?:high|moderate|low) risk\)", re.IGNORECASE)
 
 
 def triage_context(result: TriageResult) -> TriageContext:
@@ -133,13 +143,5 @@ def triage_context(result: TriageResult) -> TriageContext:
             RuleLine(id=r.id, detail=r.detail)
             for r in result.fired_rules
             if not r.id.startswith(RISK_RULE_PREFIXES)
-        ),
-        tasks=tuple(
-            TaskLine(
-                kind=t.kind.value,
-                basis=_RISK_IN_TEXT.sub("", t.basis),
-                contacts_patient=t.contacts_patient,
-            )
-            for t in result.tasks
         ),
     )

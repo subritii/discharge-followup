@@ -1,0 +1,22 @@
+{
+  "summary": "The patient had an ER visit due to a sprain and sprain of the wrist. They were in the ER for 1 hour. The patient was given Naproxen sodium 220 MG Oral Tablet in the ER, but it is not to be continued at home.",
+  "risk_explanation": "Low risk (ER visit rules, not LACE): no ER risk rule fired.",
+  "med_changes": [
+    {
+      "name": "Naproxen sodium 220 MG Oral Tablet",
+      "dosage": "Take as needed.",
+      "change": "inpatient_only"
+    }
+  ],
+  "review_flags": [],
+  "rn_call_checklist": [
+    "Confirm where the patient was discharged to.",
+    "Review the patient's symptoms related to the sprain and sprain of the wrist.",
+    "Review the patient's understanding of their condition and any further care instructions.",
+    "Review the patient's understanding of their medication, including any changes to their medication regimen.",
+    "Check if the patient has any questions or concerns about their care."
+  ],
+  "model": "llama3.1:8b",
+  "prompt_version": "discharge_plan@v4",
+  "label": "AI draft — requires RN review and approval. Not sent to the patient."
+}

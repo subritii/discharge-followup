@@ -35,9 +35,9 @@ assert DOB is not None
 
 def payload(instructions: str | None = None, dosage: str | None = None) -> LLMPayload:
     return LLMPayload(
-        encounter_class="IMP",
+        visit_type="hospital stay (admitted)",
         destination=DischargeDestination.HOME,
-        length_of_stay_days=2.0,
+        length_of_stay="2 days",
         diagnoses=("Heart failure (disorder)",),
         medications=(
             MedicationLine(

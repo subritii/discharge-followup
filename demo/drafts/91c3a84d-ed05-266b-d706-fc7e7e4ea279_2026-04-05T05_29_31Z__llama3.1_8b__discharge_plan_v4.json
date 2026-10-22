@@ -1,0 +1,26 @@
+{
+  "summary": "The patient had an ER visit due to an overdose. They were in the ER for 4 hours. The patient's medication, Alendronic acid 10 MG Oral Tablet, was continued from before.",
+  "risk_explanation": "High risk (ER visit rules, not LACE): ER_OVERDOSE: ER visit for overdose/poisoning (Overdose (disorder)).",
+  "med_changes": [
+    {
+      "name": "Alendronic acid 10 MG Oral Tablet",
+      "dosage": null,
+      "change": "continued"
+    }
+  ],
+  "review_flags": [
+    {
+      "id": "ER_OVERDOSE",
+      "detail": "ER visit for overdose — RN review"
+    }
+  ],
+  "rn_call_checklist": [
+    "Confirm where the patient was discharged to.",
+    "Review the patient's Alendronic acid 10 MG Oral Tablet and ask if they have any questions or concerns about it.",
+    "Ask the patient about their symptoms related to the overdose and if they need urgent care.",
+    "Check if the patient has any other questions or concerns about their care."
+  ],
+  "model": "llama3.1:8b",
+  "prompt_version": "discharge_plan@v4",
+  "label": "AI draft — requires RN review and approval. Not sent to the patient."
+}
